@@ -29,5 +29,6 @@ for(file of fileArray){
 	
 	f = f.replace(line3, fullText);
 	fs.writeFileSync(file, f, { encoding: 'utf8' });
+	console.log(`- Successfully edited ${file}`);
 }
 

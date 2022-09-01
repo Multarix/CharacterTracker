@@ -14,14 +14,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_addRelation(object):
     def setupUi(self, addRelation):
         addRelation.setObjectName("addRelation")
-        addRelation.resize(341, 201)
+        addRelation.resize(401, 201)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(addRelation.sizePolicy().hasHeightForWidth())
         addRelation.setSizePolicy(sizePolicy)
-        addRelation.setMinimumSize(QtCore.QSize(341, 201))
-        addRelation.setMaximumSize(QtCore.QSize(341, 201))
+        addRelation.setMinimumSize(QtCore.QSize(401, 201))
+        addRelation.setMaximumSize(QtCore.QSize(401, 201))
         addRelation.setWindowTitle("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("ui\\../icons/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -30,7 +30,7 @@ class Ui_addRelation(object):
         addRelation.setStyleSheet("background: rgb(54, 57, 63);\n"
 "color: rgb(255, 255, 255)")
         self.characterList = QtWidgets.QListWidget(addRelation)
-        self.characterList.setGeometry(QtCore.QRect(10, 70, 161, 121))
+        self.characterList.setGeometry(QtCore.QRect(10, 70, 221, 121))
         self.characterList.setStyleSheet("QListWidget{\n"
 "    color: rgb(255, 255, 255);\n"
 "    background: rgb(64, 68, 75);\n"
@@ -64,7 +64,7 @@ class Ui_addRelation(object):
         self.characterList.setObjectName("characterList")
         self.accept = QtWidgets.QPushButton(addRelation)
         self.accept.setEnabled(False)
-        self.accept.setGeometry(QtCore.QRect(180, 170, 71, 23))
+        self.accept.setGeometry(QtCore.QRect(240, 170, 71, 23))
         self.accept.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
 "    color: rgb(255, 255, 255);\n"
@@ -87,7 +87,7 @@ class Ui_addRelation(object):
 "}")
         self.label.setObjectName("label")
         self.relationType = QtWidgets.QListWidget(addRelation)
-        self.relationType.setGeometry(QtCore.QRect(180, 70, 151, 91))
+        self.relationType.setGeometry(QtCore.QRect(240, 70, 151, 91))
         self.relationType.setStyleSheet("QListWidget{\n"
 "    color: rgb(255, 255, 255);\n"
 "    background: rgb(64, 68, 75);\n"
@@ -148,8 +148,10 @@ class Ui_addRelation(object):
         self.relationType.addItem(item)
         item = QtWidgets.QListWidgetItem()
         self.relationType.addItem(item)
+        item = QtWidgets.QListWidgetItem()
+        self.relationType.addItem(item)
         self.cancel = QtWidgets.QPushButton(addRelation)
-        self.cancel.setGeometry(QtCore.QRect(260, 170, 71, 23))
+        self.cancel.setGeometry(QtCore.QRect(320, 170, 71, 23))
         self.cancel.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
 "    color: rgb(255, 255, 255);\n"
@@ -166,7 +168,7 @@ class Ui_addRelation(object):
 "}")
         self.cancel.setObjectName("cancel")
         self.search = QtWidgets.QLineEdit(addRelation)
-        self.search.setGeometry(QtCore.QRect(10, 40, 161, 21))
+        self.search.setGeometry(QtCore.QRect(10, 40, 221, 21))
         self.search.setAcceptDrops(False)
         self.search.setToolTip("")
         self.search.setStyleSheet("QLineEdit{\n"
@@ -179,7 +181,7 @@ class Ui_addRelation(object):
         self.search.setText("")
         self.search.setObjectName("search")
         self.searchRelation = QtWidgets.QLineEdit(addRelation)
-        self.searchRelation.setGeometry(QtCore.QRect(180, 40, 151, 21))
+        self.searchRelation.setGeometry(QtCore.QRect(240, 40, 151, 21))
         self.searchRelation.setAcceptDrops(False)
         self.searchRelation.setToolTip("")
         self.searchRelation.setStyleSheet("QLineEdit{\n"
@@ -236,6 +238,8 @@ class Ui_addRelation(object):
         item.setText(_translate("addRelation", "Husband"))
         item = self.relationType.item(14)
         item.setText(_translate("addRelation", "Wife"))
+        item = self.relationType.item(15)
+        item.setText(_translate("addRelation", "Other"))
         self.relationType.setSortingEnabled(__sortingEnabled)
         self.cancel.setText(_translate("addRelation", "Cancel"))
         self.search.setWhatsThis(_translate("addRelation", "<html><head/><body><p><br/></p></body></html>"))

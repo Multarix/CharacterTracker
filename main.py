@@ -1,5 +1,6 @@
 from __future__ import annotations  # Type hinting
 
+# Misc Imports
 import sys
 import os
 import platform
@@ -14,29 +15,31 @@ from editPerson import Ui_editPersonUI
 from addRelation import Ui_addRelation
 from info import Ui_creditsUI
 
-#
-#
-#
-# Edit existing Relationships - Done
 # Perhaps re-order Characters - Too Complicated
 # Options Menu
-# Save File - Done... I think
-# Search Function - Done
+# New File
+# Searchbar not being case sensitive - Done
+# Changes for monospace fonts - Done
+#
+#
 #
 #
 #
 
 osType = platform.system()
-monospace = "Monospace";
+# monospace = "Monospace";
 
 if(osType == "macOS"): # Eat shit apple fuckboys
 	sys.exit();
 
-if(osType == "Windows"):
-	monospace = "Courier New";
-
 true = True;
 false = False;
+
+# if(osType == "Windows"):
+# 	monospace = "Courier New";
+
+monospace = QtGui.QFont("Monospace", 10);
+monospace.setStyleHint(QtGui.QFont.StyleHint.TypeWriter);
 
 def resource_path(relative_path):
 	""" Get absolute path to resource, works for dev and for PyInstaller """
@@ -59,8 +62,7 @@ class UI_MainWindow(QMainWindow):
 		self._characterRelations = [];
 		self.config = defaultConfig;
 		
-		self.deathIcon = QtGui.QIcon()
-		print(resource_path(f"icons\\dead_{self.config['theme']}.png"))
+		self.deathIcon = QtGui.QIcon();
 		self.deathIcon.addPixmap(QtGui.QPixmap(resource_path(f"icons\\dead_{self.config['theme']}.png")));
 		
 		# --Buttons to open other windows--
@@ -69,12 +71,13 @@ class UI_MainWindow(QMainWindow):
 		
 		# Edit Character
 		self.ui.editPerson.clicked.connect(lambda: self.openEditCharacterUI(false));
-		self.ui.characterList.itemSelectionChanged.connect(lambda: self.ui.editPerson.setEnabled(true));
-	
+		self.ui.characterList.itemDoubleClicked.connect(lambda: self.openEditCharacterUI(false));
+		
 		# Remove Character
 		self.ui.removePerson.clicked.connect(lambda: self.removeCharacterBtn());
+		
+		# Unlocking/ Locking Buttons
 		self.ui.characterList.itemSelectionChanged.connect(self.unlockEditRemoveCharacterBtns);
-		self.ui.characterList.itemDoubleClicked.connect(lambda: self.openEditCharacterUI(false));
 		
 		# --Menu Options--
 		# File Section
@@ -96,9 +99,12 @@ class UI_MainWindow(QMainWindow):
 		# --Misc Items--
 		# Search bar
 		self.ui.characterSearch.textEdited.connect(lambda: self.searchBar(self.ui.characterSearch, self.ui.characterList));
+		self.ui.characterSearch.setFont(monospace);
 		
 		# Details
 		self.ui.characterList.itemSelectionChanged.connect(self.showDetails);
+		self.ui.characterList.setFont(monospace);
+		self.ui.selectionDetails.setFont(monospace);
 		
 		# DragDrop
 		# self.ui.characterList.dropEvent.connect(self.indexMove) # This is too complicated for now
@@ -129,9 +135,7 @@ class UI_MainWindow(QMainWindow):
 		self.editCharacter = QtWidgets.QWidget();
 		self.editChar = Ui_editPersonUI();
 		self.editChar.setupUi(self.editCharacter);
-		self.editChar.characterID.hide();
-		self.editChar.characterID.setMaximum(9999);
-		self.editChar.relationTable.setFont(QtGui.QFont(monospace, 8));
+		self.editChar.characterID.hide(); # People don't need to see this, it's only for data tracking purposes
 		
 		self._characterRelations.clear();
 		
@@ -141,23 +145,28 @@ class UI_MainWindow(QMainWindow):
 		
 		# Edit
 		self.editChar.editRelation.clicked.connect(lambda: self.openAddRelationUI(true));
-		self.editChar.relationTable.currentRowChanged.connect(self.unlockEditRelationBtn)
+		self.editChar.relationTable.currentRowChanged.connect(self.unlockEditRemoveRelationBtn)
 		
 		# Remove
 		self.editChar.removeRelation.clicked.connect(self.removeRelationBtn);
-		self.editChar.removeRelation.setDisabled(true);
-		self.editChar.relationTable.itemSelectionChanged.connect(lambda: self.editChar.removeRelation.setEnabled(true));
-		
+				
 		# Accept
 		self.editChar.acceptForm.setDisabled(newChar);
 		self.editChar.name.textEdited.connect(self.unlockSubmitCharacterBtn);
 		self.editChar.acceptForm.clicked.connect(lambda: self.acceptCharacterBtn(newChar));
+		
+		# Font
+		self.editChar.name.setFont(monospace);
+		self.editChar.species.setFont(monospace);
+		self.editChar.textEdit.setFont(monospace);
+		self.editChar.relationTable.setFont(monospace);
 
 		if(not newChar):
 			currSelected = self.ui.characterList.currentRow();
-			charData = self.data[currSelected] # This should work if the list is always up to date
+			charData = self.data[currSelected];
 			# id, name, title, age, gender (0=None, 1=Male, 2=Female), species, isdead (0=Alive), information, relations
 			# 0   1     2      3    4                                  5        6                 7            8
+			
 			# ID
 			self.editChar.characterID.setValue(charData[0]);
 			
@@ -225,6 +234,12 @@ class UI_MainWindow(QMainWindow):
 		self.addRel.search.textEdited.connect(lambda: self.searchBar(self.addRel.search, self.addRel.characterList));
 		self.addRel.searchRelation.textEdited.connect(lambda: self.searchBar(self.addRel.searchRelation, self.addRel.relationType));
 		
+		# Font
+		self.addRel.characterList.setFont(monospace);
+		self.addRel.relationType.setFont(monospace);
+		self.addRel.search.setFont(monospace);
+		self.addRel.searchRelation.setFont(monospace);
+		
 		if(existing): # Existing relationship
 			relationIndex = self.editChar.relationTable.currentRow();
 			relationship = self._characterRelations[relationIndex];
@@ -289,7 +304,6 @@ class UI_MainWindow(QMainWindow):
 		
 		# Adding to the table
 		ui.relationTable.insertItem(ui.relationTable.count(), f"{relationship}{personData[1]}");
-		# ui.removeRelation.setDisabled(false); # Enable the remove button
 		self.addRelation.close(); # Finally closing the UI
 
 
@@ -303,9 +317,6 @@ class UI_MainWindow(QMainWindow):
 		if(currRow > -1):
 			ui.relationTable.takeItem(currRow);
 			del self._characterRelations[currRow];
-		
-		if(ui.relationTable.count() == 0):
-			ui.removeRelation.setDisabled(true);
 
 
 	def acceptCharacterBtn(self, newChar: bool):
@@ -378,13 +389,14 @@ class UI_MainWindow(QMainWindow):
 			if(title == ""):
 				title = "None"
 			
-			self.ui.selectionDetails.insertItem(0, f"Title:   {title}");
-			self.ui.selectionDetails.insertItem(1, f"Name:   {person[1]}");
-			self.ui.selectionDetails.insertItem(2, f"Sex:   {gender}");
-			self.ui.selectionDetails.insertItem(3, f"Age:   {person[3]}");
-			self.ui.selectionDetails.insertItem(4, f"Species:   {person[5]}");
-			self.ui.selectionDetails.insertItem(5, f"Status:   {'Alive' if(person[6] == 0) else 'Dead'}");
-			self.ui.selectionDetails.insertItem(6, f"Description:\n\r{person[7]}");
+			self.ui.selectionDetails.insertItem(0, f"Title   ::  {title}");
+			self.ui.selectionDetails.insertItem(1, f"Name    ::  {person[1]}");
+			self.ui.selectionDetails.insertItem(2, f"Sex     ::  {gender}");
+			self.ui.selectionDetails.insertItem(3, f"Age     ::  {person[3]}");
+			self.ui.selectionDetails.insertItem(4, f"Species ::  {person[5]}");
+			self.ui.selectionDetails.insertItem(5, f"Status  ::  {'Alive' if(person[6] == 0) else 'Dead'}");
+			self.ui.selectionDetails.insertItem(6, "");
+			self.ui.selectionDetails.insertItem(7, f"Description:\n\n{person[7]}");
 	
 	
 	def searchBar(self, searchBar: QLineEdit, listToSearch: QListWidget):
@@ -403,31 +415,36 @@ class UI_MainWindow(QMainWindow):
 
 		else: # Hide/ unhide based on the results
 			for character in characterList:
-				character.setHidden(not (searchTerm in character.text()));
-	
+				character.setHidden(not (searchTerm.lower() in character.text().lower()));
+
+
 	def unlockEditRemoveCharacterBtns(self):
 		enableOrNot = (self.ui.characterList.currentRow() == -1)
 		# Edit Buttons
-		self.ui.removePerson.setDisabled(enableOrNot)
-		self.ui.actionRemove_Character.setDisabled(enableOrNot)
+		self.ui.editPerson.setDisabled(enableOrNot)
+		self.ui.actionEdit_Character.setDisabled(enableOrNot)
 		
 		# Remove Buttons
 		self.ui.removePerson.setDisabled(enableOrNot)
 		self.ui.actionRemove_Character.setDisabled(enableOrNot)
+		
+
+	def unlockEditRemoveRelationBtn(self):
+		enableOrNot = (self.editChar.relationTable.currentRow() > -1)
+		self.editChar.editRelation.setDisabled(enableOrNot);
+		self.editChar.removeRelation.setDisabled(enableOrNot);
 	
+
 	def unlockAcceptRelationBtn(self):
 		"""
 		Function to unlock the accept button on the addRelationUI
 		"""
 		if(self.addRel.characterList.currentRow() > -1 and self.addRel.relationType.currentRow() > -1):
 			self.addRel.accept.setEnabled(true);
+
 	
 	def unlockSubmitCharacterBtn(self):
 		self.editChar.acceptForm.setDisabled(self.editChar.name == "");
-
-
-	def unlockEditRelationBtn(self):
-		self.editChar.editRelation.setEnabled(self.editChar.relationTable.currentRow() > -1);
 		
 
 	def relationConversion(self, item: int | str) -> str | int:
@@ -553,6 +570,9 @@ class UI_MainWindow(QMainWindow):
 	# Also ask to confirm
 
 	def createSchema(self):
+		"""
+		Creates the tables required in the sql spreadsheet
+		"""
 		if(not self.database):
 			return;
 		
@@ -578,7 +598,6 @@ class UI_MainWindow(QMainWindow):
 		pathToFile = "/".join(fileArray);
 		filePath = os.path.join(pathToFile, fileName);
 		
-		# print(filePath);
 		try:
 			filePath = os.path.join(pathToFile, fileName);
 			if(not os.path.exists(pathToFile)):

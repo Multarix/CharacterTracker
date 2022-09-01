@@ -37,7 +37,7 @@ class Ui_editPersonUI(object):
 "color: rgb(255, 255, 255)")
         self.acceptForm = QtWidgets.QPushButton(editPersonUI)
         self.acceptForm.setEnabled(False)
-        self.acceptForm.setGeometry(QtCore.QRect(360, 360, 61, 23))
+        self.acceptForm.setGeometry(QtCore.QRect(350, 360, 71, 23))
         self.acceptForm.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
 "    color: rgb(255, 255, 255);\n"
@@ -113,7 +113,7 @@ class Ui_editPersonUI(object):
         self.age.setMaximum(9999999)
         self.age.setObjectName("age")
         self.addRelation = QtWidgets.QPushButton(editPersonUI)
-        self.addRelation.setGeometry(QtCore.QRect(210, 330, 61, 23))
+        self.addRelation.setGeometry(QtCore.QRect(210, 320, 61, 23))
         self.addRelation.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
 "    color: rgb(255, 255, 255);\n"
@@ -143,7 +143,7 @@ class Ui_editPersonUI(object):
         self.speciesLabel.setObjectName("speciesLabel")
         self.removeRelation = QtWidgets.QPushButton(editPersonUI)
         self.removeRelation.setEnabled(False)
-        self.removeRelation.setGeometry(QtCore.QRect(360, 330, 61, 23))
+        self.removeRelation.setGeometry(QtCore.QRect(360, 320, 61, 23))
         self.removeRelation.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
 "    color: rgb(255, 255, 255);\n"
@@ -220,7 +220,7 @@ class Ui_editPersonUI(object):
 "}")
         self.relationLabel.setObjectName("relationLabel")
         self.relationTable = QtWidgets.QListWidget(editPersonUI)
-        self.relationTable.setGeometry(QtCore.QRect(210, 130, 211, 191))
+        self.relationTable.setGeometry(QtCore.QRect(210, 130, 211, 181))
         self.relationTable.setMinimumSize(QtCore.QSize(0, 0))
         self.relationTable.setMaximumSize(QtCore.QSize(101010, 101010))
         self.relationTable.setStyleSheet("QListWidget{\n"
@@ -273,10 +273,11 @@ class Ui_editPersonUI(object):
         self.characterID.setReadOnly(True)
         self.characterID.setButtonSymbols(QtWidgets.QAbstractSpinBox.PlusMinus)
         self.characterID.setKeyboardTracking(False)
+        self.characterID.setMaximum(9999999)
         self.characterID.setObjectName("characterID")
         self.editRelation = QtWidgets.QPushButton(editPersonUI)
         self.editRelation.setEnabled(False)
-        self.editRelation.setGeometry(QtCore.QRect(285, 330, 61, 23))
+        self.editRelation.setGeometry(QtCore.QRect(285, 320, 61, 23))
         self.editRelation.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
 "    color: rgb(255, 255, 255);\n"
