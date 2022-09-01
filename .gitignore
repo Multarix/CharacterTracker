@@ -5,7 +5,6 @@ tkinter/
 ui/
 characters.sqlite
 updateFiles.bat
-characterTracker.exe
 
 
 # Byte-compiled / optimized / DLL files
