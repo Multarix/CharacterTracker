@@ -18,19 +18,19 @@ def resource_path(relative_path):
 	return os.path.join(base_path, relative_path);
 
 
-class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.resize(191, 120)
-        Dialog.setMinimumSize(QtCore.QSize(191, 120))
-        Dialog.setMaximumSize(QtCore.QSize(191, 120))
-        Dialog.setWindowTitle("")
+class Ui_optionsUI(object):
+    def setupUi(self, optionsUI):
+        optionsUI.setObjectName("optionsUI")
+        optionsUI.resize(191, 120)
+        optionsUI.setMinimumSize(QtCore.QSize(191, 120))
+        optionsUI.setMaximumSize(QtCore.QSize(191, 120))
+        optionsUI.setWindowTitle("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(resource_path("icons/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        Dialog.setWindowIcon(icon)
-        Dialog.setStyleSheet("background: rgb(54, 57, 63);\n"
+        optionsUI.setWindowIcon(icon)
+        optionsUI.setStyleSheet("background: rgb(54, 57, 63);\n"
 "color: rgb(255, 255, 255)")
-        self.acceptCancel = QtWidgets.QDialogButtonBox(Dialog)
+        self.acceptCancel = QtWidgets.QDialogButtonBox(optionsUI)
         self.acceptCancel.setGeometry(QtCore.QRect(20, 80, 151, 32))
         self.acceptCancel.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
@@ -49,28 +49,70 @@ class Ui_Dialog(object):
         self.acceptCancel.setOrientation(QtCore.Qt.Horizontal)
         self.acceptCancel.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.acceptCancel.setObjectName("acceptCancel")
-        self.themeBox = QtWidgets.QComboBox(Dialog)
-        self.themeBox.setGeometry(QtCore.QRect(93, 10, 69, 22))
-        self.themeBox.setStyleSheet("background: rgb(64, 68, 75);\n"
-"border: 1px solid rgb(50, 50, 50);\n"
-"border-radius:5px;")
-        self.themeBox.setObjectName("themeBox")
-        self.themeBox.addItem("")
-        self.themeBox.addItem("")
-        self.themeLabel = QtWidgets.QLabel(Dialog)
-        self.themeLabel.setGeometry(QtCore.QRect(31, 13, 47, 16))
+        self.widget = QtWidgets.QWidget(optionsUI)
+        self.widget.setGeometry(QtCore.QRect(10, 10, 171, 54))
+        self.widget.setObjectName("widget")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.widget)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.themeLabel = QtWidgets.QLabel(self.widget)
         self.themeLabel.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
 "}")
         self.themeLabel.setObjectName("themeLabel")
+        self.horizontalLayout_2.addWidget(self.themeLabel)
+        self.themeBox = QtWidgets.QComboBox(self.widget)
+        self.themeBox.setMinimumSize(QtCore.QSize(61, 21))
+        self.themeBox.setMaximumSize(QtCore.QSize(61, 21))
+        self.themeBox.setStyleSheet("QComboBox {\n"
+"    background: rgb(64, 68, 75);\n"
+"    border: 1px solid rgb(50, 50, 50);\n"
+"    border-radius:5px;\n"
+"    padding-left: 3px;\n"
+"}")
+        self.themeBox.setObjectName("themeBox")
+        self.themeBox.addItem("")
+        self.themeBox.addItem("")
+        self.horizontalLayout_2.addWidget(self.themeBox)
+        self.verticalLayout.addLayout(self.horizontalLayout_2)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.themeLabel_2 = QtWidgets.QLabel(self.widget)
+        self.themeLabel_2.setStyleSheet("QLabel {\n"
+"    background: transparent;\n"
+"}")
+        self.themeLabel_2.setObjectName("themeLabel_2")
+        self.horizontalLayout.addWidget(self.themeLabel_2)
+        self.themeBox_2 = QtWidgets.QComboBox(self.widget)
+        self.themeBox_2.setMinimumSize(QtCore.QSize(61, 21))
+        self.themeBox_2.setMaximumSize(QtCore.QSize(61, 21))
+        self.themeBox_2.setStyleSheet("QComboBox {\n"
+"    background: rgb(64, 68, 75);\n"
+"    border: 1px solid rgb(50, 50, 50);\n"
+"    border-radius:5px;\n"
+"    padding-left: 3px;\n"
+"}")
+        self.themeBox_2.setObjectName("themeBox_2")
+        self.themeBox_2.addItem("")
+        self.themeBox_2.addItem("")
+        self.themeBox_2.addItem("")
+        self.horizontalLayout.addWidget(self.themeBox_2)
+        self.verticalLayout.addLayout(self.horizontalLayout)
         self.themeLabel.setBuddy(self.themeBox)
+        self.themeLabel_2.setBuddy(self.themeBox)
 
-        self.retranslateUi(Dialog)
-        self.acceptCancel.rejected.connect(Dialog.close) # type: ignore
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.retranslateUi(optionsUI)
+        self.acceptCancel.rejected.connect(optionsUI.close) # type: ignore
+        QtCore.QMetaObject.connectSlotsByName(optionsUI)
 
-    def retranslateUi(self, Dialog):
+    def retranslateUi(self, optionsUI):
         _translate = QtCore.QCoreApplication.translate
-        self.themeBox.setItemText(0, _translate("Dialog", "Dark"))
-        self.themeBox.setItemText(1, _translate("Dialog", "Light"))
-        self.themeLabel.setText(_translate("Dialog", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Theme:</span></p></body></html>"))
+        self.themeLabel.setText(_translate("optionsUI", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Theme:</span></p></body></html>"))
+        self.themeBox.setItemText(0, _translate("optionsUI", "Dark"))
+        self.themeBox.setItemText(1, _translate("optionsUI", "Light"))
+        self.themeLabel_2.setText(_translate("optionsUI", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Language:</span></p></body></html>"))
+        self.themeBox_2.setItemText(0, _translate("optionsUI", "English"))
+        self.themeBox_2.setItemText(1, _translate("optionsUI", "German"))
+        self.themeBox_2.setItemText(2, _translate("optionsUI", "French"))

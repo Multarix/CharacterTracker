@@ -21,9 +21,9 @@ def resource_path(relative_path):
 class Ui_mainWindowUI(object):
     def setupUi(self, mainWindowUI):
         mainWindowUI.setObjectName("mainWindowUI")
-        mainWindowUI.resize(482, 367)
-        mainWindowUI.setMinimumSize(QtCore.QSize(482, 367))
-        mainWindowUI.setMaximumSize(QtCore.QSize(482, 367))
+        mainWindowUI.resize(479, 361)
+        mainWindowUI.setMinimumSize(QtCore.QSize(479, 361))
+        mainWindowUI.setMaximumSize(QtCore.QSize(479, 361))
         mainWindowUI.setWindowTitle("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(resource_path("icons/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -33,50 +33,39 @@ class Ui_mainWindowUI(object):
         mainWindowUI.setIconSize(QtCore.QSize(48, 48))
         self.centralwidget = QtWidgets.QWidget(mainWindowUI)
         self.centralwidget.setObjectName("centralwidget")
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(10, 5, 131, 31))
-        self.label.setStyleSheet("QLabel {\n"
-"    background: transparent;\n"
-"}")
-        self.label.setObjectName("label")
-        self.editPerson = QtWidgets.QPushButton(self.centralwidget)
-        self.editPerson.setEnabled(False)
-        self.editPerson.setGeometry(QtCore.QRect(80, 315, 61, 23))
-        self.editPerson.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
+        self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
+        self.tabWidget.setGeometry(QtCore.QRect(-3, -22, 491, 391))
+        self.tabWidget.setMinimumSize(QtCore.QSize(491, 0))
+        self.tabWidget.setStyleSheet("QTabWidget {\n"
+"    background: rgb(54, 57, 63);\n"
 "    color: rgb(255, 255, 255);\n"
 "}\n"
 "\n"
-"QPushButton:hover {\n"
+"QTabWidget::tab-bar {\n"
+"    left: 305px;\n"
+"    top: 62px;\n"
+"}\n"
+"\n"
+"QTabBar::tab {\n"
+"    background: rgb(64, 68, 75);\n"
+"}\n"
+"\n"
+"QTabBar::tab:hover {\n"
 "    background: rgb(79, 83, 89);\n"
 "    color: rgb(255, 255, 255);\n"
 "}\n"
 "\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
-        self.editPerson.setObjectName("editPerson")
-        self.addPerson = QtWidgets.QPushButton(self.centralwidget)
-        self.addPerson.setGeometry(QtCore.QRect(10, 315, 61, 23))
-        self.addPerson.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
+"QTabBar::tab:selected {\n"
+"    background: rgb(89, 93, 99);\n"
 "    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
 "}")
-        self.addPerson.setObjectName("addPerson")
-        self.removePerson = QtWidgets.QPushButton(self.centralwidget)
+        self.tabWidget.setObjectName("tabWidget")
+        self.Characters = QtWidgets.QWidget()
+        self.Characters.setStyleSheet("")
+        self.Characters.setObjectName("Characters")
+        self.removePerson = QtWidgets.QPushButton(self.Characters)
         self.removePerson.setEnabled(False)
-        self.removePerson.setGeometry(QtCore.QRect(150, 315, 61, 23))
+        self.removePerson.setGeometry(QtCore.QRect(150, 310, 61, 23))
         self.removePerson.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
 "    color: rgb(255, 255, 255);\n"
@@ -92,57 +81,32 @@ class Ui_mainWindowUI(object):
 "    color: rgb(126, 126, 126);\n"
 "}")
         self.removePerson.setObjectName("removePerson")
-        self.characterSearch = QtWidgets.QLineEdit(self.centralwidget)
-        self.characterSearch.setGeometry(QtCore.QRect(10, 45, 241, 21))
-        self.characterSearch.setAcceptDrops(False)
-        self.characterSearch.setToolTip("")
-        self.characterSearch.setStyleSheet("QLineEdit{\n"
+        self.editPerson = QtWidgets.QPushButton(self.Characters)
+        self.editPerson.setEnabled(False)
+        self.editPerson.setGeometry(QtCore.QRect(80, 310, 61, 23))
+        self.editPerson.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
-"}")
-        self.characterSearch.setObjectName("characterSearch")
-        self.selectionDetails = QtWidgets.QListWidget(self.centralwidget)
-        self.selectionDetails.setEnabled(False)
-        self.selectionDetails.setGeometry(QtCore.QRect(260, 75, 211, 231))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.selectionDetails.sizePolicy().hasHeightForWidth())
-        self.selectionDetails.setSizePolicy(sizePolicy)
-        self.selectionDetails.setStyleSheet("QListWidget{\n"
 "    color: rgb(255, 255, 255);\n"
-"    background: rgb(64, 68, 75);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    outline: 0;\n"
 "}\n"
 "\n"
-"QListWidget:item{\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
-"    border-radius: 5px;\n"
+"QPushButton:hover {\n"
+"    background: rgb(79, 83, 89);\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background: rgb(54, 57, 63);\n"
+"    color: rgb(126, 126, 126);\n"
 "}")
-        self.selectionDetails.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.selectionDetails.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContentsOnFirstShow)
-        self.selectionDetails.setAutoScroll(True)
-        self.selectionDetails.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
-        self.selectionDetails.setProperty("showDropIndicator", False)
-        self.selectionDetails.setDefaultDropAction(QtCore.Qt.IgnoreAction)
-        self.selectionDetails.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
-        self.selectionDetails.setProperty("isWrapping", True)
-        self.selectionDetails.setWordWrap(True)
-        self.selectionDetails.setObjectName("selectionDetails")
-        self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(260, 35, 91, 31))
-        self.label_2.setStyleSheet("QLabel {\n"
+        self.editPerson.setObjectName("editPerson")
+        self.label = QtWidgets.QLabel(self.Characters)
+        self.label.setGeometry(QtCore.QRect(10, 0, 131, 31))
+        self.label.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
 "}")
-        self.label_2.setObjectName("label_2")
-        self.characterList = QtWidgets.QListWidget(self.centralwidget)
-        self.characterList.setGeometry(QtCore.QRect(10, 75, 241, 231))
+        self.label.setObjectName("label")
+        self.characterList = QtWidgets.QListWidget(self.Characters)
+        self.characterList.setGeometry(QtCore.QRect(10, 70, 221, 231))
         self.characterList.setStyleSheet("QListWidget{\n"
 "    color: rgb(255, 255, 255);\n"
 "    background: rgb(64, 68, 75);\n"
@@ -153,8 +117,7 @@ class Ui_mainWindowUI(object):
 "\n"
 "QListWidget:item{\n"
 "    color: rgb(255, 255, 255);\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
+"    padding: 3px;\n"
 "    border: 1px solid transparent;\n"
 "    border-radius: 5px;\n"
 "}\n"
@@ -182,9 +145,177 @@ class Ui_mainWindowUI(object):
         self.characterList.setIconSize(QtCore.QSize(11, 11))
         self.characterList.setUniformItemSizes(True)
         self.characterList.setObjectName("characterList")
+        self.characterSearch = QtWidgets.QLineEdit(self.Characters)
+        self.characterSearch.setGeometry(QtCore.QRect(10, 40, 221, 21))
+        self.characterSearch.setAcceptDrops(False)
+        self.characterSearch.setToolTip("")
+        self.characterSearch.setStyleSheet("QLineEdit{\n"
+"    background: rgb(64, 68, 75);\n"
+"    border: 1px solid rgb(50, 50, 50);\n"
+"    border-radius:5px;\n"
+"    padding-left: 3px;\n"
+"    padding-right: 3px;\n"
+"}")
+        self.characterSearch.setObjectName("characterSearch")
+        self.selectionDetails = QtWidgets.QListWidget(self.Characters)
+        self.selectionDetails.setEnabled(True)
+        self.selectionDetails.setGeometry(QtCore.QRect(240, 70, 231, 231))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.selectionDetails.sizePolicy().hasHeightForWidth())
+        self.selectionDetails.setSizePolicy(sizePolicy)
+        self.selectionDetails.setStyleSheet("QListWidget{\n"
+"    color: rgb(255, 255, 255);\n"
+"    background: rgb(64, 68, 75);\n"
+"    border: 1px solid rgb(50, 50, 50);\n"
+"    border-radius:5px;\n"
+"    outline: 0;\n"
+"}\n"
+"\n"
+"QListWidget:item{\n"
+"    padding: 3px;\n"
+"    background: rgb(64, 68, 75);\n"
+"}")
+        self.selectionDetails.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.selectionDetails.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContentsOnFirstShow)
+        self.selectionDetails.setAutoScroll(False)
+        self.selectionDetails.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.selectionDetails.setProperty("showDropIndicator", False)
+        self.selectionDetails.setDefaultDropAction(QtCore.Qt.IgnoreAction)
+        self.selectionDetails.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
+        self.selectionDetails.setProperty("isWrapping", False)
+        self.selectionDetails.setWordWrap(True)
+        self.selectionDetails.setObjectName("selectionDetails")
+        self.addPerson = QtWidgets.QPushButton(self.Characters)
+        self.addPerson.setGeometry(QtCore.QRect(10, 310, 61, 23))
+        self.addPerson.setStyleSheet("QPushButton {\n"
+"    background: rgb(64, 68, 75);\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: rgb(79, 83, 89);\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background: rgb(54, 57, 63);\n"
+"    color: rgb(126, 126, 126);\n"
+"}")
+        self.addPerson.setObjectName("addPerson")
+        self.tabWidget.addTab(self.Characters, "")
+        self.WorldBuilding = QtWidgets.QWidget()
+        self.WorldBuilding.setObjectName("WorldBuilding")
+        self.worldBuildingList = QtWidgets.QListWidget(self.WorldBuilding)
+        self.worldBuildingList.setGeometry(QtCore.QRect(10, 70, 461, 231))
+        self.worldBuildingList.setStyleSheet("QListWidget{\n"
+"    color: rgb(255, 255, 255);\n"
+"    background: rgb(64, 68, 75);\n"
+"    border: 1px solid rgb(50, 50, 50);\n"
+"    border-radius:5px;\n"
+"    outline: 0;\n"
+"}\n"
+"\n"
+"QListWidget:item{\n"
+"    color: rgb(255, 255, 255);\n"
+"    padding: 3px;\n"
+"    border: 1px solid transparent;\n"
+"    border-radius: 5px;\n"
+"}\n"
+"\n"
+"QListWidget:item:hover{\n"
+"    padding-left: 3px;\n"
+"    padding-right: 3px;\n"
+"    background: rgb(74, 76, 79);\n"
+"    border: 1px solid rgb(64, 66, 75);\n"
+"}\n"
+"\n"
+"QListWidget:item:selected{\n"
+"    padding-left: 3px;\n"
+"    padding-right: 3px;\n"
+"    background: rgb(93, 94, 97);\n"
+"    border: 1px solid rgb(74, 76, 79);\n"
+"}")
+        self.worldBuildingList.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.worldBuildingList.setProperty("showDropIndicator", False)
+        self.worldBuildingList.setWordWrap(True)
+        self.worldBuildingList.setObjectName("worldBuildingList")
+        self.WorldBuildingLabel = QtWidgets.QLabel(self.WorldBuilding)
+        self.WorldBuildingLabel.setGeometry(QtCore.QRect(10, 0, 181, 31))
+        self.WorldBuildingLabel.setStyleSheet("QLabel {\n"
+"    background: transparent;\n"
+"}")
+        self.WorldBuildingLabel.setObjectName("WorldBuildingLabel")
+        self.worldBuildingAdd = QtWidgets.QPushButton(self.WorldBuilding)
+        self.worldBuildingAdd.setGeometry(QtCore.QRect(10, 310, 61, 23))
+        self.worldBuildingAdd.setStyleSheet("QPushButton {\n"
+"    background: rgb(64, 68, 75);\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: rgb(79, 83, 89);\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background: rgb(54, 57, 63);\n"
+"    color: rgb(126, 126, 126);\n"
+"}")
+        self.worldBuildingAdd.setObjectName("worldBuildingAdd")
+        self.worldBuildingEdit = QtWidgets.QPushButton(self.WorldBuilding)
+        self.worldBuildingEdit.setEnabled(False)
+        self.worldBuildingEdit.setGeometry(QtCore.QRect(80, 310, 61, 23))
+        self.worldBuildingEdit.setStyleSheet("QPushButton {\n"
+"    background: rgb(64, 68, 75);\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: rgb(79, 83, 89);\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background: rgb(54, 57, 63);\n"
+"    color: rgb(126, 126, 126);\n"
+"}")
+        self.worldBuildingEdit.setObjectName("worldBuildingEdit")
+        self.worldBuildingRemove = QtWidgets.QPushButton(self.WorldBuilding)
+        self.worldBuildingRemove.setEnabled(False)
+        self.worldBuildingRemove.setGeometry(QtCore.QRect(150, 310, 61, 23))
+        self.worldBuildingRemove.setStyleSheet("QPushButton {\n"
+"    background: rgb(64, 68, 75);\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: rgb(79, 83, 89);\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background: rgb(54, 57, 63);\n"
+"    color: rgb(126, 126, 126);\n"
+"}")
+        self.worldBuildingRemove.setObjectName("worldBuildingRemove")
+        self.worldBuildingSearch = QtWidgets.QLineEdit(self.WorldBuilding)
+        self.worldBuildingSearch.setGeometry(QtCore.QRect(10, 40, 221, 21))
+        self.worldBuildingSearch.setAcceptDrops(False)
+        self.worldBuildingSearch.setToolTip("")
+        self.worldBuildingSearch.setStyleSheet("QLineEdit{\n"
+"    background: rgb(64, 68, 75);\n"
+"    border: 1px solid rgb(50, 50, 50);\n"
+"    border-radius:5px;\n"
+"    padding-left: 3px;\n"
+"    padding-right: 3px;\n"
+"}")
+        self.worldBuildingSearch.setObjectName("worldBuildingSearch")
+        self.tabWidget.addTab(self.WorldBuilding, "")
         mainWindowUI.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(mainWindowUI)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 482, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 479, 21))
         self.menubar.setStyleSheet("QMenuBar {\n"
 "    background: rgb(41, 43, 47);\n"
 "    color: rgb(255, 255, 255);\n"
@@ -296,6 +427,7 @@ class Ui_mainWindowUI(object):
         self.action_Save.setIcon(icon3)
         self.action_Save.setObjectName("action_Save")
         self.action_config = QtWidgets.QAction(mainWindowUI)
+        self.action_config.setEnabled(False)
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(resource_path("icons/settings_Dark.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.action_config.setIcon(icon4)
@@ -306,6 +438,7 @@ class Ui_mainWindowUI(object):
         self.actionSave_As.setIcon(icon5)
         self.actionSave_As.setObjectName("actionSave_As")
         self.action_New = QtWidgets.QAction(mainWindowUI)
+        self.action_New.setEnabled(False)
         icon6 = QtGui.QIcon()
         icon6.addPixmap(QtGui.QPixmap(resource_path("icons/new_Dark.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.action_New.setIcon(icon6)
@@ -356,9 +489,10 @@ class Ui_mainWindowUI(object):
         self.menubar.addAction(self.menu_Options.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
         self.label.setBuddy(self.characterList)
-        self.label_2.setBuddy(self.selectionDetails)
+        self.WorldBuildingLabel.setBuddy(self.characterList)
 
         self.retranslateUi(mainWindowUI)
+        self.tabWidget.setCurrentIndex(0)
         self.characterList.itemDoubleClicked['QListWidgetItem*'].connect(self.editPerson.click) # type: ignore
         self.selectionDetails.currentRowChanged['int'].connect(self.selectionDetails.clearSelection) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(mainWindowUI)
@@ -370,14 +504,19 @@ class Ui_mainWindowUI(object):
 
     def retranslateUi(self, mainWindowUI):
         _translate = QtCore.QCoreApplication.translate
-        self.label.setText(_translate("mainWindowUI", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">Characters</span></p></body></html>"))
-        self.editPerson.setText(_translate("mainWindowUI", "Edit..."))
-        self.addPerson.setText(_translate("mainWindowUI", "Add..."))
         self.removePerson.setText(_translate("mainWindowUI", "Remove"))
-        self.characterSearch.setWhatsThis(_translate("mainWindowUI", "<html><head/><body><p>Search</p></body></html>"))
-        self.characterSearch.setPlaceholderText(_translate("mainWindowUI", "Search Characters"))
-        self.label_2.setText(_translate("mainWindowUI", "<html><head/><body><p align=\"center\"><span style=\" font-size:18pt; font-weight:600;\">Details</span></p><p align=\"center\"><br/></p></body></html>"))
+        self.editPerson.setText(_translate("mainWindowUI", "Edit..."))
+        self.label.setText(_translate("mainWindowUI", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">Characters</span></p></body></html>"))
         self.characterList.setSortingEnabled(False)
+        self.characterSearch.setPlaceholderText(_translate("mainWindowUI", "Search Characters"))
+        self.addPerson.setText(_translate("mainWindowUI", "Add..."))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.Characters), _translate("mainWindowUI", "Characters"))
+        self.WorldBuildingLabel.setText(_translate("mainWindowUI", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">World Building</span></p></body></html>"))
+        self.worldBuildingAdd.setText(_translate("mainWindowUI", "Add..."))
+        self.worldBuildingEdit.setText(_translate("mainWindowUI", "Edit..."))
+        self.worldBuildingRemove.setText(_translate("mainWindowUI", "Remove"))
+        self.worldBuildingSearch.setPlaceholderText(_translate("mainWindowUI", "Search Notes"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.WorldBuilding), _translate("mainWindowUI", "World Building"))
         self.menu_File.setTitle(_translate("mainWindowUI", "&File"))
         self.menu_Options.setTitle(_translate("mainWindowUI", "&Edit"))
         self.menuHelp.setTitle(_translate("mainWindowUI", "&Help"))

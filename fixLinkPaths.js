@@ -5,7 +5,7 @@ const fs = require("fs");
 // const optionsWindow = require("options.py");
 // const editWindow = rquire("editPerson.py");
 
-fileArray = ["mainWindow.py", "info.py", "options.py", "editPerson.py"];
+fileArray = ["mainWindow.py", "options.py", "info.py", "editPerson.py", "worldBuilding.py"];
 const reg = /QPixmap\("ui\\\\\.\.\/(.*?)"/
 
 const line1 = 'import sys\n';
@@ -29,5 +29,6 @@ for(file of fileArray){
 	
 	f = f.replace(line3, fullText);
 	fs.writeFileSync(file, f, { encoding: 'utf8' });
+	console.log(`- Successfully edited ${file}`);
 }
 

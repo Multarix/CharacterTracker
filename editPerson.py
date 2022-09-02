@@ -21,14 +21,14 @@ def resource_path(relative_path):
 class Ui_editPersonUI(object):
     def setupUi(self, editPersonUI):
         editPersonUI.setObjectName("editPersonUI")
-        editPersonUI.resize(432, 391)
+        editPersonUI.resize(491, 391)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(editPersonUI.sizePolicy().hasHeightForWidth())
         editPersonUI.setSizePolicy(sizePolicy)
-        editPersonUI.setMinimumSize(QtCore.QSize(432, 391))
-        editPersonUI.setMaximumSize(QtCore.QSize(432, 391))
+        editPersonUI.setMinimumSize(QtCore.QSize(491, 391))
+        editPersonUI.setMaximumSize(QtCore.QSize(491, 391))
         editPersonUI.setWindowTitle("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(resource_path("icons/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -37,7 +37,7 @@ class Ui_editPersonUI(object):
 "color: rgb(255, 255, 255)")
         self.acceptForm = QtWidgets.QPushButton(editPersonUI)
         self.acceptForm.setEnabled(False)
-        self.acceptForm.setGeometry(QtCore.QRect(360, 360, 61, 23))
+        self.acceptForm.setGeometry(QtCore.QRect(250, 360, 231, 23))
         self.acceptForm.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
 "    color: rgb(255, 255, 255);\n"
@@ -55,14 +55,13 @@ class Ui_editPersonUI(object):
         self.acceptForm.setDefault(False)
         self.acceptForm.setObjectName("acceptForm")
         self.textEdit = QtWidgets.QTextEdit(editPersonUI)
-        self.textEdit.setGeometry(QtCore.QRect(10, 130, 191, 251))
+        self.textEdit.setGeometry(QtCore.QRect(10, 130, 231, 251))
         self.textEdit.setAcceptDrops(False)
         self.textEdit.setStyleSheet("QTextEdit {\n"
 "    background: rgb(64, 68, 75);\n"
 "    border: 1px solid rgb(50, 50, 50);\n"
 "    border-radius:5px;\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
+"    padding: 3px;\n"
 "}")
         self.textEdit.setPlaceholderText("")
         self.textEdit.setObjectName("textEdit")
@@ -80,9 +79,12 @@ class Ui_editPersonUI(object):
         self.titleLabel.setObjectName("titleLabel")
         self.titleSelector = QtWidgets.QComboBox(editPersonUI)
         self.titleSelector.setGeometry(QtCore.QRect(10, 30, 71, 21))
-        self.titleSelector.setStyleSheet("background: rgb(64, 68, 75);\n"
-"border: 1px solid rgb(50, 50, 50);\n"
-"border-radius:5px;")
+        self.titleSelector.setStyleSheet("QComboBox {\n"
+"    background: rgb(64, 68, 75);\n"
+"    border: 1px solid rgb(50, 50, 50);\n"
+"    border-radius:5px;\n"
+"    padding-left: 3px;\n"
+"}")
         self.titleSelector.setObjectName("titleSelector")
         self.titleSelector.addItem("")
         self.titleSelector.addItem("")
@@ -113,7 +115,7 @@ class Ui_editPersonUI(object):
         self.age.setMaximum(9999999)
         self.age.setObjectName("age")
         self.addRelation = QtWidgets.QPushButton(editPersonUI)
-        self.addRelation.setGeometry(QtCore.QRect(210, 330, 61, 23))
+        self.addRelation.setGeometry(QtCore.QRect(250, 330, 71, 23))
         self.addRelation.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
 "    color: rgb(255, 255, 255);\n"
@@ -143,7 +145,7 @@ class Ui_editPersonUI(object):
         self.speciesLabel.setObjectName("speciesLabel")
         self.removeRelation = QtWidgets.QPushButton(editPersonUI)
         self.removeRelation.setEnabled(False)
-        self.removeRelation.setGeometry(QtCore.QRect(360, 330, 61, 23))
+        self.removeRelation.setGeometry(QtCore.QRect(410, 330, 71, 23))
         self.removeRelation.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
 "    color: rgb(255, 255, 255);\n"
@@ -200,9 +202,12 @@ class Ui_editPersonUI(object):
         self.name.setObjectName("name")
         self.genderSelector = QtWidgets.QComboBox(editPersonUI)
         self.genderSelector.setGeometry(QtCore.QRect(160, 80, 71, 21))
-        self.genderSelector.setStyleSheet("background: rgb(64, 68, 75);\n"
-"border: 1px solid rgb(50, 50, 50);\n"
-"border-radius:5px;")
+        self.genderSelector.setStyleSheet("QComboBox {\n"
+"    background: rgb(64, 68, 75);\n"
+"    border: 1px solid rgb(50, 50, 50);\n"
+"    border-radius:5px;\n"
+"    padding-left: 3px;\n"
+"}")
         self.genderSelector.setObjectName("genderSelector")
         self.genderSelector.addItem("")
         self.genderSelector.addItem("")
@@ -214,13 +219,13 @@ class Ui_editPersonUI(object):
 "}")
         self.ageLabel.setObjectName("ageLabel")
         self.relationLabel = QtWidgets.QLabel(editPersonUI)
-        self.relationLabel.setGeometry(QtCore.QRect(213, 110, 71, 16))
+        self.relationLabel.setGeometry(QtCore.QRect(253, 110, 71, 16))
         self.relationLabel.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
 "}")
         self.relationLabel.setObjectName("relationLabel")
         self.relationTable = QtWidgets.QListWidget(editPersonUI)
-        self.relationTable.setGeometry(QtCore.QRect(210, 130, 211, 191))
+        self.relationTable.setGeometry(QtCore.QRect(250, 130, 231, 191))
         self.relationTable.setMinimumSize(QtCore.QSize(0, 0))
         self.relationTable.setMaximumSize(QtCore.QSize(101010, 101010))
         self.relationTable.setStyleSheet("QListWidget{\n"
@@ -233,8 +238,7 @@ class Ui_editPersonUI(object):
 "\n"
 "QListWidget:item{\n"
 "    color: rgb(255, 255, 255);\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
+"    padding: 3px;\n"
 "    border: 1px solid transparent;\n"
 "    border-radius: 5px;\n"
 "}\n"
@@ -255,7 +259,7 @@ class Ui_editPersonUI(object):
         self.relationTable.setObjectName("relationTable")
         self.characterID = QtWidgets.QSpinBox(editPersonUI)
         self.characterID.setEnabled(False)
-        self.characterID.setGeometry(QtCore.QRect(351, 30, 61, 22))
+        self.characterID.setGeometry(QtCore.QRect(420, 30, 61, 22))
         self.characterID.setToolTip("")
         self.characterID.setStyleSheet("QSpinBox {\n"
 "    background: rgb(64, 68, 75);\n"
@@ -273,10 +277,11 @@ class Ui_editPersonUI(object):
         self.characterID.setReadOnly(True)
         self.characterID.setButtonSymbols(QtWidgets.QAbstractSpinBox.PlusMinus)
         self.characterID.setKeyboardTracking(False)
+        self.characterID.setMaximum(9999999)
         self.characterID.setObjectName("characterID")
         self.editRelation = QtWidgets.QPushButton(editPersonUI)
         self.editRelation.setEnabled(False)
-        self.editRelation.setGeometry(QtCore.QRect(285, 330, 61, 23))
+        self.editRelation.setGeometry(QtCore.QRect(330, 330, 71, 23))
         self.editRelation.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
 "    color: rgb(255, 255, 255);\n"
