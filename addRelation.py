@@ -11,25 +11,25 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_addRelation(object):
-    def setupUi(self, addRelation):
-        addRelation.setObjectName("addRelation")
-        addRelation.resize(401, 201)
+class Ui_addRelationUI(object):
+    def setupUi(self, addRelationUI):
+        addRelationUI.setObjectName("addRelationUI")
+        addRelationUI.resize(401, 201)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(addRelation.sizePolicy().hasHeightForWidth())
-        addRelation.setSizePolicy(sizePolicy)
-        addRelation.setMinimumSize(QtCore.QSize(401, 201))
-        addRelation.setMaximumSize(QtCore.QSize(401, 201))
-        addRelation.setWindowTitle("")
+        sizePolicy.setHeightForWidth(addRelationUI.sizePolicy().hasHeightForWidth())
+        addRelationUI.setSizePolicy(sizePolicy)
+        addRelationUI.setMinimumSize(QtCore.QSize(401, 201))
+        addRelationUI.setMaximumSize(QtCore.QSize(401, 201))
+        addRelationUI.setWindowTitle("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("ui\\../icons/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        addRelation.setWindowIcon(icon)
-        addRelation.setToolTip("")
-        addRelation.setStyleSheet("background: rgb(54, 57, 63);\n"
+        addRelationUI.setWindowIcon(icon)
+        addRelationUI.setToolTip("")
+        addRelationUI.setStyleSheet("background: rgb(54, 57, 63);\n"
 "color: rgb(255, 255, 255)")
-        self.characterList = QtWidgets.QListWidget(addRelation)
+        self.characterList = QtWidgets.QListWidget(addRelationUI)
         self.characterList.setGeometry(QtCore.QRect(10, 70, 221, 121))
         self.characterList.setStyleSheet("QListWidget{\n"
 "    color: rgb(255, 255, 255);\n"
@@ -41,8 +41,7 @@ class Ui_addRelation(object):
 "\n"
 "QListWidget:item{\n"
 "    color: rgb(255, 255, 255);\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
+"    padding: 3px;\n"
 "    border: 1px solid transparent;\n"
 "    border-radius: 5px;\n"
 "}\n"
@@ -62,7 +61,7 @@ class Ui_addRelation(object):
 "}")
         self.characterList.setIconSize(QtCore.QSize(11, 11))
         self.characterList.setObjectName("characterList")
-        self.accept = QtWidgets.QPushButton(addRelation)
+        self.accept = QtWidgets.QPushButton(addRelationUI)
         self.accept.setEnabled(False)
         self.accept.setGeometry(QtCore.QRect(240, 170, 71, 23))
         self.accept.setStyleSheet("QPushButton {\n"
@@ -80,13 +79,13 @@ class Ui_addRelation(object):
 "    color: rgb(126, 126, 126);\n"
 "}")
         self.accept.setObjectName("accept")
-        self.label = QtWidgets.QLabel(addRelation)
+        self.label = QtWidgets.QLabel(addRelationUI)
         self.label.setGeometry(QtCore.QRect(10, 4, 152, 31))
         self.label.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
 "}")
         self.label.setObjectName("label")
-        self.relationType = QtWidgets.QListWidget(addRelation)
+        self.relationType = QtWidgets.QListWidget(addRelationUI)
         self.relationType.setGeometry(QtCore.QRect(240, 70, 151, 91))
         self.relationType.setStyleSheet("QListWidget{\n"
 "    color: rgb(255, 255, 255);\n"
@@ -98,8 +97,7 @@ class Ui_addRelation(object):
 "\n"
 "QListWidget:item{\n"
 "    color: rgb(255, 255, 255);\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
+"    padding: 3px;\n"
 "    border: 1px solid transparent;\n"
 "    border-radius: 5px;\n"
 "}\n"
@@ -148,9 +146,7 @@ class Ui_addRelation(object):
         self.relationType.addItem(item)
         item = QtWidgets.QListWidgetItem()
         self.relationType.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.relationType.addItem(item)
-        self.cancel = QtWidgets.QPushButton(addRelation)
+        self.cancel = QtWidgets.QPushButton(addRelationUI)
         self.cancel.setGeometry(QtCore.QRect(320, 170, 71, 23))
         self.cancel.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
@@ -167,7 +163,7 @@ class Ui_addRelation(object):
 "    color: rgb(126, 126, 126);\n"
 "}")
         self.cancel.setObjectName("cancel")
-        self.search = QtWidgets.QLineEdit(addRelation)
+        self.search = QtWidgets.QLineEdit(addRelationUI)
         self.search.setGeometry(QtCore.QRect(10, 40, 221, 21))
         self.search.setAcceptDrops(False)
         self.search.setToolTip("")
@@ -180,7 +176,7 @@ class Ui_addRelation(object):
 "}")
         self.search.setText("")
         self.search.setObjectName("search")
-        self.searchRelation = QtWidgets.QLineEdit(addRelation)
+        self.searchRelation = QtWidgets.QLineEdit(addRelationUI)
         self.searchRelation.setGeometry(QtCore.QRect(240, 40, 151, 21))
         self.searchRelation.setAcceptDrops(False)
         self.searchRelation.setToolTip("")
@@ -195,54 +191,52 @@ class Ui_addRelation(object):
         self.searchRelation.setObjectName("searchRelation")
         self.label.setBuddy(self.characterList)
 
-        self.retranslateUi(addRelation)
-        self.cancel.clicked.connect(addRelation.close) # type: ignore
-        QtCore.QMetaObject.connectSlotsByName(addRelation)
-        addRelation.setTabOrder(self.characterList, self.relationType)
-        addRelation.setTabOrder(self.relationType, self.accept)
-        addRelation.setTabOrder(self.accept, self.cancel)
+        self.retranslateUi(addRelationUI)
+        self.cancel.clicked.connect(addRelationUI.close) # type: ignore
+        QtCore.QMetaObject.connectSlotsByName(addRelationUI)
+        addRelationUI.setTabOrder(self.characterList, self.relationType)
+        addRelationUI.setTabOrder(self.relationType, self.accept)
+        addRelationUI.setTabOrder(self.accept, self.cancel)
 
-    def retranslateUi(self, addRelation):
+    def retranslateUi(self, addRelationUI):
         _translate = QtCore.QCoreApplication.translate
-        self.accept.setText(_translate("addRelation", "Accept"))
-        self.label.setText(_translate("addRelation", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">Add Relation</span></p><p><br/></p></body></html>"))
+        self.accept.setText(_translate("addRelationUI", "Accept"))
+        self.label.setText(_translate("addRelationUI", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">Add Relation</span></p><p><br/></p></body></html>"))
         __sortingEnabled = self.relationType.isSortingEnabled()
         self.relationType.setSortingEnabled(False)
         item = self.relationType.item(0)
-        item.setText(_translate("addRelation", "Father"))
+        item.setText(_translate("addRelationUI", "Father"))
         item = self.relationType.item(1)
-        item.setText(_translate("addRelation", "Mother"))
+        item.setText(_translate("addRelationUI", "Mother"))
         item = self.relationType.item(2)
-        item.setText(_translate("addRelation", "Son"))
+        item.setText(_translate("addRelationUI", "Son"))
         item = self.relationType.item(3)
-        item.setText(_translate("addRelation", "Daughter"))
+        item.setText(_translate("addRelationUI", "Daughter"))
         item = self.relationType.item(4)
-        item.setText(_translate("addRelation", "Brother"))
+        item.setText(_translate("addRelationUI", "Brother"))
         item = self.relationType.item(5)
-        item.setText(_translate("addRelation", "Sister"))
+        item.setText(_translate("addRelationUI", "Sister"))
         item = self.relationType.item(6)
-        item.setText(_translate("addRelation", "Uncle"))
+        item.setText(_translate("addRelationUI", "Uncle"))
         item = self.relationType.item(7)
-        item.setText(_translate("addRelation", "Aunt"))
+        item.setText(_translate("addRelationUI", "Aunt"))
         item = self.relationType.item(8)
-        item.setText(_translate("addRelation", "Nephew"))
+        item.setText(_translate("addRelationUI", "Nephew"))
         item = self.relationType.item(9)
-        item.setText(_translate("addRelation", "Niece"))
+        item.setText(_translate("addRelationUI", "Niece"))
         item = self.relationType.item(10)
-        item.setText(_translate("addRelation", "Boyfriend"))
+        item.setText(_translate("addRelationUI", "Boyfriend"))
         item = self.relationType.item(11)
-        item.setText(_translate("addRelation", "Girlfriend"))
+        item.setText(_translate("addRelationUI", "Girlfriend"))
         item = self.relationType.item(12)
-        item.setText(_translate("addRelation", "Fiancé"))
+        item.setText(_translate("addRelationUI", "Fiancé"))
         item = self.relationType.item(13)
-        item.setText(_translate("addRelation", "Husband"))
+        item.setText(_translate("addRelationUI", "Husband"))
         item = self.relationType.item(14)
-        item.setText(_translate("addRelation", "Wife"))
-        item = self.relationType.item(15)
-        item.setText(_translate("addRelation", "Other"))
+        item.setText(_translate("addRelationUI", "Wife"))
         self.relationType.setSortingEnabled(__sortingEnabled)
-        self.cancel.setText(_translate("addRelation", "Cancel"))
-        self.search.setWhatsThis(_translate("addRelation", "<html><head/><body><p><br/></p></body></html>"))
-        self.search.setPlaceholderText(_translate("addRelation", "Search Characters"))
-        self.searchRelation.setWhatsThis(_translate("addRelation", "<html><head/><body><p><br/></p></body></html>"))
-        self.searchRelation.setPlaceholderText(_translate("addRelation", "Search Relations"))
+        self.cancel.setText(_translate("addRelationUI", "Cancel"))
+        self.search.setWhatsThis(_translate("addRelationUI", "<html><head/><body><p><br/></p></body></html>"))
+        self.search.setPlaceholderText(_translate("addRelationUI", "Search Characters"))
+        self.searchRelation.setWhatsThis(_translate("addRelationUI", "<html><head/><body><p><br/></p></body></html>"))
+        self.searchRelation.setPlaceholderText(_translate("addRelationUI", "Search Relations"))

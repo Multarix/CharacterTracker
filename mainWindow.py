@@ -117,8 +117,7 @@ class Ui_mainWindowUI(object):
 "\n"
 "QListWidget:item{\n"
 "    color: rgb(255, 255, 255);\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
+"    padding: 3px;\n"
 "    border: 1px solid transparent;\n"
 "    border-radius: 5px;\n"
 "}\n"
@@ -159,7 +158,7 @@ class Ui_mainWindowUI(object):
 "}")
         self.characterSearch.setObjectName("characterSearch")
         self.selectionDetails = QtWidgets.QListWidget(self.Characters)
-        self.selectionDetails.setEnabled(False)
+        self.selectionDetails.setEnabled(True)
         self.selectionDetails.setGeometry(QtCore.QRect(240, 70, 231, 231))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -175,18 +174,17 @@ class Ui_mainWindowUI(object):
 "}\n"
 "\n"
 "QListWidget:item{\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
-"    border-radius: 5px;\n"
+"    padding: 3px;\n"
+"    background: rgb(64, 68, 75);\n"
 "}")
         self.selectionDetails.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.selectionDetails.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContentsOnFirstShow)
-        self.selectionDetails.setAutoScroll(True)
+        self.selectionDetails.setAutoScroll(False)
         self.selectionDetails.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.selectionDetails.setProperty("showDropIndicator", False)
         self.selectionDetails.setDefaultDropAction(QtCore.Qt.IgnoreAction)
         self.selectionDetails.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
-        self.selectionDetails.setProperty("isWrapping", True)
+        self.selectionDetails.setProperty("isWrapping", False)
         self.selectionDetails.setWordWrap(True)
         self.selectionDetails.setObjectName("selectionDetails")
         self.addPerson = QtWidgets.QPushButton(self.Characters)
@@ -221,8 +219,7 @@ class Ui_mainWindowUI(object):
 "\n"
 "QListWidget:item{\n"
 "    color: rgb(255, 255, 255);\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
+"    padding: 3px;\n"
 "    border: 1px solid transparent;\n"
 "    border-radius: 5px;\n"
 "}\n"
@@ -430,6 +427,7 @@ class Ui_mainWindowUI(object):
         self.action_Save.setIcon(icon3)
         self.action_Save.setObjectName("action_Save")
         self.action_config = QtWidgets.QAction(mainWindowUI)
+        self.action_config.setEnabled(False)
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(resource_path("icons/settings_Dark.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.action_config.setIcon(icon4)
@@ -440,6 +438,7 @@ class Ui_mainWindowUI(object):
         self.actionSave_As.setIcon(icon5)
         self.actionSave_As.setObjectName("actionSave_As")
         self.action_New = QtWidgets.QAction(mainWindowUI)
+        self.action_New.setEnabled(False)
         icon6 = QtGui.QIcon()
         icon6.addPixmap(QtGui.QPixmap(resource_path("icons/new_Dark.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.action_New.setIcon(icon6)
