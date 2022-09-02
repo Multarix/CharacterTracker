@@ -29,6 +29,7 @@ if(osType == "macOS"): # Eat shit apple fuckboys
 
 true = True;
 false = False;
+currentVersion = "1.1";
 
 monospace = QtGui.QFont("Monospace", 10);
 monospace.setStyleHint(QtGui.QFont.StyleHint.TypeWriter);
@@ -670,6 +671,12 @@ class UI_MainWindow(QMainWindow):
 		
 		sql.execute('CREATE TABLE "worldBuilding" ("text" TEXT, "notUsed" INTEGER);');
 		self.database.commit();
+		
+		# Versioning control system
+		sql.execute('CREATE TABLE "version" ("currentVersion TEXT, "notUsed", INTEGER)');
+		self.database.commit();
+		sql.execute('INSERT INTO version (currentVersion, notUsed) VALUES (?, ?)', (currentVersion, 0));
+		self.database.commit();
 
 	
 	def saveFileAs(self) -> bool:
@@ -761,6 +768,12 @@ class UI_MainWindow(QMainWindow):
 		try:
 			self.database = sqlite3.connect(fileName[0]);
 			sql = self.database.cursor();
+			
+			sql.execute("SELECT * from version");
+			versionData = sql.fetchall();
+			if(versionData[0][0] != currentVersion):
+				pass
+			
 			sql.execute("SELECT * FROM characters");
 			self.data["characters"] = sql.fetchall();
 			self.populateList(self.ui.characterList, "characters");
