@@ -24,12 +24,11 @@ class Ui_optionsUI(object):
         optionsUI.resize(191, 120)
         optionsUI.setMinimumSize(QtCore.QSize(191, 120))
         optionsUI.setMaximumSize(QtCore.QSize(191, 120))
-        optionsUI.setWindowTitle("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(resource_path("icons/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         optionsUI.setWindowIcon(icon)
         optionsUI.setStyleSheet("background: rgb(54, 57, 63);\n"
-"color: rgb(255, 255, 255)")
+"color: rgb(255, 255, 255);")
         self.acceptCancel = QtWidgets.QDialogButtonBox(optionsUI)
         self.acceptCancel.setGeometry(QtCore.QRect(20, 80, 151, 32))
         self.acceptCancel.setStyleSheet("QPushButton {\n"
@@ -49,23 +48,24 @@ class Ui_optionsUI(object):
         self.acceptCancel.setOrientation(QtCore.Qt.Horizontal)
         self.acceptCancel.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.acceptCancel.setObjectName("acceptCancel")
-        self.widget = QtWidgets.QWidget(optionsUI)
-        self.widget.setGeometry(QtCore.QRect(10, 10, 171, 54))
-        self.widget.setObjectName("widget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.widget)
+        self.layoutWidget = QtWidgets.QWidget(optionsUI)
+        self.layoutWidget.setGeometry(QtCore.QRect(10, 10, 171, 54))
+        self.layoutWidget.setObjectName("layoutWidget")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.layoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.themeLabel = QtWidgets.QLabel(self.widget)
+        self.themeLabel = QtWidgets.QLabel(self.layoutWidget)
         self.themeLabel.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
+"    font: font \"Fira Code\";\n"
 "}")
         self.themeLabel.setObjectName("themeLabel")
         self.horizontalLayout_2.addWidget(self.themeLabel)
-        self.themeBox = QtWidgets.QComboBox(self.widget)
-        self.themeBox.setMinimumSize(QtCore.QSize(61, 21))
-        self.themeBox.setMaximumSize(QtCore.QSize(61, 21))
+        self.themeBox = QtWidgets.QComboBox(self.layoutWidget)
+        self.themeBox.setMinimumSize(QtCore.QSize(71, 21))
+        self.themeBox.setMaximumSize(QtCore.QSize(71, 21))
         self.themeBox.setStyleSheet("QComboBox {\n"
 "    background: rgb(64, 68, 75);\n"
 "    border: 1px solid rgb(50, 50, 50);\n"
@@ -79,15 +79,16 @@ class Ui_optionsUI(object):
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.themeLabel_2 = QtWidgets.QLabel(self.widget)
+        self.themeLabel_2 = QtWidgets.QLabel(self.layoutWidget)
         self.themeLabel_2.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
+"    font: font \"Fira Code\";\n"
 "}")
         self.themeLabel_2.setObjectName("themeLabel_2")
         self.horizontalLayout.addWidget(self.themeLabel_2)
-        self.themeBox_2 = QtWidgets.QComboBox(self.widget)
-        self.themeBox_2.setMinimumSize(QtCore.QSize(61, 21))
-        self.themeBox_2.setMaximumSize(QtCore.QSize(61, 21))
+        self.themeBox_2 = QtWidgets.QComboBox(self.layoutWidget)
+        self.themeBox_2.setMinimumSize(QtCore.QSize(71, 21))
+        self.themeBox_2.setMaximumSize(QtCore.QSize(71, 21))
         self.themeBox_2.setStyleSheet("QComboBox {\n"
 "    background: rgb(64, 68, 75);\n"
 "    border: 1px solid rgb(50, 50, 50);\n"
@@ -109,6 +110,7 @@ class Ui_optionsUI(object):
 
     def retranslateUi(self, optionsUI):
         _translate = QtCore.QCoreApplication.translate
+        optionsUI.setWindowTitle(_translate("optionsUI", "Options"))
         self.themeLabel.setText(_translate("optionsUI", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Theme:</span></p></body></html>"))
         self.themeBox.setItemText(0, _translate("optionsUI", "Dark"))
         self.themeBox.setItemText(1, _translate("optionsUI", "Light"))

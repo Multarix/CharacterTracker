@@ -22,13 +22,12 @@ class Ui_addRelationUI(object):
         addRelationUI.setSizePolicy(sizePolicy)
         addRelationUI.setMinimumSize(QtCore.QSize(401, 201))
         addRelationUI.setMaximumSize(QtCore.QSize(401, 201))
-        addRelationUI.setWindowTitle("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("ui\\../icons/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         addRelationUI.setWindowIcon(icon)
         addRelationUI.setToolTip("")
         addRelationUI.setStyleSheet("background: rgb(54, 57, 63);\n"
-"color: rgb(255, 255, 255)")
+"color: rgb(255, 255, 255);")
         self.characterList = QtWidgets.QListWidget(addRelationUI)
         self.characterList.setGeometry(QtCore.QRect(10, 70, 221, 121))
         self.characterList.setStyleSheet("QListWidget{\n"
@@ -60,6 +59,7 @@ class Ui_addRelationUI(object):
 "    border: 1px solid rgb(74, 76, 79);\n"
 "}")
         self.characterList.setIconSize(QtCore.QSize(11, 11))
+        self.characterList.setUniformItemSizes(True)
         self.characterList.setObjectName("characterList")
         self.accept = QtWidgets.QPushButton(addRelationUI)
         self.accept.setEnabled(False)
@@ -80,7 +80,7 @@ class Ui_addRelationUI(object):
 "}")
         self.accept.setObjectName("accept")
         self.label = QtWidgets.QLabel(addRelationUI)
-        self.label.setGeometry(QtCore.QRect(10, 4, 152, 31))
+        self.label.setGeometry(QtCore.QRect(10, 5, 181, 31))
         self.label.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
 "}")
@@ -115,6 +115,7 @@ class Ui_addRelationUI(object):
 "    background: rgb(93, 94, 97);\n"
 "    border: 1px solid rgb(74, 76, 79);\n"
 "}")
+        self.relationType.setUniformItemSizes(True)
         self.relationType.setObjectName("relationType")
         item = QtWidgets.QListWidgetItem()
         self.relationType.addItem(item)
@@ -200,6 +201,7 @@ class Ui_addRelationUI(object):
 
     def retranslateUi(self, addRelationUI):
         _translate = QtCore.QCoreApplication.translate
+        addRelationUI.setWindowTitle(_translate("addRelationUI", "Add Relation"))
         self.accept.setText(_translate("addRelationUI", "Accept"))
         self.label.setText(_translate("addRelationUI", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">Add Relation</span></p><p><br/></p></body></html>"))
         __sortingEnabled = self.relationType.isSortingEnabled()
