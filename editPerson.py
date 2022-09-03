@@ -29,12 +29,12 @@ class Ui_editPersonUI(object):
         editPersonUI.setSizePolicy(sizePolicy)
         editPersonUI.setMinimumSize(QtCore.QSize(491, 391))
         editPersonUI.setMaximumSize(QtCore.QSize(491, 391))
-        editPersonUI.setWindowTitle("")
+        editPersonUI.setWindowTitle("Add Person")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(resource_path("icons/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         editPersonUI.setWindowIcon(icon)
         editPersonUI.setStyleSheet("background: rgb(54, 57, 63);\n"
-"color: rgb(255, 255, 255)")
+"color: rgb(255, 255, 255);")
         self.acceptForm = QtWidgets.QPushButton(editPersonUI)
         self.acceptForm.setEnabled(False)
         self.acceptForm.setGeometry(QtCore.QRect(250, 360, 231, 23))
@@ -69,12 +69,14 @@ class Ui_editPersonUI(object):
         self.charInfoLabel.setGeometry(QtCore.QRect(13, 110, 191, 16))
         self.charInfoLabel.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
+"    font: font \"Fira Code\";\n"
 "}")
         self.charInfoLabel.setObjectName("charInfoLabel")
         self.titleLabel = QtWidgets.QLabel(editPersonUI)
-        self.titleLabel.setGeometry(QtCore.QRect(13, 10, 47, 13))
+        self.titleLabel.setGeometry(QtCore.QRect(13, 10, 47, 16))
         self.titleLabel.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
+"    font: font \"Fira Code\";\n"
 "}")
         self.titleLabel.setObjectName("titleLabel")
         self.titleSelector = QtWidgets.QComboBox(editPersonUI)
@@ -135,12 +137,14 @@ class Ui_editPersonUI(object):
         self.fullNameLabel.setGeometry(QtCore.QRect(103, 10, 171, 16))
         self.fullNameLabel.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
+"    font: font \"Fira Code\";\n"
 "}")
         self.fullNameLabel.setObjectName("fullNameLabel")
         self.speciesLabel = QtWidgets.QLabel(editPersonUI)
-        self.speciesLabel.setGeometry(QtCore.QRect(13, 60, 47, 13))
+        self.speciesLabel.setGeometry(QtCore.QRect(13, 60, 47, 16))
         self.speciesLabel.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
+"    font: font \"Fira Code\";\n"
 "}")
         self.speciesLabel.setObjectName("speciesLabel")
         self.removeRelation = QtWidgets.QPushButton(editPersonUI)
@@ -162,10 +166,11 @@ class Ui_editPersonUI(object):
 "}")
         self.removeRelation.setObjectName("removeRelation")
         self.dead = QtWidgets.QCheckBox(editPersonUI)
-        self.dead.setGeometry(QtCore.QRect(330, 80, 70, 20))
+        self.dead.setGeometry(QtCore.QRect(330, 80, 81, 20))
         self.dead.setStyleSheet("QCheckBox{\n"
 "    color: white;\n"
 "    background: transparent;\n"
+"    font: font \"Fira Code\";\n"
 "}")
         self.dead.setObjectName("dead")
         self.species = QtWidgets.QLineEdit(editPersonUI)
@@ -182,9 +187,10 @@ class Ui_editPersonUI(object):
         self.species.setText("")
         self.species.setObjectName("species")
         self.genderLabel = QtWidgets.QLabel(editPersonUI)
-        self.genderLabel.setGeometry(QtCore.QRect(163, 60, 47, 13))
+        self.genderLabel.setGeometry(QtCore.QRect(163, 60, 47, 16))
         self.genderLabel.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
+"    font: font \"Fira Code\";\n"
 "}")
         self.genderLabel.setObjectName("genderLabel")
         self.name = QtWidgets.QLineEdit(editPersonUI)
@@ -213,15 +219,17 @@ class Ui_editPersonUI(object):
         self.genderSelector.addItem("")
         self.genderSelector.addItem("")
         self.ageLabel = QtWidgets.QLabel(editPersonUI)
-        self.ageLabel.setGeometry(QtCore.QRect(253, 60, 47, 13))
+        self.ageLabel.setGeometry(QtCore.QRect(253, 60, 47, 16))
         self.ageLabel.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
+"    font: font \"Fira Code\";\n"
 "}")
         self.ageLabel.setObjectName("ageLabel")
         self.relationLabel = QtWidgets.QLabel(editPersonUI)
-        self.relationLabel.setGeometry(QtCore.QRect(253, 110, 71, 16))
+        self.relationLabel.setGeometry(QtCore.QRect(253, 110, 101, 16))
         self.relationLabel.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
+"    font: font \"Fira Code\";\n"
 "}")
         self.relationLabel.setObjectName("relationLabel")
         self.relationTable = QtWidgets.QListWidget(editPersonUI)
@@ -256,6 +264,7 @@ class Ui_editPersonUI(object):
 "    background: rgb(93, 94, 97);\n"
 "    border: 1px solid rgb(74, 76, 79);\n"
 "}")
+        self.relationTable.setUniformItemSizes(True)
         self.relationTable.setObjectName("relationTable")
         self.characterID = QtWidgets.QSpinBox(editPersonUI)
         self.characterID.setEnabled(False)

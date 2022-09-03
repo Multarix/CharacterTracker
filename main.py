@@ -24,22 +24,38 @@ from info import Ui_creditsUI
 
 osType = platform.system()
 
-if(osType == "macOS"): # Eat shit apple fuckboys
-	sys.exit();
+if(osType == "macOS"):
+	sys.exit(); # Eat shit apple fuckboys
+
+
+fontStyle = QtGui.QFont.StyleHint;
+styleHint = fontStyle.TypeWriter
+
+if(osType == "Linux"):
+	styleHint = fontStyle.Monospace;
+	
+if(osType == "Windows"):
+	styleHint = fontStyle.TypeWriter;
+
 
 true = True;
 false = False;
-currentVersion = "1.1";
 
-monospace = QtGui.QFont("Monospace", 10);
+defaultConfig = {
+	"theme":"Dark",
+	"lang": 0,
+	"version": "1.1"
+}
+
+monospace = QtGui.QFont("Fira Code", 8);
 monospace.setStyleHint(QtGui.QFont.StyleHint.TypeWriter);
+
 
 def resource_path(relative_path):
 	""" Get absolute path to resource, works for dev and for PyInstaller """
 	base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)));
 	return os.path.join(base_path, relative_path);
 
-defaultConfig = { "theme": "Dark" }
 
 class UI_MainWindow(QMainWindow):
 	def __init__(self):
@@ -675,7 +691,7 @@ class UI_MainWindow(QMainWindow):
 		# Versioning control system
 		sql.execute('CREATE TABLE "version" ("currentVersion TEXT, "notUsed", INTEGER)');
 		self.database.commit();
-		sql.execute('INSERT INTO version (currentVersion, notUsed) VALUES (?, ?)', (currentVersion, 0));
+		sql.execute('INSERT INTO version (currentVersion, notUsed) VALUES (?, ?)', (self.config["version"], 0));
 		self.database.commit();
 
 	
@@ -771,7 +787,7 @@ class UI_MainWindow(QMainWindow):
 			
 			sql.execute("SELECT * from version");
 			versionData = sql.fetchall();
-			if(versionData[0][0] != currentVersion):
+			if(versionData[0][0] != self.config["version"]):
 				pass
 			
 			sql.execute("SELECT * FROM characters");

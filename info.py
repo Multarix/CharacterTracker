@@ -88,7 +88,7 @@ class Ui_creditsUI(object):
 
     def retranslateUi(self, creditsUI):
         _translate = QtCore.QCoreApplication.translate
-        creditsUI.setWindowTitle(_translate("creditsUI", "Dialog"))
+        creditsUI.setWindowTitle(_translate("creditsUI", "Credits"))
         self.pushButton.setText(_translate("creditsUI", "I see..."))
         self.label.setText(_translate("creditsUI", "<html><head/><body><p align=\"center\"><span style=\" font-size:16pt; font-weight:600;\">Character Tracker</span></p></body></html>"))
         self.label_2.setText(_translate("creditsUI", "<html><head/><body><p align=\"center\">© 2022 Multarix. All Rights Reserved</p></body></html>"))

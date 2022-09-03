@@ -65,7 +65,7 @@ class Ui_mainWindowUI(object):
         self.Characters.setObjectName("Characters")
         self.removePerson = QtWidgets.QPushButton(self.Characters)
         self.removePerson.setEnabled(False)
-        self.removePerson.setGeometry(QtCore.QRect(150, 310, 61, 23))
+        self.removePerson.setGeometry(QtCore.QRect(170, 310, 61, 23))
         self.removePerson.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
 "    color: rgb(255, 255, 255);\n"
@@ -83,7 +83,7 @@ class Ui_mainWindowUI(object):
         self.removePerson.setObjectName("removePerson")
         self.editPerson = QtWidgets.QPushButton(self.Characters)
         self.editPerson.setEnabled(False)
-        self.editPerson.setGeometry(QtCore.QRect(80, 310, 61, 23))
+        self.editPerson.setGeometry(QtCore.QRect(90, 310, 61, 23))
         self.editPerson.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
 "    color: rgb(255, 255, 255);\n"
@@ -99,12 +99,13 @@ class Ui_mainWindowUI(object):
 "    color: rgb(126, 126, 126);\n"
 "}")
         self.editPerson.setObjectName("editPerson")
-        self.label = QtWidgets.QLabel(self.Characters)
-        self.label.setGeometry(QtCore.QRect(10, 0, 131, 31))
-        self.label.setStyleSheet("QLabel {\n"
+        self.charactersLabel = QtWidgets.QLabel(self.Characters)
+        self.charactersLabel.setGeometry(QtCore.QRect(10, 5, 161, 31))
+        self.charactersLabel.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
+"    font: font \"Fira Code\";\n"
 "}")
-        self.label.setObjectName("label")
+        self.charactersLabel.setObjectName("charactersLabel")
         self.characterList = QtWidgets.QListWidget(self.Characters)
         self.characterList.setGeometry(QtCore.QRect(10, 70, 221, 231))
         self.characterList.setStyleSheet("QListWidget{\n"
@@ -142,6 +143,8 @@ class Ui_mainWindowUI(object):
         self.characterList.setDragEnabled(False)
         self.characterList.setDragDropOverwriteMode(False)
         self.characterList.setDragDropMode(QtWidgets.QAbstractItemView.NoDragDrop)
+        self.characterList.setDefaultDropAction(QtCore.Qt.IgnoreAction)
+        self.characterList.setAlternatingRowColors(False)
         self.characterList.setIconSize(QtCore.QSize(11, 11))
         self.characterList.setUniformItemSizes(True)
         self.characterList.setObjectName("characterList")
@@ -207,46 +210,6 @@ class Ui_mainWindowUI(object):
         self.tabWidget.addTab(self.Characters, "")
         self.WorldBuilding = QtWidgets.QWidget()
         self.WorldBuilding.setObjectName("WorldBuilding")
-        self.worldBuildingList = QtWidgets.QListWidget(self.WorldBuilding)
-        self.worldBuildingList.setGeometry(QtCore.QRect(10, 70, 461, 231))
-        self.worldBuildingList.setStyleSheet("QListWidget{\n"
-"    color: rgb(255, 255, 255);\n"
-"    background: rgb(64, 68, 75);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    outline: 0;\n"
-"}\n"
-"\n"
-"QListWidget:item{\n"
-"    color: rgb(255, 255, 255);\n"
-"    padding: 3px;\n"
-"    border: 1px solid transparent;\n"
-"    border-radius: 5px;\n"
-"}\n"
-"\n"
-"QListWidget:item:hover{\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
-"    background: rgb(74, 76, 79);\n"
-"    border: 1px solid rgb(64, 66, 75);\n"
-"}\n"
-"\n"
-"QListWidget:item:selected{\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
-"    background: rgb(93, 94, 97);\n"
-"    border: 1px solid rgb(74, 76, 79);\n"
-"}")
-        self.worldBuildingList.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.worldBuildingList.setProperty("showDropIndicator", False)
-        self.worldBuildingList.setWordWrap(True)
-        self.worldBuildingList.setObjectName("worldBuildingList")
-        self.WorldBuildingLabel = QtWidgets.QLabel(self.WorldBuilding)
-        self.WorldBuildingLabel.setGeometry(QtCore.QRect(10, 0, 181, 31))
-        self.WorldBuildingLabel.setStyleSheet("QLabel {\n"
-"    background: transparent;\n"
-"}")
-        self.WorldBuildingLabel.setObjectName("WorldBuildingLabel")
         self.worldBuildingAdd = QtWidgets.QPushButton(self.WorldBuilding)
         self.worldBuildingAdd.setGeometry(QtCore.QRect(10, 310, 61, 23))
         self.worldBuildingAdd.setStyleSheet("QPushButton {\n"
@@ -312,6 +275,55 @@ class Ui_mainWindowUI(object):
 "    padding-right: 3px;\n"
 "}")
         self.worldBuildingSearch.setObjectName("worldBuildingSearch")
+        self.worldBuildingLabel = QtWidgets.QLabel(self.WorldBuilding)
+        self.worldBuildingLabel.setGeometry(QtCore.QRect(10, 5, 221, 31))
+        self.worldBuildingLabel.setStyleSheet("QLabel {\n"
+"    background: transparent;\n"
+"    font: font \"Fira Code\";\n"
+"}")
+        self.worldBuildingLabel.setObjectName("worldBuildingLabel")
+        self.worldBuildingList = QtWidgets.QListWidget(self.WorldBuilding)
+        self.worldBuildingList.setGeometry(QtCore.QRect(10, 70, 461, 231))
+        self.worldBuildingList.setStyleSheet("QListWidget{\n"
+"    color: rgb(255, 255, 255);\n"
+"    background: rgb(64, 68, 75);\n"
+"    border: 1px solid rgb(50, 50, 50);\n"
+"    border-radius:5px;\n"
+"    outline: 0;\n"
+"}\n"
+"\n"
+"QListWidget:item{\n"
+"    color: rgb(255, 255, 255);\n"
+"    padding-left: 3px;\n"
+"    padding-right: 3px;\n"
+"    border: 1px solid transparent;\n"
+"    padding-top: 5px;\n"
+"    padding-bottom: 5px;\n"
+"    border-radius: 5px;\n"
+"}\n"
+"\n"
+"QListWidget:item:hover{\n"
+"    background: rgb(74, 76, 79);\n"
+"    border: 1px solid rgb(64, 66, 75);\n"
+"}\n"
+"\n"
+"QListWidget:item:selected{\n"
+"    background: rgb(93, 94, 97);\n"
+"    border: 1px solid rgb(74, 76, 79);\n"
+"}")
+        self.worldBuildingList.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustIgnored)
+        self.worldBuildingList.setAutoScroll(True)
+        self.worldBuildingList.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.worldBuildingList.setProperty("showDropIndicator", False)
+        self.worldBuildingList.setDragEnabled(False)
+        self.worldBuildingList.setDragDropOverwriteMode(False)
+        self.worldBuildingList.setDragDropMode(QtWidgets.QAbstractItemView.NoDragDrop)
+        self.worldBuildingList.setDefaultDropAction(QtCore.Qt.IgnoreAction)
+        self.worldBuildingList.setAlternatingRowColors(False)
+        self.worldBuildingList.setIconSize(QtCore.QSize(11, 11))
+        self.worldBuildingList.setUniformItemSizes(False)
+        self.worldBuildingList.setWordWrap(True)
+        self.worldBuildingList.setObjectName("worldBuildingList")
         self.tabWidget.addTab(self.WorldBuilding, "")
         mainWindowUI.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(mainWindowUI)
@@ -488,8 +500,8 @@ class Ui_mainWindowUI(object):
         self.menubar.addAction(self.menu_File.menuAction())
         self.menubar.addAction(self.menu_Options.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
-        self.label.setBuddy(self.characterList)
-        self.WorldBuildingLabel.setBuddy(self.characterList)
+        self.charactersLabel.setBuddy(self.characterList)
+        self.worldBuildingLabel.setBuddy(self.characterList)
 
         self.retranslateUi(mainWindowUI)
         self.tabWidget.setCurrentIndex(0)
@@ -506,16 +518,17 @@ class Ui_mainWindowUI(object):
         _translate = QtCore.QCoreApplication.translate
         self.removePerson.setText(_translate("mainWindowUI", "Remove"))
         self.editPerson.setText(_translate("mainWindowUI", "Edit..."))
-        self.label.setText(_translate("mainWindowUI", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">Characters</span></p></body></html>"))
+        self.charactersLabel.setText(_translate("mainWindowUI", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">Characters</span></p></body></html>"))
         self.characterList.setSortingEnabled(False)
         self.characterSearch.setPlaceholderText(_translate("mainWindowUI", "Search Characters"))
         self.addPerson.setText(_translate("mainWindowUI", "Add..."))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Characters), _translate("mainWindowUI", "Characters"))
-        self.WorldBuildingLabel.setText(_translate("mainWindowUI", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">World Building</span></p></body></html>"))
         self.worldBuildingAdd.setText(_translate("mainWindowUI", "Add..."))
         self.worldBuildingEdit.setText(_translate("mainWindowUI", "Edit..."))
         self.worldBuildingRemove.setText(_translate("mainWindowUI", "Remove"))
         self.worldBuildingSearch.setPlaceholderText(_translate("mainWindowUI", "Search Notes"))
+        self.worldBuildingLabel.setText(_translate("mainWindowUI", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">World Building</span></p></body></html>"))
+        self.worldBuildingList.setSortingEnabled(False)
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.WorldBuilding), _translate("mainWindowUI", "World Building"))
         self.menu_File.setTitle(_translate("mainWindowUI", "&File"))
         self.menu_Options.setTitle(_translate("mainWindowUI", "&Edit"))
