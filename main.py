@@ -98,10 +98,14 @@ class UI_MainWindow(QMainWindow):
 		# Remove World Building
 		self.ui.worldBuildingRemove.clicked.connect(self.removeWorldBuilding);
 		
+		# Row Moving
+		self.ui.moveUp.clicked.connect(lambda: self.moveRow(-1));
+		self.ui.moveDown.clicked.connect(lambda: self.moveRow(1));
+		
 		# Unlocking/ Locking Buttons
 		self.ui.characterList.itemSelectionChanged.connect(self.unlockEditRemoveCharacterBtns);
 		self.ui.worldBuildingList.itemSelectionChanged.connect(self.unlockWorldBuildingEditRemoveBtns);
-		
+				
 		# --Menu Options--
 		# File Section
 		# self.ui.action_New.triggered.connect(lambda: self.newFile())
@@ -134,8 +138,6 @@ class UI_MainWindow(QMainWindow):
 		self.ui.worldBuildingList.setFont(monospace);
 		self.ui.worldBuildingSearch.setFont(monospace);
 		
-		# DragDrop
-		# self.ui.characterList.dropEvent.connect(self.indexMove) # This is too complicated for now
 
 
 	#	 ██╗░░░██╗██╗    ███████╗██╗░░░██╗███╗░░██╗░█████╗░████████╗██╗░█████╗░███╗░░██╗░██████╗
@@ -425,7 +427,29 @@ class UI_MainWindow(QMainWindow):
 		if(currRow > -1):
 			self.ui.worldBuildingList.takeItem(currRow);
 			del self.data["world"][currRow];
+			
 	
+	def moveRow(self, upDown: int):
+		currentRow = self.ui.characterList.currentRow();
+		currentItemText = self.ui.characterList.item(currentRow).text();
+		currentItemIcon = self.ui.characterList.item(currentRow).icon();
+		
+		newRowIndex = currentRow + upDown;
+		newItemText = self.ui.characterList.item(newRowIndex).text();
+		newItemIcon = self.ui.characterList.item(newRowIndex).icon();
+		
+		# Swapping the data in the internal
+		self.data["characters"][currentRow], self.data["characters"][newRowIndex] = self.data["characters"][newRowIndex], self.data["characters"][currentRow];
+		
+		# Setting newItem
+		self.ui.characterList.item(currentRow).setText(newItemText);
+		self.ui.characterList.item(currentRow).setIcon(newItemIcon);
+		# Setting currentItem
+		self.ui.characterList.item(newRowIndex).setText(currentItemText);
+		self.ui.characterList.item(newRowIndex).setIcon(currentItemIcon);
+		
+		self.ui.characterList.setCurrentRow(currentRow + upDown);
+		
 	
 	#	 ███╗░░░███╗██╗░██████╗░█████╗░    ███████╗██╗░░░██╗███╗░░██╗░█████╗░████████╗██╗░█████╗░███╗░░██╗░██████╗
 	#	 ████╗░████║██║██╔════╝██╔══██╗    ██╔════╝██║░░░██║████╗░██║██╔══██╗╚══██╔══╝██║██╔══██╗████╗░██║██╔════╝
@@ -489,7 +513,17 @@ class UI_MainWindow(QMainWindow):
 
 
 	def unlockEditRemoveCharacterBtns(self):
-		enableOrNot = (self.ui.characterList.currentRow() > -1);
+		currentRow = self.ui.characterList.currentRow();
+		enableOrNot = (currentRow > -1);
+		
+		# Up Button
+		upEnable = (currentRow > 0)
+		self.ui.moveUp.setEnabled(upEnable);
+		
+		# Down Button
+		downEnable = (-1 < currentRow < (self.ui.characterList.count() - 1));
+		self.ui.moveDown.setEnabled(downEnable);
+		
 		# Edit Buttons
 		self.ui.editPerson.setEnabled(enableOrNot);
 		self.ui.actionEdit_Character.setEnabled(enableOrNot);

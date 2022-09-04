@@ -65,7 +65,7 @@ class Ui_mainWindowUI(object):
         self.Characters.setObjectName("Characters")
         self.removePerson = QtWidgets.QPushButton(self.Characters)
         self.removePerson.setEnabled(False)
-        self.removePerson.setGeometry(QtCore.QRect(170, 310, 61, 23))
+        self.removePerson.setGeometry(QtCore.QRect(150, 310, 61, 23))
         self.removePerson.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
 "    color: rgb(255, 255, 255);\n"
@@ -83,7 +83,7 @@ class Ui_mainWindowUI(object):
         self.removePerson.setObjectName("removePerson")
         self.editPerson = QtWidgets.QPushButton(self.Characters)
         self.editPerson.setEnabled(False)
-        self.editPerson.setGeometry(QtCore.QRect(90, 310, 61, 23))
+        self.editPerson.setGeometry(QtCore.QRect(80, 310, 61, 23))
         self.editPerson.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
 "    color: rgb(255, 255, 255);\n"
@@ -139,11 +139,10 @@ class Ui_mainWindowUI(object):
         self.characterList.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustIgnored)
         self.characterList.setAutoScroll(True)
         self.characterList.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
-        self.characterList.setProperty("showDropIndicator", False)
+        self.characterList.setProperty("showDropIndicator", True)
         self.characterList.setDragEnabled(False)
         self.characterList.setDragDropOverwriteMode(False)
         self.characterList.setDragDropMode(QtWidgets.QAbstractItemView.NoDragDrop)
-        self.characterList.setDefaultDropAction(QtCore.Qt.IgnoreAction)
         self.characterList.setAlternatingRowColors(False)
         self.characterList.setIconSize(QtCore.QSize(11, 11))
         self.characterList.setUniformItemSizes(True)
@@ -207,6 +206,42 @@ class Ui_mainWindowUI(object):
 "    color: rgb(126, 126, 126);\n"
 "}")
         self.addPerson.setObjectName("addPerson")
+        self.moveUp = QtWidgets.QPushButton(self.Characters)
+        self.moveUp.setEnabled(False)
+        self.moveUp.setGeometry(QtCore.QRect(240, 310, 31, 23))
+        self.moveUp.setStyleSheet("QPushButton {\n"
+"    background: rgb(64, 68, 75);\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: rgb(79, 83, 89);\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background: rgb(54, 57, 63);\n"
+"    color: rgb(126, 126, 126);\n"
+"}")
+        self.moveUp.setObjectName("moveUp")
+        self.moveDown = QtWidgets.QPushButton(self.Characters)
+        self.moveDown.setEnabled(False)
+        self.moveDown.setGeometry(QtCore.QRect(270, 310, 31, 23))
+        self.moveDown.setStyleSheet("QPushButton {\n"
+"    background: rgb(64, 68, 75);\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: rgb(79, 83, 89);\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background: rgb(54, 57, 63);\n"
+"    color: rgb(126, 126, 126);\n"
+"}")
+        self.moveDown.setObjectName("moveDown")
         self.tabWidget.addTab(self.Characters, "")
         self.WorldBuilding = QtWidgets.QWidget()
         self.WorldBuilding.setObjectName("WorldBuilding")
@@ -229,7 +264,7 @@ class Ui_mainWindowUI(object):
         self.worldBuildingAdd.setObjectName("worldBuildingAdd")
         self.worldBuildingEdit = QtWidgets.QPushButton(self.WorldBuilding)
         self.worldBuildingEdit.setEnabled(False)
-        self.worldBuildingEdit.setGeometry(QtCore.QRect(80, 310, 61, 23))
+        self.worldBuildingEdit.setGeometry(QtCore.QRect(90, 310, 61, 23))
         self.worldBuildingEdit.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
 "    color: rgb(255, 255, 255);\n"
@@ -247,7 +282,7 @@ class Ui_mainWindowUI(object):
         self.worldBuildingEdit.setObjectName("worldBuildingEdit")
         self.worldBuildingRemove = QtWidgets.QPushButton(self.WorldBuilding)
         self.worldBuildingRemove.setEnabled(False)
-        self.worldBuildingRemove.setGeometry(QtCore.QRect(150, 310, 61, 23))
+        self.worldBuildingRemove.setGeometry(QtCore.QRect(170, 310, 61, 23))
         self.worldBuildingRemove.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
 "    color: rgb(255, 255, 255);\n"
@@ -505,7 +540,6 @@ class Ui_mainWindowUI(object):
 
         self.retranslateUi(mainWindowUI)
         self.tabWidget.setCurrentIndex(0)
-        self.characterList.itemDoubleClicked['QListWidgetItem*'].connect(self.editPerson.click) # type: ignore
         self.selectionDetails.currentRowChanged['int'].connect(self.selectionDetails.clearSelection) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(mainWindowUI)
         mainWindowUI.setTabOrder(self.characterSearch, self.addPerson)
@@ -522,6 +556,8 @@ class Ui_mainWindowUI(object):
         self.characterList.setSortingEnabled(False)
         self.characterSearch.setPlaceholderText(_translate("mainWindowUI", "Search Characters"))
         self.addPerson.setText(_translate("mainWindowUI", "Add..."))
+        self.moveUp.setText(_translate("mainWindowUI", "▲"))
+        self.moveDown.setText(_translate("mainWindowUI", "▼"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Characters), _translate("mainWindowUI", "Characters"))
         self.worldBuildingAdd.setText(_translate("mainWindowUI", "Add..."))
         self.worldBuildingEdit.setText(_translate("mainWindowUI", "Edit..."))
