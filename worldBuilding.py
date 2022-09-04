@@ -82,6 +82,7 @@ class Ui_worldBuildingUI(object):
 "}")
         self.textEditor.setPlaceholderText("")
         self.textEditor.setObjectName("textEditor")
+        self.WorldBuildingLabel.setBuddy(self.textEditor)
 
         self.retranslateUi(worldBuildingUI)
         self.cancel.clicked.connect(worldBuildingUI.close) # type: ignore
