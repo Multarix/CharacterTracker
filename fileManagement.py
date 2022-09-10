@@ -178,7 +178,7 @@ class fileManager():
 			this.data["world"] =  sql.fetchall();
 			this.functions.populateList(self.ui.worldBuildingList, "world");
 			
-			this.fileName = fileName;
+			this._fileName = fileName;
 		except:
 			this._errorMessage(f"An error occured while opening the file (Error code: {code}");
 		
