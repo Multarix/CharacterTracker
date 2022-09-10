@@ -1,8 +1,13 @@
-from __future__ import annotations
-from typing import TypedDict
-from typing import Tuple
+#	 ███████╗██╗██╗░░░░░███████╗  ███╗░░░███╗░█████╗░███╗░░██╗░█████╗░░██████╗░███████╗███╗░░░███╗███████╗███╗░░██╗████████╗
+#	 ██╔════╝██║██║░░░░░██╔════╝  ████╗░████║██╔══██╗████╗░██║██╔══██╗██╔════╝░██╔════╝████╗░████║██╔════╝████╗░██║╚══██╔══╝
+#	 █████╗░░██║██║░░░░░█████╗░░  ██╔████╔██║███████║██╔██╗██║███████║██║░░██╗░█████╗░░██╔████╔██║█████╗░░██╔██╗██║░░░██║░░░
+#	 ██╔══╝░░██║██║░░░░░██╔══╝░░  ██║╚██╔╝██║██╔══██║██║╚████║██╔══██║██║░░╚██╗██╔══╝░░██║╚██╔╝██║██╔══╝░░██║╚████║░░░██║░░░
+#	 ██║░░░░░██║███████╗███████╗  ██║░╚═╝░██║██║░░██║██║░╚███║██║░░██║╚██████╔╝███████╗██║░╚═╝░██║███████╗██║░╚███║░░░██║░░░
+#	 ╚═╝░░░░░╚═╝╚══════╝╚══════╝  ╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝░░╚══╝╚═╝░░╚═╝░╚═════╝░╚══════╝╚═╝░░░░░╚═╝╚══════╝╚═╝░░╚══╝░░░╚═╝░░░
 
-from typehinting import startProgram, dataLayout
+
+from __future__ import annotations					# Type Hinting
+from typehinting import startProgram, dataLayout	# Type Hinting
 
 import sqlite3
 import os
@@ -10,13 +15,14 @@ import os
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import *
 
+
 # Fixing python to not be shit
 true = True;
 false = False;
 
 
 class fileManager():
-	def __init__(self) -> None:
+	def __init__(self, ui) -> None:
 		self._version = "1.1";
 		self._fileName = None;
 		self._database = None;

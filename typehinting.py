@@ -12,7 +12,7 @@ from ui_worldBuildingWindow import Ui_worldBuildingWindow as worldBuildingWindow
 from ui_optionsWindow import Ui_optionsWindow as optionsWindow
 from ui_infoWindow import Ui_creditsWindow as creditsWindow
 
-
+characterRelations = Tuple[int, int]
 character = Tuple[int, str, int, int, int, str, int, str, str]
 worldItem = Tuple[str, int]
 class dataLayout(TypedDict):
@@ -26,10 +26,11 @@ class miscDataLayout(TypedDict):
 	palette: QtGui.QPalette
 
 
-class config(TypedDict):
+class configLayout(TypedDict):
 	"""Config settings layout"""
 	theme: str;
 	lang: int;
+	longestRelation: int;
 
 
 class startProgram():
@@ -64,9 +65,9 @@ class startProgram():
 		self.worldBuildingUI = worldBuildingWindow();
 		self.worldBuildingUI.setupUi();
 		
-		self.settings: config
+		self.settings: configLayout
 		self.settings = {
-			"theme":"Dark",
+			"theme": "Dark",
 			"lang": 0,
 		}
 		self.data: dataLayout;
@@ -75,116 +76,8 @@ class startProgram():
 			"world": []
 		};
 		
+		self.longestRelation: int;
+		self.longestRelation = 10;
+		
+		self._characterRelations: list[characterRelations];
 		self._characterRelations = [];
-	
-	def acceptCharacterBtn(self, newChar: bool):
-		"""
-		Function to run when the accept button is pressed on the editCharacterUI
-
-		Args:
-			newChar (bool): Whether a character is new or not
-		"""
-		pass;
-
-
-	def removeCharacterBtn(self):
-		"""
-		Function to run when pressing the remove button on the mainWindowUI
-		"""
-		pass;
-
-
-	def addRelationToListBtn(self, existing: bool):
-		"""
-		Function to run when pressing the accept button on the addRelationUI
-		"""
-		pass;
-		
-	
-	def removeRelationBtn(self):
-		"""
-		Function to run when the remove button is pressed on the editCharacterUI
-		"""
-		pass;
-	
-	
-	def addWorldBuildingToListBtn(self, newDetail: bool):
-		"""
-		Function to run when clicking the accept button on the worldBuildingUI
-
-		Args:
-			newDetail (bool): Whether or not it's a new detail
-		"""
-		pass;
-	
-	
-	def removeWorldBuilding(self):
-		"""
-		Function to run when clicking the remove button on the mainWindowUI
-		"""
-		pass;
-
-	
-	def searchBar(self, searchBar: QLineEdit, listToSearch: QListWidget):
-		"""
-		Function to hide or show items in the characterList on the mainWindowUI based on searchbar text
-		"""
-		pass;
-		
-	
-	def unlockWorldBuildingEditRemoveBtns(self):
-		pass;
-	
-	def unlockWorldBuildingAcceptBtn(self):
-		pass;
-	
-	def unlockEditRemoveCharacterBtns(self):
-		pass;
-	
-	def unlockSubmitCharacterBtn(self):
-		pass;
-	
-	def unlockEditRemoveRelationBtn(self):
-		pass;
-	
-	def unlockAcceptRelationBtn(self):
-		pass;
-	
-	
-	def relationConversion(self, item: int | str) -> str | int:
-		"""
-		Function to convert a relationship to/from an int/ string
-
-		Args:
-			item (int | str): The item to be converted
-
-		Returns:
-			(str | int): The item in its converted state
-		"""
-		pass;
-	
-	def relationTupleConversion(self, relationship: tuple) -> tuple | None:
-		pass;
-	
-	
-	def titleConversion(self, item: int | str | None) -> str | int:
-		"""
-		Function to convert a title to/from an int/ string
-
-		Args:
-			item (int | str | None): The item to be converted
-
-		Returns:
-			(str | int): The item in its converted state
-		"""
-		pass;
-	
-	
-	def populateList(self, table: QListWidget, type: str):
-		"""
-		Fills out a list with data
-
-		Args:
-			table (QListWidget): A list object
-		"""
-		pass;

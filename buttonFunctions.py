@@ -1,0 +1,176 @@
+#	 ██████╗░██╗░░░██╗████████╗████████╗░█████╗░███╗░░██╗    ███████╗██╗░░░██╗███╗░░██╗░█████╗░████████╗██╗░█████╗░███╗░░██╗░██████╗
+#	 ██╔══██╗██║░░░██║╚══██╔══╝╚══██╔══╝██╔══██╗████╗░██║    ██╔════╝██║░░░██║████╗░██║██╔══██╗╚══██╔══╝██║██╔══██╗████╗░██║██╔════╝
+#	 ██████╦╝██║░░░██║░░░██║░░░░░░██║░░░██║░░██║██╔██╗██║    █████╗░░██║░░░██║██╔██╗██║██║░░╚═╝░░░██║░░░██║██║░░██║██╔██╗██║╚█████╗░
+#	 ██╔══██╗██║░░░██║░░░██║░░░░░░██║░░░██║░░██║██║╚████║    ██╔══╝░░██║░░░██║██║╚████║██║░░██╗░░░██║░░░██║██║░░██║██║╚████║░╚═══██╗
+#	 ██████╦╝╚██████╔╝░░░██║░░░░░░██║░░░╚█████╔╝██║░╚███║    ██║░░░░░╚██████╔╝██║░╚███║╚█████╔╝░░░██║░░░██║╚█████╔╝██║░╚███║██████╔╝
+#	 ╚═════╝░░╚═════╝░░░░╚═╝░░░░░░╚═╝░░░░╚════╝░╚═╝░░╚══╝    ╚═╝░░░░░░╚═════╝░╚═╝░░╚══╝░╚════╝░░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝╚═════╝░
+
+from PyQt5 import QtGui, QtWidgets
+from PyQt5.QtWidgets import *
+
+from typehinting import dataLayout, miscDataLayout, startProgram
+
+class buttonFunctions():
+	def __init__(this, ui) -> None:
+		this.ui = ui;
+		pass
+	
+	# Character stuff
+	def acceptCharacterBtn(self, newChar: bool):
+		"""
+		Function to run when the accept button is pressed on the editCharacterUI
+
+		Args:
+			newChar (bool): Whether a character is new or not
+		"""
+		ui = self.characterUI;
+				
+		charID = ui.characterID.value();
+		if(newChar and len(self.data["characters"]) >=1):
+			charID = self.data["characters"][-1][0] + 1;
+				
+		name = ui.name.text();
+		title = ui.titleSelector.currentIndex();
+		age = ui.age.value();
+		species = ui.species.text();
+		info = ui.textEdit.toPlainText();
+		gender = ui.genderSelector.currentIndex();
+		
+		isDead = 0;
+		if(ui.dead.isChecked()):
+			isDead = 1;
+		
+		relationArray = []
+		for relation in self._characterRelations:
+			relationArray.append(f"{relation[0]}|{relation[1]}");
+
+		relationString = ", ".join(relationArray);
+
+		self.editCharacterWindow.close(); # We no longer need anything from this ui, the rest can be done with it closed
+		
+		if(newChar): # New Character, apply to data
+			self.data["characters"].append((int(charID), name, int(title), int(age), int(gender), species, int(isDead), info, relationString));
+						
+		else: # Not new character, find the character and overwrite it
+			for i in range(len(self.data["characters"])):
+				if(self.data["characters"][i][0] == charID):
+					self.data["characters"][i] = (int(charID), name, int(title), int(age), int(gender), species, int(isDead), info, relationString);
+					break;
+		
+		# Update the current list
+		self.ui.characterList.clear();
+		self.populateList(self.ui.characterList, "characters");
+	# End of function
+	
+
+	def removeCharacterBtn(self):
+		"""
+		Function to run when pressing the remove button on the mainWindowUI
+		"""
+		ui = self.ui;
+		indexOfItem = ui.characterList.currentRow();
+		ui.characterList.takeItem(ui.characterList.currentRow());
+		del self.data["characters"][indexOfItem];
+	# End of function
+	
+
+	# Relation stuff
+	def addRelationToListBtn(self, existing: bool):
+		"""
+		Function to run when pressing the accept button on the addRelationUI
+		"""
+		ui = self.characterUI;
+		
+		# Person Information
+		selectedPerson = self.addRelationUI.characterList.currentRow();
+		personData = self.data["characters"][selectedPerson];
+		
+		# Relationship
+		selectedRelation = self.addRelationUI.relationType.currentRow();
+		relationship = self.relationConversion(selectedRelation);
+		spaces = (self.longestRelation - len(relationship)) * " ";
+		relationship = relationship + spaces +  " | ";
+		
+		if(existing):
+			itemRow = self.characterUI.relationTable.currentRow();
+			self._characterRelations[itemRow] = (personData[0], selectedRelation);
+		else:
+			# Add to the internal relationship list
+			self._characterRelations.append((personData[0], selectedRelation));
+			# Adding to the table
+		
+		self.characterUI.relationTable.clear();
+		self.populateList(self.characterUI.relationTable, "relation");
+		self.addRelationWindow.close(); # Finally closing the UI
+	# End of function
+	
+
+	def removeRelationBtn(self):
+		"""
+		Function to run when the remove button is pressed on the editCharacterUI
+		"""
+		currRow = self.characterUI.relationTable.currentRow();
+		if(currRow > -1):
+			self.characterUI.relationTable.takeItem(currRow);
+			del self._characterRelations[currRow];
+	# End of function
+	
+
+	# World Buidling Stuff
+	def addWorldBuildingToListBtn(self, newDetail: bool):
+		"""
+		Function to run when clicking the accept button on the worldBuildingUI
+
+		Args:
+			newDetail (bool): Whether or not it's a new detail
+		"""
+		text = self.worldBuildingUI.textEditor.toPlainText();
+		if(newDetail):
+			self.data["world"].append((text, 0));
+		else:
+			itemRow = self.ui.worldBuildingList.currentRow();
+			self.data["world"][itemRow] = (text, 0);
+		
+		self.ui.worldBuildingList.clear();
+		self.populateList(self.ui.worldBuildingList, "world");
+		self.worldBuildingWindow.close();
+	# End of function
+	
+	
+	def removeWorldBuilding(self):
+		"""
+		Function to run when clicking the remove button on the mainWindowUI
+		"""
+		currRow = self.ui.worldBuildingList.currentRow();
+		if(currRow > -1):
+			self.ui.worldBuildingList.takeItem(currRow);
+			del self.data["world"][currRow];
+	# End of function
+	
+	
+	def moveRow(self, upDown: int):
+		"""
+		Function to move a list item up or down
+
+		Args:
+			upDown (int): 1 for down, -1 for up
+		"""
+		currentRow = self.ui.characterList.currentRow();
+		currentItemText = self.ui.characterList.item(currentRow).text();
+		currentItemIcon = self.ui.characterList.item(currentRow).icon();
+		
+		newRowIndex = currentRow + upDown;
+		newItemText = self.ui.characterList.item(newRowIndex).text();
+		newItemIcon = self.ui.characterList.item(newRowIndex).icon();
+		
+		# Swapping the data in the internal
+		self.data["characters"][currentRow], self.data["characters"][newRowIndex] = self.data["characters"][newRowIndex], self.data["characters"][currentRow];
+		
+		# Setting newItem
+		self.ui.characterList.item(currentRow).setText(newItemText);
+		self.ui.characterList.item(currentRow).setIcon(newItemIcon);
+		# Setting currentItem
+		self.ui.characterList.item(newRowIndex).setText(currentItemText);
+		self.ui.characterList.item(newRowIndex).setIcon(currentItemIcon);
+		
+		self.ui.characterList.setCurrentRow(currentRow + upDown);
