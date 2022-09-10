@@ -25,7 +25,7 @@ from miscFunctions import miscFunctions
 ##########################
 
 fontStyle = QtGui.QFont.StyleHint;
-styleHint = fontStyle.TypeWriter
+styleHint = fontStyle.TypeWriter;
 
 osType = platform.system();
 if(osType == "Linux"):
@@ -57,8 +57,8 @@ class startProgram(QMainWindow):
 		self.ui.setupUi(self.mainWindow);
 
 		# Palette fix cause modal window breaks it for some reason?
-		palette = self.ui.characterSearch.palette()
-		palette.setColor(QtGui.QPalette.PlaceholderText, QtGui.QColor("#a0a2a5"))
+		palette = self.ui.characterSearch.palette();
+		palette.setColor(QtGui.QPalette.PlaceholderText, QtGui.QColor("#a0a2a5"));
 		self.ui.characterSearch.setPalette(palette);
 		self.ui.worldBuildingSearch.setPalette(palette);
 		
@@ -100,11 +100,11 @@ class startProgram(QMainWindow):
 	
 		
 	def _connections(self):
-		ui = self.ui
-		file = self.file
-		windows = self.windows
-		buttons = self.buttons
-		functions = self.functions
+		ui = self.ui;
+		file = self.file;
+		windows = self.windows;
+		buttons = self.buttons;
+		functions = self.functions;
 		
 		# --Buttons to open other windows--
 		ui.addPerson.clicked.connect(lambda: windows.openEditCharacterWindow(true));											# Add character
