@@ -11,24 +11,25 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_addRelationUI(object):
-    def setupUi(self, addRelationUI):
-        addRelationUI.setObjectName("addRelationUI")
-        addRelationUI.resize(401, 201)
+class Ui_addRelationWindow(object):
+    def setupUi(self, addRelationWindow):
+        addRelationWindow.setObjectName("addRelationWindow")
+        addRelationWindow.setWindowModality(QtCore.Qt.ApplicationModal)
+        addRelationWindow.resize(401, 201)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(addRelationUI.sizePolicy().hasHeightForWidth())
-        addRelationUI.setSizePolicy(sizePolicy)
-        addRelationUI.setMinimumSize(QtCore.QSize(401, 201))
-        addRelationUI.setMaximumSize(QtCore.QSize(401, 201))
+        sizePolicy.setHeightForWidth(addRelationWindow.sizePolicy().hasHeightForWidth())
+        addRelationWindow.setSizePolicy(sizePolicy)
+        addRelationWindow.setMinimumSize(QtCore.QSize(401, 201))
+        addRelationWindow.setMaximumSize(QtCore.QSize(401, 201))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("ui\\../icons/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        addRelationUI.setWindowIcon(icon)
-        addRelationUI.setToolTip("")
-        addRelationUI.setStyleSheet("background: rgb(54, 57, 63);\n"
+        addRelationWindow.setWindowIcon(icon)
+        addRelationWindow.setToolTip("")
+        addRelationWindow.setStyleSheet("background: rgb(54, 57, 63);\n"
 "color: rgb(255, 255, 255);")
-        self.characterList = QtWidgets.QListWidget(addRelationUI)
+        self.characterList = QtWidgets.QListWidget(addRelationWindow)
         self.characterList.setGeometry(QtCore.QRect(10, 70, 221, 121))
         self.characterList.setStyleSheet("QListWidget{\n"
 "    color: rgb(255, 255, 255);\n"
@@ -61,7 +62,7 @@ class Ui_addRelationUI(object):
         self.characterList.setIconSize(QtCore.QSize(11, 11))
         self.characterList.setUniformItemSizes(True)
         self.characterList.setObjectName("characterList")
-        self.accept = QtWidgets.QPushButton(addRelationUI)
+        self.accept = QtWidgets.QPushButton(addRelationWindow)
         self.accept.setEnabled(False)
         self.accept.setGeometry(QtCore.QRect(240, 170, 71, 23))
         self.accept.setStyleSheet("QPushButton {\n"
@@ -79,13 +80,13 @@ class Ui_addRelationUI(object):
 "    color: rgb(126, 126, 126);\n"
 "}")
         self.accept.setObjectName("accept")
-        self.label = QtWidgets.QLabel(addRelationUI)
+        self.label = QtWidgets.QLabel(addRelationWindow)
         self.label.setGeometry(QtCore.QRect(10, 5, 181, 31))
         self.label.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
 "}")
         self.label.setObjectName("label")
-        self.relationType = QtWidgets.QListWidget(addRelationUI)
+        self.relationType = QtWidgets.QListWidget(addRelationWindow)
         self.relationType.setGeometry(QtCore.QRect(240, 70, 151, 91))
         self.relationType.setStyleSheet("QListWidget{\n"
 "    color: rgb(255, 255, 255);\n"
@@ -147,7 +148,7 @@ class Ui_addRelationUI(object):
         self.relationType.addItem(item)
         item = QtWidgets.QListWidgetItem()
         self.relationType.addItem(item)
-        self.cancel = QtWidgets.QPushButton(addRelationUI)
+        self.cancel = QtWidgets.QPushButton(addRelationWindow)
         self.cancel.setGeometry(QtCore.QRect(320, 170, 71, 23))
         self.cancel.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
@@ -164,12 +165,13 @@ class Ui_addRelationUI(object):
 "    color: rgb(126, 126, 126);\n"
 "}")
         self.cancel.setObjectName("cancel")
-        self.search = QtWidgets.QLineEdit(addRelationUI)
+        self.search = QtWidgets.QLineEdit(addRelationWindow)
         self.search.setGeometry(QtCore.QRect(10, 40, 221, 21))
         self.search.setAcceptDrops(False)
         self.search.setToolTip("")
-        self.search.setStyleSheet("QLineEdit{\n"
+        self.search.setStyleSheet("QLineEdit {\n"
 "    background: rgb(64, 68, 75);\n"
+"    color: rgb(255, 255, 255);\n"
 "    border: 1px solid rgb(50, 50, 50);\n"
 "    border-radius:5px;\n"
 "    padding-left: 3px;\n"
@@ -177,12 +179,13 @@ class Ui_addRelationUI(object):
 "}")
         self.search.setText("")
         self.search.setObjectName("search")
-        self.searchRelation = QtWidgets.QLineEdit(addRelationUI)
+        self.searchRelation = QtWidgets.QLineEdit(addRelationWindow)
         self.searchRelation.setGeometry(QtCore.QRect(240, 40, 151, 21))
         self.searchRelation.setAcceptDrops(False)
         self.searchRelation.setToolTip("")
-        self.searchRelation.setStyleSheet("QLineEdit{\n"
+        self.searchRelation.setStyleSheet("QLineEdit {\n"
 "    background: rgb(64, 68, 75);\n"
+"    color: rgb(255, 255, 255);\n"
 "    border: 1px solid rgb(50, 50, 50);\n"
 "    border-radius:5px;\n"
 "    padding-left: 3px;\n"
@@ -192,53 +195,53 @@ class Ui_addRelationUI(object):
         self.searchRelation.setObjectName("searchRelation")
         self.label.setBuddy(self.characterList)
 
-        self.retranslateUi(addRelationUI)
-        self.cancel.clicked.connect(addRelationUI.close) # type: ignore
-        QtCore.QMetaObject.connectSlotsByName(addRelationUI)
-        addRelationUI.setTabOrder(self.characterList, self.relationType)
-        addRelationUI.setTabOrder(self.relationType, self.accept)
-        addRelationUI.setTabOrder(self.accept, self.cancel)
+        self.retranslateUi(addRelationWindow)
+        self.cancel.clicked.connect(addRelationWindow.close) # type: ignore
+        QtCore.QMetaObject.connectSlotsByName(addRelationWindow)
+        addRelationWindow.setTabOrder(self.characterList, self.relationType)
+        addRelationWindow.setTabOrder(self.relationType, self.accept)
+        addRelationWindow.setTabOrder(self.accept, self.cancel)
 
-    def retranslateUi(self, addRelationUI):
+    def retranslateUi(self, addRelationWindow):
         _translate = QtCore.QCoreApplication.translate
-        addRelationUI.setWindowTitle(_translate("addRelationUI", "Add Relation"))
-        self.accept.setText(_translate("addRelationUI", "Accept"))
-        self.label.setText(_translate("addRelationUI", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">Add Relation</span></p><p><br/></p></body></html>"))
+        addRelationWindow.setWindowTitle(_translate("addRelationWindow", "Add Relation"))
+        self.accept.setText(_translate("addRelationWindow", "Accept"))
+        self.label.setText(_translate("addRelationWindow", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">Add Relation</span></p><p><br/></p></body></html>"))
         __sortingEnabled = self.relationType.isSortingEnabled()
         self.relationType.setSortingEnabled(False)
         item = self.relationType.item(0)
-        item.setText(_translate("addRelationUI", "Father"))
+        item.setText(_translate("addRelationWindow", "Father"))
         item = self.relationType.item(1)
-        item.setText(_translate("addRelationUI", "Mother"))
+        item.setText(_translate("addRelationWindow", "Mother"))
         item = self.relationType.item(2)
-        item.setText(_translate("addRelationUI", "Son"))
+        item.setText(_translate("addRelationWindow", "Son"))
         item = self.relationType.item(3)
-        item.setText(_translate("addRelationUI", "Daughter"))
+        item.setText(_translate("addRelationWindow", "Daughter"))
         item = self.relationType.item(4)
-        item.setText(_translate("addRelationUI", "Brother"))
+        item.setText(_translate("addRelationWindow", "Brother"))
         item = self.relationType.item(5)
-        item.setText(_translate("addRelationUI", "Sister"))
+        item.setText(_translate("addRelationWindow", "Sister"))
         item = self.relationType.item(6)
-        item.setText(_translate("addRelationUI", "Uncle"))
+        item.setText(_translate("addRelationWindow", "Uncle"))
         item = self.relationType.item(7)
-        item.setText(_translate("addRelationUI", "Aunt"))
+        item.setText(_translate("addRelationWindow", "Aunt"))
         item = self.relationType.item(8)
-        item.setText(_translate("addRelationUI", "Nephew"))
+        item.setText(_translate("addRelationWindow", "Nephew"))
         item = self.relationType.item(9)
-        item.setText(_translate("addRelationUI", "Niece"))
+        item.setText(_translate("addRelationWindow", "Niece"))
         item = self.relationType.item(10)
-        item.setText(_translate("addRelationUI", "Boyfriend"))
+        item.setText(_translate("addRelationWindow", "Boyfriend"))
         item = self.relationType.item(11)
-        item.setText(_translate("addRelationUI", "Girlfriend"))
+        item.setText(_translate("addRelationWindow", "Girlfriend"))
         item = self.relationType.item(12)
-        item.setText(_translate("addRelationUI", "Fiancé"))
+        item.setText(_translate("addRelationWindow", "Fiancé"))
         item = self.relationType.item(13)
-        item.setText(_translate("addRelationUI", "Husband"))
+        item.setText(_translate("addRelationWindow", "Husband"))
         item = self.relationType.item(14)
-        item.setText(_translate("addRelationUI", "Wife"))
+        item.setText(_translate("addRelationWindow", "Wife"))
         self.relationType.setSortingEnabled(__sortingEnabled)
-        self.cancel.setText(_translate("addRelationUI", "Cancel"))
-        self.search.setWhatsThis(_translate("addRelationUI", "<html><head/><body><p><br/></p></body></html>"))
-        self.search.setPlaceholderText(_translate("addRelationUI", "Search Characters"))
-        self.searchRelation.setWhatsThis(_translate("addRelationUI", "<html><head/><body><p><br/></p></body></html>"))
-        self.searchRelation.setPlaceholderText(_translate("addRelationUI", "Search Relations"))
+        self.cancel.setText(_translate("addRelationWindow", "Cancel"))
+        self.search.setWhatsThis(_translate("addRelationWindow", "<html><head/><body><p><br/></p></body></html>"))
+        self.search.setPlaceholderText(_translate("addRelationWindow", "Search Characters"))
+        self.searchRelation.setWhatsThis(_translate("addRelationWindow", "<html><head/><body><p><br/></p></body></html>"))
+        self.searchRelation.setPlaceholderText(_translate("addRelationWindow", "Search Relations"))

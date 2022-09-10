@@ -18,24 +18,25 @@ def resource_path(relative_path):
 	return os.path.join(base_path, relative_path);
 
 
-class Ui_editPersonUI(object):
-    def setupUi(self, editPersonUI):
-        editPersonUI.setObjectName("editPersonUI")
-        editPersonUI.resize(491, 391)
+class Ui_editPersonWindow(object):
+    def setupUi(self, editPersonWindow):
+        editPersonWindow.setObjectName("editPersonWindow")
+        editPersonWindow.setWindowModality(QtCore.Qt.ApplicationModal)
+        editPersonWindow.resize(491, 391)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(editPersonUI.sizePolicy().hasHeightForWidth())
-        editPersonUI.setSizePolicy(sizePolicy)
-        editPersonUI.setMinimumSize(QtCore.QSize(491, 391))
-        editPersonUI.setMaximumSize(QtCore.QSize(491, 391))
-        editPersonUI.setWindowTitle("Add Person")
+        sizePolicy.setHeightForWidth(editPersonWindow.sizePolicy().hasHeightForWidth())
+        editPersonWindow.setSizePolicy(sizePolicy)
+        editPersonWindow.setMinimumSize(QtCore.QSize(491, 391))
+        editPersonWindow.setMaximumSize(QtCore.QSize(491, 391))
+        editPersonWindow.setWindowTitle("Add Person")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(resource_path("icons/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        editPersonUI.setWindowIcon(icon)
-        editPersonUI.setStyleSheet("background: rgb(54, 57, 63);\n"
+        editPersonWindow.setWindowIcon(icon)
+        editPersonWindow.setStyleSheet("background: rgb(54, 57, 63);\n"
 "color: rgb(255, 255, 255);")
-        self.acceptForm = QtWidgets.QPushButton(editPersonUI)
+        self.acceptForm = QtWidgets.QPushButton(editPersonWindow)
         self.acceptForm.setEnabled(False)
         self.acceptForm.setGeometry(QtCore.QRect(250, 360, 231, 23))
         self.acceptForm.setStyleSheet("QPushButton {\n"
@@ -54,7 +55,7 @@ class Ui_editPersonUI(object):
 "}")
         self.acceptForm.setDefault(False)
         self.acceptForm.setObjectName("acceptForm")
-        self.textEdit = QtWidgets.QTextEdit(editPersonUI)
+        self.textEdit = QtWidgets.QTextEdit(editPersonWindow)
         self.textEdit.setGeometry(QtCore.QRect(10, 130, 231, 251))
         self.textEdit.setAcceptDrops(False)
         self.textEdit.setStyleSheet("QTextEdit {\n"
@@ -63,23 +64,22 @@ class Ui_editPersonUI(object):
 "    border-radius:5px;\n"
 "    padding: 3px;\n"
 "}")
-        self.textEdit.setPlaceholderText("")
         self.textEdit.setObjectName("textEdit")
-        self.charInfoLabel = QtWidgets.QLabel(editPersonUI)
+        self.charInfoLabel = QtWidgets.QLabel(editPersonWindow)
         self.charInfoLabel.setGeometry(QtCore.QRect(13, 110, 191, 16))
         self.charInfoLabel.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
 "    font: font \"Fira Code\";\n"
 "}")
         self.charInfoLabel.setObjectName("charInfoLabel")
-        self.titleLabel = QtWidgets.QLabel(editPersonUI)
+        self.titleLabel = QtWidgets.QLabel(editPersonWindow)
         self.titleLabel.setGeometry(QtCore.QRect(13, 10, 47, 16))
         self.titleLabel.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
 "    font: font \"Fira Code\";\n"
 "}")
         self.titleLabel.setObjectName("titleLabel")
-        self.titleSelector = QtWidgets.QComboBox(editPersonUI)
+        self.titleSelector = QtWidgets.QComboBox(editPersonWindow)
         self.titleSelector.setGeometry(QtCore.QRect(10, 30, 71, 21))
         self.titleSelector.setStyleSheet("QComboBox {\n"
 "    background: rgb(64, 68, 75);\n"
@@ -100,7 +100,7 @@ class Ui_editPersonUI(object):
         self.titleSelector.addItem("")
         self.titleSelector.addItem("")
         self.titleSelector.addItem("")
-        self.age = QtWidgets.QSpinBox(editPersonUI)
+        self.age = QtWidgets.QSpinBox(editPersonWindow)
         self.age.setGeometry(QtCore.QRect(250, 80, 61, 22))
         self.age.setStyleSheet("QSpinBox {\n"
 "    background: rgb(64, 68, 75);\n"
@@ -116,7 +116,7 @@ class Ui_editPersonUI(object):
 "}")
         self.age.setMaximum(9999999)
         self.age.setObjectName("age")
-        self.addRelation = QtWidgets.QPushButton(editPersonUI)
+        self.addRelation = QtWidgets.QPushButton(editPersonWindow)
         self.addRelation.setGeometry(QtCore.QRect(250, 330, 71, 23))
         self.addRelation.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
@@ -133,21 +133,21 @@ class Ui_editPersonUI(object):
 "    color: rgb(126, 126, 126);\n"
 "}")
         self.addRelation.setObjectName("addRelation")
-        self.fullNameLabel = QtWidgets.QLabel(editPersonUI)
+        self.fullNameLabel = QtWidgets.QLabel(editPersonWindow)
         self.fullNameLabel.setGeometry(QtCore.QRect(103, 10, 171, 16))
         self.fullNameLabel.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
 "    font: font \"Fira Code\";\n"
 "}")
         self.fullNameLabel.setObjectName("fullNameLabel")
-        self.speciesLabel = QtWidgets.QLabel(editPersonUI)
+        self.speciesLabel = QtWidgets.QLabel(editPersonWindow)
         self.speciesLabel.setGeometry(QtCore.QRect(13, 60, 47, 16))
         self.speciesLabel.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
 "    font: font \"Fira Code\";\n"
 "}")
         self.speciesLabel.setObjectName("speciesLabel")
-        self.removeRelation = QtWidgets.QPushButton(editPersonUI)
+        self.removeRelation = QtWidgets.QPushButton(editPersonWindow)
         self.removeRelation.setEnabled(False)
         self.removeRelation.setGeometry(QtCore.QRect(410, 330, 71, 23))
         self.removeRelation.setStyleSheet("QPushButton {\n"
@@ -165,7 +165,7 @@ class Ui_editPersonUI(object):
 "    color: rgb(126, 126, 126);\n"
 "}")
         self.removeRelation.setObjectName("removeRelation")
-        self.dead = QtWidgets.QCheckBox(editPersonUI)
+        self.dead = QtWidgets.QCheckBox(editPersonWindow)
         self.dead.setGeometry(QtCore.QRect(330, 80, 81, 20))
         self.dead.setStyleSheet("QCheckBox{\n"
 "    color: white;\n"
@@ -173,12 +173,13 @@ class Ui_editPersonUI(object):
 "    font: font \"Fira Code\";\n"
 "}")
         self.dead.setObjectName("dead")
-        self.species = QtWidgets.QLineEdit(editPersonUI)
+        self.species = QtWidgets.QLineEdit(editPersonWindow)
         self.species.setGeometry(QtCore.QRect(10, 80, 131, 21))
         self.species.setAcceptDrops(False)
         self.species.setToolTip("")
-        self.species.setStyleSheet("QLineEdit{\n"
+        self.species.setStyleSheet("QLineEdit {\n"
 "    background: rgb(64, 68, 75);\n"
+"    color: rgb(255, 255, 255);\n"
 "    border: 1px solid rgb(50, 50, 50);\n"
 "    border-radius:5px;\n"
 "    padding-left: 3px;\n"
@@ -186,19 +187,20 @@ class Ui_editPersonUI(object):
 "}")
         self.species.setText("")
         self.species.setObjectName("species")
-        self.genderLabel = QtWidgets.QLabel(editPersonUI)
+        self.genderLabel = QtWidgets.QLabel(editPersonWindow)
         self.genderLabel.setGeometry(QtCore.QRect(163, 60, 47, 16))
         self.genderLabel.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
 "    font: font \"Fira Code\";\n"
 "}")
         self.genderLabel.setObjectName("genderLabel")
-        self.name = QtWidgets.QLineEdit(editPersonUI)
+        self.name = QtWidgets.QLineEdit(editPersonWindow)
         self.name.setGeometry(QtCore.QRect(100, 30, 161, 21))
         self.name.setAcceptDrops(False)
         self.name.setToolTip("")
-        self.name.setStyleSheet("QLineEdit{\n"
+        self.name.setStyleSheet("QLineEdit {\n"
 "    background: rgb(64, 68, 75);\n"
+"    color: rgb(255, 255, 255);\n"
 "    border: 1px solid rgb(50, 50, 50);\n"
 "    border-radius:5px;\n"
 "    padding-left: 3px;\n"
@@ -206,7 +208,7 @@ class Ui_editPersonUI(object):
 "}")
         self.name.setText("")
         self.name.setObjectName("name")
-        self.genderSelector = QtWidgets.QComboBox(editPersonUI)
+        self.genderSelector = QtWidgets.QComboBox(editPersonWindow)
         self.genderSelector.setGeometry(QtCore.QRect(160, 80, 71, 21))
         self.genderSelector.setStyleSheet("QComboBox {\n"
 "    background: rgb(64, 68, 75);\n"
@@ -218,21 +220,21 @@ class Ui_editPersonUI(object):
         self.genderSelector.addItem("")
         self.genderSelector.addItem("")
         self.genderSelector.addItem("")
-        self.ageLabel = QtWidgets.QLabel(editPersonUI)
+        self.ageLabel = QtWidgets.QLabel(editPersonWindow)
         self.ageLabel.setGeometry(QtCore.QRect(253, 60, 47, 16))
         self.ageLabel.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
 "    font: font \"Fira Code\";\n"
 "}")
         self.ageLabel.setObjectName("ageLabel")
-        self.relationLabel = QtWidgets.QLabel(editPersonUI)
+        self.relationLabel = QtWidgets.QLabel(editPersonWindow)
         self.relationLabel.setGeometry(QtCore.QRect(253, 110, 101, 16))
         self.relationLabel.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
 "    font: font \"Fira Code\";\n"
 "}")
         self.relationLabel.setObjectName("relationLabel")
-        self.relationTable = QtWidgets.QListWidget(editPersonUI)
+        self.relationTable = QtWidgets.QListWidget(editPersonWindow)
         self.relationTable.setGeometry(QtCore.QRect(250, 130, 231, 191))
         self.relationTable.setMinimumSize(QtCore.QSize(0, 0))
         self.relationTable.setMaximumSize(QtCore.QSize(101010, 101010))
@@ -266,7 +268,7 @@ class Ui_editPersonUI(object):
 "}")
         self.relationTable.setUniformItemSizes(True)
         self.relationTable.setObjectName("relationTable")
-        self.characterID = QtWidgets.QSpinBox(editPersonUI)
+        self.characterID = QtWidgets.QSpinBox(editPersonWindow)
         self.characterID.setEnabled(False)
         self.characterID.setGeometry(QtCore.QRect(420, 30, 61, 22))
         self.characterID.setToolTip("")
@@ -288,7 +290,7 @@ class Ui_editPersonUI(object):
         self.characterID.setKeyboardTracking(False)
         self.characterID.setMaximum(9999999)
         self.characterID.setObjectName("characterID")
-        self.editRelation = QtWidgets.QPushButton(editPersonUI)
+        self.editRelation = QtWidgets.QPushButton(editPersonWindow)
         self.editRelation.setEnabled(False)
         self.editRelation.setGeometry(QtCore.QRect(330, 330, 71, 23))
         self.editRelation.setStyleSheet("QPushButton {\n"
@@ -334,51 +336,52 @@ class Ui_editPersonUI(object):
         self.ageLabel.setBuddy(self.age)
         self.relationLabel.setBuddy(self.relationTable)
 
-        self.retranslateUi(editPersonUI)
-        QtCore.QMetaObject.connectSlotsByName(editPersonUI)
-        editPersonUI.setTabOrder(self.titleSelector, self.name)
-        editPersonUI.setTabOrder(self.name, self.species)
-        editPersonUI.setTabOrder(self.species, self.genderSelector)
-        editPersonUI.setTabOrder(self.genderSelector, self.age)
-        editPersonUI.setTabOrder(self.age, self.dead)
-        editPersonUI.setTabOrder(self.dead, self.textEdit)
-        editPersonUI.setTabOrder(self.textEdit, self.relationTable)
-        editPersonUI.setTabOrder(self.relationTable, self.addRelation)
-        editPersonUI.setTabOrder(self.addRelation, self.acceptForm)
-        editPersonUI.setTabOrder(self.acceptForm, self.editRelation)
-        editPersonUI.setTabOrder(self.editRelation, self.removeRelation)
-        editPersonUI.setTabOrder(self.removeRelation, self.characterID)
+        self.retranslateUi(editPersonWindow)
+        QtCore.QMetaObject.connectSlotsByName(editPersonWindow)
+        editPersonWindow.setTabOrder(self.titleSelector, self.name)
+        editPersonWindow.setTabOrder(self.name, self.species)
+        editPersonWindow.setTabOrder(self.species, self.genderSelector)
+        editPersonWindow.setTabOrder(self.genderSelector, self.age)
+        editPersonWindow.setTabOrder(self.age, self.dead)
+        editPersonWindow.setTabOrder(self.dead, self.textEdit)
+        editPersonWindow.setTabOrder(self.textEdit, self.relationTable)
+        editPersonWindow.setTabOrder(self.relationTable, self.addRelation)
+        editPersonWindow.setTabOrder(self.addRelation, self.acceptForm)
+        editPersonWindow.setTabOrder(self.acceptForm, self.editRelation)
+        editPersonWindow.setTabOrder(self.editRelation, self.removeRelation)
+        editPersonWindow.setTabOrder(self.removeRelation, self.characterID)
 
-    def retranslateUi(self, editPersonUI):
+    def retranslateUi(self, editPersonWindow):
         _translate = QtCore.QCoreApplication.translate
-        self.acceptForm.setText(_translate("editPersonUI", "Submit"))
-        self.charInfoLabel.setText(_translate("editPersonUI", "Character Description"))
-        self.titleLabel.setText(_translate("editPersonUI", "Title"))
-        self.titleSelector.setItemText(0, _translate("editPersonUI", "(None)"))
-        self.titleSelector.setItemText(1, _translate("editPersonUI", "Mr"))
-        self.titleSelector.setItemText(2, _translate("editPersonUI", "Ms"))
-        self.titleSelector.setItemText(3, _translate("editPersonUI", "Mrs"))
-        self.titleSelector.setItemText(4, _translate("editPersonUI", "Miss"))
-        self.titleSelector.setItemText(5, _translate("editPersonUI", "Sir"))
-        self.titleSelector.setItemText(6, _translate("editPersonUI", "Lady"))
-        self.titleSelector.setItemText(7, _translate("editPersonUI", "Lord"))
-        self.titleSelector.setItemText(8, _translate("editPersonUI", "King"))
-        self.titleSelector.setItemText(9, _translate("editPersonUI", "Queen"))
-        self.titleSelector.setItemText(10, _translate("editPersonUI", "Prince"))
-        self.titleSelector.setItemText(11, _translate("editPersonUI", "Princess"))
-        self.addRelation.setText(_translate("editPersonUI", "Add..."))
-        self.fullNameLabel.setText(_translate("editPersonUI", "Full Name"))
-        self.speciesLabel.setText(_translate("editPersonUI", "Species"))
-        self.removeRelation.setText(_translate("editPersonUI", "Remove"))
-        self.dead.setText(_translate("editPersonUI", "is Dead?"))
-        self.species.setWhatsThis(_translate("editPersonUI", "<html><head/><body><p><br/></p></body></html>"))
-        self.species.setPlaceholderText(_translate("editPersonUI", "Human, Elf, etc."))
-        self.genderLabel.setText(_translate("editPersonUI", "Gender"))
-        self.name.setWhatsThis(_translate("editPersonUI", "<html><head/><body><p><br/></p></body></html>"))
-        self.name.setPlaceholderText(_translate("editPersonUI", "John Smith"))
-        self.genderSelector.setItemText(0, _translate("editPersonUI", "(None)"))
-        self.genderSelector.setItemText(1, _translate("editPersonUI", "Male"))
-        self.genderSelector.setItemText(2, _translate("editPersonUI", "Female"))
-        self.ageLabel.setText(_translate("editPersonUI", "Age"))
-        self.relationLabel.setText(_translate("editPersonUI", "Relationships"))
-        self.editRelation.setText(_translate("editPersonUI", "Edit..."))
+        self.acceptForm.setText(_translate("editPersonWindow", "Submit"))
+        self.textEdit.setPlaceholderText(_translate("editPersonWindow", "Type here..."))
+        self.charInfoLabel.setText(_translate("editPersonWindow", "Character Description"))
+        self.titleLabel.setText(_translate("editPersonWindow", "Title"))
+        self.titleSelector.setItemText(0, _translate("editPersonWindow", "(None)"))
+        self.titleSelector.setItemText(1, _translate("editPersonWindow", "Mr"))
+        self.titleSelector.setItemText(2, _translate("editPersonWindow", "Ms"))
+        self.titleSelector.setItemText(3, _translate("editPersonWindow", "Mrs"))
+        self.titleSelector.setItemText(4, _translate("editPersonWindow", "Miss"))
+        self.titleSelector.setItemText(5, _translate("editPersonWindow", "Sir"))
+        self.titleSelector.setItemText(6, _translate("editPersonWindow", "Lady"))
+        self.titleSelector.setItemText(7, _translate("editPersonWindow", "Lord"))
+        self.titleSelector.setItemText(8, _translate("editPersonWindow", "King"))
+        self.titleSelector.setItemText(9, _translate("editPersonWindow", "Queen"))
+        self.titleSelector.setItemText(10, _translate("editPersonWindow", "Prince"))
+        self.titleSelector.setItemText(11, _translate("editPersonWindow", "Princess"))
+        self.addRelation.setText(_translate("editPersonWindow", "Add..."))
+        self.fullNameLabel.setText(_translate("editPersonWindow", "Full Name"))
+        self.speciesLabel.setText(_translate("editPersonWindow", "Species"))
+        self.removeRelation.setText(_translate("editPersonWindow", "Remove"))
+        self.dead.setText(_translate("editPersonWindow", "is Dead?"))
+        self.species.setWhatsThis(_translate("editPersonWindow", "<html><head/><body><p><br/></p></body></html>"))
+        self.species.setPlaceholderText(_translate("editPersonWindow", "Human, Elf, etc."))
+        self.genderLabel.setText(_translate("editPersonWindow", "Gender"))
+        self.name.setWhatsThis(_translate("editPersonWindow", "<html><head/><body><p><br/></p></body></html>"))
+        self.name.setPlaceholderText(_translate("editPersonWindow", "John Smith"))
+        self.genderSelector.setItemText(0, _translate("editPersonWindow", "(None)"))
+        self.genderSelector.setItemText(1, _translate("editPersonWindow", "Male"))
+        self.genderSelector.setItemText(2, _translate("editPersonWindow", "Female"))
+        self.ageLabel.setText(_translate("editPersonWindow", "Age"))
+        self.relationLabel.setText(_translate("editPersonWindow", "Relationships"))
+        self.editRelation.setText(_translate("editPersonWindow", "Edit..."))

@@ -18,16 +18,18 @@ def resource_path(relative_path):
 	return os.path.join(base_path, relative_path);
 
 
-class Ui_creditsUI(object):
-    def setupUi(self, creditsUI):
-        creditsUI.setObjectName("creditsUI")
-        creditsUI.resize(251, 113)
+class Ui_creditsWindow(object):
+    def setupUi(self, creditsWindow):
+        creditsWindow.setObjectName("creditsWindow")
+        creditsWindow.setWindowModality(QtCore.Qt.ApplicationModal)
+        creditsWindow.resize(251, 113)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(resource_path("icons/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        creditsUI.setWindowIcon(icon)
-        creditsUI.setStyleSheet("background: rgb(54, 57, 63);\n"
+        creditsWindow.setWindowIcon(icon)
+        creditsWindow.setStyleSheet("background: rgb(54, 57, 63);\n"
 "color: rgb(255, 255, 255);")
-        self.pushButton = QtWidgets.QPushButton(creditsUI)
+        creditsWindow.setModal(True)
+        self.pushButton = QtWidgets.QPushButton(creditsWindow)
         self.pushButton.setEnabled(True)
         self.pushButton.setGeometry(QtCore.QRect(90, 84, 70, 23))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -52,7 +54,7 @@ class Ui_creditsUI(object):
 "}")
         self.pushButton.setDefault(True)
         self.pushButton.setObjectName("pushButton")
-        self.layoutWidget = QtWidgets.QWidget(creditsUI)
+        self.layoutWidget = QtWidgets.QWidget(creditsWindow)
         self.layoutWidget.setGeometry(QtCore.QRect(20, 10, 209, 65))
         self.layoutWidget.setObjectName("layoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.layoutWidget)
@@ -82,14 +84,14 @@ class Ui_creditsUI(object):
         self.label_3.setObjectName("label_3")
         self.verticalLayout.addWidget(self.label_3)
 
-        self.retranslateUi(creditsUI)
-        self.pushButton.clicked.connect(creditsUI.close) # type: ignore
-        QtCore.QMetaObject.connectSlotsByName(creditsUI)
+        self.retranslateUi(creditsWindow)
+        self.pushButton.clicked.connect(creditsWindow.close) # type: ignore
+        QtCore.QMetaObject.connectSlotsByName(creditsWindow)
 
-    def retranslateUi(self, creditsUI):
+    def retranslateUi(self, creditsWindow):
         _translate = QtCore.QCoreApplication.translate
-        creditsUI.setWindowTitle(_translate("creditsUI", "Credits"))
-        self.pushButton.setText(_translate("creditsUI", "I see..."))
-        self.label.setText(_translate("creditsUI", "<html><head/><body><p align=\"center\"><span style=\" font-size:16pt; font-weight:600;\">Character Tracker</span></p></body></html>"))
-        self.label_2.setText(_translate("creditsUI", "<html><head/><body><p align=\"center\">© 2022 Multarix. All Rights Reserved</p></body></html>"))
-        self.label_3.setText(_translate("creditsUI", "<html><head/><body><p align=\"center\">https://github.com/Multarix</p></body></html>"))
+        creditsWindow.setWindowTitle(_translate("creditsWindow", "Credits"))
+        self.pushButton.setText(_translate("creditsWindow", "I see..."))
+        self.label.setText(_translate("creditsWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:16pt; font-weight:600;\">Character Tracker</span></p></body></html>"))
+        self.label_2.setText(_translate("creditsWindow", "<html><head/><body><p align=\"center\">© 2022 Multarix. All Rights Reserved</p></body></html>"))
+        self.label_3.setText(_translate("creditsWindow", "<html><head/><body><p align=\"center\">https://github.com/Multarix</p></body></html>"))

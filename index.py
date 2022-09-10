@@ -1,36 +1,35 @@
-from __future__ import annotations  # Type hinting
+from __future__ import annotations	# Type hinting
 
 # Misc Imports
 import sys
 import os
 import platform
-import sqlite3
+
+# Saving, Loading etc
+from fileManagement import fileManager, dataLayout
+from all_ui_Elements import windows
 
 # QT
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtGui, QtWidgets
 from PyQt5.QtWidgets import *
 
-from mainWindow import Ui_mainWindowUI
-from editPerson import Ui_editPersonUI
-from addRelation import Ui_addRelationUI
-from worldBuilding import Ui_worldBuildingUI
-from options import Ui_optionsUI
-from info import Ui_creditsUI
+from ui_mainWindow import Ui_mainWindow as mainWindow
 
-# To Do:
-# Perhaps re-order Characters - Too complicated for now
-# Options Menu
-# New File
-
-osType = platform.system()
-
-if(osType == "macOS"):
-	sys.exit(); # Eat shit apple fuckboys
-
+##########################
+## To Do:				##
+## Options Menu			##
+## - Theme				##
+## - Language?			##
+##						##
+## New File				##
+## Window Modality		##
+## Fix placeholder text	##
+##########################
 
 fontStyle = QtGui.QFont.StyleHint;
 styleHint = fontStyle.TypeWriter
 
+osType = platform.system();
 if(osType == "Linux"):
 	styleHint = fontStyle.Monospace;
 	
@@ -44,11 +43,10 @@ false = False;
 defaultConfig = {
 	"theme":"Dark",
 	"lang": 0,
-	"version": "1.1"
 }
 
 monospace = QtGui.QFont("Fira Code", 8);
-monospace.setStyleHint(QtGui.QFont.StyleHint.TypeWriter);
+monospace.setStyleHint(styleHint);
 
 
 def resource_path(relative_path):
@@ -57,44 +55,60 @@ def resource_path(relative_path):
 	return os.path.join(base_path, relative_path);
 
 
-class UI_MainWindow(QMainWindow):
+class startProgram(QMainWindow):
 	def __init__(self):
 		super().__init__();
 		self.setWindowTitle("Character Tracker");
 		self.mainWindow = QtWidgets.QMainWindow();
-		self.ui = Ui_mainWindowUI();
+		self.ui = mainWindow();
 		self.ui.setupUi(self.mainWindow);
+		
+		# Palette fix cause modal window breaks it for some reason?
+		palette = self.ui.characterSearch.palette()
+		palette.setColor(QtGui.QPalette.PlaceholderText, QtGui.QColor("#a0a2a5"))
+		self.ui.characterSearch.setPalette(palette);
+		self.ui.worldBuildingSearch.setPalette(palette);
+		
+		miscData = {
+			"font": monospace,
+			"palette": palette
+		}
+		
+		# ageSlider is not functional yet, so hide it
+		self.ui.ageSlider.setHidden(true);
+		self.ui.ageSliderCount.setHidden(true);
+		
+		# setup the rest of the stuff
 		self.longestRelation = 10;
-		self.fileName = None;
-		self.database = None;
+		self.settings = defaultConfig;
+		
+		self.windows = windows();
+		self.file = fileManager();
+		
+		self.data: dataLayout;
 		self.data = {
 			"characters": [],
 			"world": []
 		};
 		self._characterRelations = [];
-		self.config = defaultConfig;
 		
 		self.deathIcon = QtGui.QIcon();
-		self.deathIcon.addPixmap(QtGui.QPixmap(resource_path(f"icons\\dead_{self.config['theme']}.png")));
+		self.deathIcon.addPixmap(QtGui.QPixmap(resource_path(f"icons\\dead_{self.settings['theme']}.png")));
 		
 		# --Buttons to open other windows--
 		# Add Character
-		self.ui.addPerson.clicked.connect(lambda: self.openEditCharacterUI(true));
-		
+		self.ui.addPerson.clicked.connect(lambda: self.windows.openEditCharacterWindow(self, miscData, true));
 		# Edit Character
-		self.ui.editPerson.clicked.connect(lambda: self.openEditCharacterUI(false));
-		self.ui.characterList.itemDoubleClicked.connect(lambda: self.openEditCharacterUI(false));
+		self.ui.editPerson.clicked.connect(lambda: self.windows.openEditCharacterWindow(self, miscData, false));
+		self.ui.characterList.itemDoubleClicked.connect(lambda: self.windows.openEditCharacterWindow(self, miscData, false));
+		# Add World Building
+		self.ui.worldBuildingAdd.clicked.connect(lambda: self.windows.openWorldBuildingWindow(self, miscData, true));
+		# Edit World Building
+		self.ui.worldBuildingEdit.clicked.connect(lambda: self.windows.openWorldBuildingWindow(self, miscData, false));
+		self.ui.worldBuildingList.itemDoubleClicked.connect(lambda: self.windows.openWorldBuildingWindow(self, miscData, false));
 		
 		# Remove Character
 		self.ui.removePerson.clicked.connect(lambda: self.removeCharacterBtn());
-		
-		# Add World Building
-		self.ui.worldBuildingAdd.clicked.connect(lambda: self.openWorldBuildingUI(true));
-		
-		# Edit World Building
-		self.ui.worldBuildingEdit.clicked.connect(lambda: self.openWorldBuildingUI(false));
-		self.ui.worldBuildingList.itemDoubleClicked.connect(lambda: self.openWorldBuildingUI(false));
-		
 		# Remove World Building
 		self.ui.worldBuildingRemove.clicked.connect(self.removeWorldBuilding);
 		
@@ -109,19 +123,19 @@ class UI_MainWindow(QMainWindow):
 		# --Menu Options--
 		# File Section
 		# self.ui.action_New.triggered.connect(lambda: self.newFile())
-		self.ui.action_Open.triggered.connect(self.openFile);
-		self.ui.action_Save.triggered.connect(self.saveFile);
-		self.ui.actionSave_As.triggered.connect(self.saveFileAs);
+		self.ui.action_Open.triggered.connect(self._open);
+		self.ui.action_Save.triggered.connect(lambda: self.file.save(self, false, self.data));
+		self.ui.actionSave_As.triggered.connect(lambda: self.file.save(self, true, self.data));
 		
 		# Edit Section
-		self.ui.actionAdd_Character.triggered.connect(lambda: self.openEditCharacterUI(true));
-		self.ui.actionEdit_Character.triggered.connect(lambda: self.openEditCharacterUI(false));
+		self.ui.actionAdd_Character.triggered.connect(lambda: self.windows.openEditCharacterWindow(self, miscData, true));
+		self.ui.actionEdit_Character.triggered.connect(lambda: self.windows.openEditCharacterWindow(self, miscData, false));
 		self.ui.actionRemove_Character.triggered.connect(self.removeCharacterBtn);
 		self.ui.actionRefresh.triggered.connect(lambda: self.populateList(self.ui.characterList, "characters"));
-		self.ui.action_config.triggered.connect(self.openOptionsUI);
+		self.ui.action_config.triggered.connect(lambda: self.windows.openOptionsWindow(self));
 		
 		# Help Section
-		self.ui.action_Credits.triggered.connect(self.openCreditsUI);
+		self.ui.action_Credits.triggered.connect(lambda: self.windows.openCreditsWindow(self));
 		
 		# --Misc Items--
 		# Search bar
@@ -137,171 +151,7 @@ class UI_MainWindow(QMainWindow):
 		self.ui.selectionDetails.setFont(monospace);
 		self.ui.worldBuildingList.setFont(monospace);
 		self.ui.worldBuildingSearch.setFont(monospace);
-		
-
-
-	#	 ██╗░░░██╗██╗    ███████╗██╗░░░██╗███╗░░██╗░█████╗░████████╗██╗░█████╗░███╗░░██╗░██████╗
-	#	 ██║░░░██║██║    ██╔════╝██║░░░██║████╗░██║██╔══██╗╚══██╔══╝██║██╔══██╗████╗░██║██╔════╝
-	#	 ██║░░░██║██║    █████╗░░██║░░░██║██╔██╗██║██║░░╚═╝░░░██║░░░██║██║░░██║██╔██╗██║╚█████╗░
-	#	 ██║░░░██║██║    ██╔══╝░░██║░░░██║██║╚████║██║░░██╗░░░██║░░░██║██║░░██║██║╚████║░╚═══██╗
-	#	 ╚██████╔╝██║    ██║░░░░░╚██████╔╝██║░╚███║╚█████╔╝░░░██║░░░██║╚█████╔╝██║░╚███║██████╔╝
-	#	 ░╚═════╝░╚═╝    ╚═╝░░░░░░╚═════╝░╚═╝░░╚══╝░╚════╝░░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝╚═════╝░
 	
-	
-	def openCreditsUI(self):
-		self.credits = QtWidgets.QDialog();
-		self.creds = Ui_creditsUI();
-		self.creds.setupUi(self.credits);
-		self.credits.show();
-		
-	
-	def openOptionsUI(self):
-		self.options = QtWidgets.QDialog();
-		self.opt = Ui_optionsUI();
-		self.opt.setupUi(self.options);
-		self.options.show();
-	
-	
-	def openEditCharacterUI(self, newChar: bool):
-		"""
-		Function to open the editCharacterUI when pressing the add or edit button on the mainWindowUI
-
-		Args:
-			newChar (bool): Whether a character is new or not
-		"""
-		self.editCharacter = QtWidgets.QWidget();
-		self.editChar = Ui_editPersonUI();
-		self.editChar.setupUi(self.editCharacter);
-		self.editChar.characterID.hide(); # People don't need to see this, it's only for data tracking purposes
-		
-		self._characterRelations.clear();
-		
-		# Buttons
-		# Add
-		self.editChar.addRelation.clicked.connect(lambda: self.openAddRelationUI(false));
-		
-		# Edit
-		self.editChar.editRelation.clicked.connect(lambda: self.openAddRelationUI(true));
-		self.editChar.relationTable.currentRowChanged.connect(self.unlockEditRemoveRelationBtn)
-		
-		# Remove
-		self.editChar.removeRelation.clicked.connect(self.removeRelationBtn);
-				
-		# Accept
-		self.editChar.acceptForm.setDisabled(newChar);
-		self.editChar.name.textEdited.connect(self.unlockSubmitCharacterBtn);
-		self.editChar.acceptForm.clicked.connect(lambda: self.acceptCharacterBtn(newChar));
-		
-		# Font
-		self.editChar.name.setFont(monospace);
-		self.editChar.species.setFont(monospace);
-		self.editChar.textEdit.setFont(monospace);
-		self.editChar.relationTable.setFont(monospace);
-
-		if(not newChar):
-			currSelected = self.ui.characterList.currentRow();
-			charData = self.data["characters"][currSelected];
-			# id, name, title, age, gender (0=None, 1=Male, 2=Female), species, isdead (0=Alive), information, relations
-			# 0   1     2      3    4                                  5        6                 7            8
-			
-			# ID
-			self.editChar.characterID.setValue(charData[0]);
-			
-			# Full Name
-			self.editChar.name.setText(charData[1]);
-			
-			# Title
-			self.editChar.titleSelector.setCurrentIndex(int(charData[2]));
-			
-			# Age
-			self.editChar.age.setValue(charData[3]);
-			
-			# Species
-			self.editChar.species.setText(charData[5]);
-			
-			# Character information
-			self.editChar.textEdit.setText(charData[7]);
-			
-			# Is Dead
-			if(charData[6] == 1):
-				self.editChar.dead.setChecked(true);
-			
-			# Gender
-			self.editChar.genderSelector.setCurrentIndex(charData[4]);
-			
-			# Relations
-			relations: str;
-			relations = charData[8];
-			if(relations):
-				relationsArray = relations.split(", "); # Each relationship is seperated by ", "
-				
-				for relation in relationsArray:
-					rel = relation.split("|"); # Each side of the relation is seperated by a "|"
-					# rel[0] is the person, rel[1] is the type of relationship
-					self._characterRelations.append((int(rel[0]), int(rel[1]))); # Add the item to the internal list, for later
-				
-				self.populateList(self.editChar.relationTable, "relation");
-		
-		self.editCharacter.show()
-
-
-	def openAddRelationUI(self, existing: bool):
-		"""
-		Function to open the addRelationUI when pressing the add button on the editCharacterUI
-		"""
-		self.addRelation = QtWidgets.QWidget();
-		self.addRel = Ui_addRelationUI();
-		self.addRel.setupUi(self.addRelation);
-		self.populateList(self.addRel.characterList, "characters");
-	
-		self.addRel.accept.clicked.connect(lambda: self.addRelationToListBtn(existing));
-		self.addRel.characterList.itemSelectionChanged.connect(self.unlockAcceptRelationBtn);
-		self.addRel.relationType.itemSelectionChanged.connect(self.unlockAcceptRelationBtn);
-		
-		# Search bars
-		self.addRel.search.textEdited.connect(lambda: self.searchBar(self.addRel.search, self.addRel.characterList));
-		self.addRel.searchRelation.textEdited.connect(lambda: self.searchBar(self.addRel.searchRelation, self.addRel.relationType));
-		
-		# Font
-		self.addRel.characterList.setFont(monospace);
-		self.addRel.relationType.setFont(monospace);
-		self.addRel.search.setFont(monospace);
-		self.addRel.searchRelation.setFont(monospace);
-		
-		if(existing): # Existing relationship
-			relationIndex = self.editChar.relationTable.currentRow();
-			relationship = self._characterRelations[relationIndex];
-			personID = relationship[0];
-			relationTypeIndex = relationship[1];
-			
-			for i in range(len(self.data["characters"])):
-				person = self.data["characters"][i];
-				if(personID == person[0]):
-					self.addRel.characterList.setCurrentRow(i);
-					self.addRel.relationType.setCurrentRow(relationTypeIndex);
-					break;
-
-		self.addRelation.show();
-		
-	
-	def openWorldBuildingUI(self, newDetail: bool):
-		self.worldBuilding = QtWidgets.QDialog();
-		self.world = Ui_worldBuildingUI();
-		self.world.setupUi(self.worldBuilding);
-		
-		# Accept button
-		self.world.accept.setDisabled(newDetail);
-		self.world.textEditor.textChanged.connect(self.unlockWorldBuildingAcceptBtn);
-		self.world.accept.clicked.connect(lambda: self.addWorldBuildingToListBtn(newDetail));
-		
-		if(not newDetail):
-			currRow = self.ui.worldBuildingList.currentRow();
-			self.world.textEditor.setText(self.data["world"][currRow][0]);
-		
-		# Font
-		self.world.textEditor.setFont(monospace);
-		
-		self.worldBuilding.show();
 
 
 	#	 ██████╗░██╗░░░██╗████████╗████████╗░█████╗░███╗░░██╗    ███████╗██╗░░░██╗███╗░░██╗░█████╗░████████╗██╗░█████╗░███╗░░██╗░██████╗
@@ -311,6 +161,7 @@ class UI_MainWindow(QMainWindow):
 	#	 ██████╦╝╚██████╔╝░░░██║░░░░░░██║░░░╚█████╔╝██║░╚███║    ██║░░░░░╚██████╔╝██║░╚███║╚█████╔╝░░░██║░░░██║╚█████╔╝██║░╚███║██████╔╝
 	#	 ╚═════╝░░╚═════╝░░░░╚═╝░░░░░░╚═╝░░░░╚════╝░╚═╝░░╚══╝    ╚═╝░░░░░░╚═════╝░╚═╝░░╚══╝░╚════╝░░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝╚═════╝░
 
+
 	# Character stuff
 	def acceptCharacterBtn(self, newChar: bool):
 		"""
@@ -319,7 +170,7 @@ class UI_MainWindow(QMainWindow):
 		Args:
 			newChar (bool): Whether a character is new or not
 		"""
-		ui = self.editChar;
+		ui = self.characterUI;
 				
 		charID = ui.characterID.value();
 		if(newChar and len(self.data["characters"]) >=1):
@@ -342,7 +193,7 @@ class UI_MainWindow(QMainWindow):
 
 		relationString = ", ".join(relationArray);
 
-		self.editCharacter.close(); # We no longer need anything from this ui, the rest can be done with it closed
+		self.editCharacterWindow.close(); # We no longer need anything from this ui, the rest can be done with it closed
 		
 		if(newChar): # New Character, apply to data
 			self.data["characters"].append((int(charID), name, int(title), int(age), int(gender), species, int(isDead), info, relationString));
@@ -373,44 +224,50 @@ class UI_MainWindow(QMainWindow):
 		"""
 		Function to run when pressing the accept button on the addRelationUI
 		"""
-		ui = self.editChar;
+		ui = self.characterUI;
 		
 		# Person Information
-		selectedPerson = self.addRel.characterList.currentRow();
+		selectedPerson = self.addRelationUI.characterList.currentRow();
 		personData = self.data["characters"][selectedPerson];
 		
 		# Relationship
-		selectedRelation = self.addRel.relationType.currentRow();
+		selectedRelation = self.addRelationUI.relationType.currentRow();
 		relationship = self.relationConversion(selectedRelation);
 		spaces = (self.longestRelation - len(relationship)) * " ";
 		relationship = relationship + spaces +  " | ";
 		
 		if(existing):
-			itemRow = self.editChar.relationTable.currentRow();
+			itemRow = self.characterUI.relationTable.currentRow();
 			self._characterRelations[itemRow] = (personData[0], selectedRelation);
 		else:
 			# Add to the internal relationship list
 			self._characterRelations.append((personData[0], selectedRelation));
 			# Adding to the table
 		
-		self.editChar.relationTable.clear();
-		self.populateList(self.editChar.relationTable, "relation");
-		self.addRelation.close(); # Finally closing the UI
+		self.characterUI.relationTable.clear();
+		self.populateList(self.characterUI.relationTable, "relation");
+		self.addRelationWindow.close(); # Finally closing the UI
 
 
 	def removeRelationBtn(self):
 		"""
 		Function to run when the remove button is pressed on the editCharacterUI
 		"""
-		currRow = self.editChar.relationTable.currentRow();
+		currRow = self.characterUI.relationTable.currentRow();
 		if(currRow > -1):
-			self.editChar.relationTable.takeItem(currRow);
+			self.characterUI.relationTable.takeItem(currRow);
 			del self._characterRelations[currRow];
 	
 
 	# World Buidling Stuff
 	def addWorldBuildingToListBtn(self, newDetail: bool):
-		text = self.world.textEditor.toPlainText();
+		"""
+		Function to run when clicking the accept button on the worldBuildingUI
+
+		Args:
+			newDetail (bool): Whether or not it's a new detail
+		"""
+		text = self.worldBuildingUI.textEditor.toPlainText();
 		if(newDetail):
 			self.data["world"].append((text, 0));
 		else:
@@ -419,10 +276,13 @@ class UI_MainWindow(QMainWindow):
 		
 		self.ui.worldBuildingList.clear();
 		self.populateList(self.ui.worldBuildingList, "world");
-		self.worldBuilding.close();
+		self.worldBuildingWindow.close();
 	
 	
 	def removeWorldBuilding(self):
+		"""
+		Function to run when clicking the remove button on the mainWindowUI
+		"""
 		currRow = self.ui.worldBuildingList.currentRow();
 		if(currRow > -1):
 			self.ui.worldBuildingList.takeItem(currRow);
@@ -430,6 +290,12 @@ class UI_MainWindow(QMainWindow):
 			
 	
 	def moveRow(self, upDown: int):
+		"""
+		Function to move a list item up or down
+
+		Args:
+			upDown (int): 1 for down, -1 for up
+		"""
 		currentRow = self.ui.characterList.currentRow();
 		currentItemText = self.ui.characterList.item(currentRow).text();
 		currentItemIcon = self.ui.characterList.item(currentRow).icon();
@@ -509,7 +375,7 @@ class UI_MainWindow(QMainWindow):
 		self.ui.worldBuildingRemove.setEnabled(enableOrNot);
 	
 	def unlockWorldBuildingAcceptBtn(self):
-		self.world.accept.setDisabled(self.world.textEditor.toPlainText() == "");
+		self.worldBuildingUI.accept.setDisabled(self.worldBuildingUI.textEditor.toPlainText() == "");
 
 
 	def unlockEditRemoveCharacterBtns(self):
@@ -534,21 +400,21 @@ class UI_MainWindow(QMainWindow):
 
 
 	def unlockSubmitCharacterBtn(self):
-		self.editChar.acceptForm.setDisabled(self.editChar.name == "");
+		self.characterUI.acceptForm.setDisabled(self.characterUI.name == "");
 
 
 	def unlockEditRemoveRelationBtn(self):
-		enableOrNot = (self.editChar.relationTable.currentRow() > -1)
-		self.editChar.editRelation.setEnabled(enableOrNot);
-		self.editChar.removeRelation.setEnabled(enableOrNot);
+		enableOrNot = (self.characterUI.relationTable.currentRow() > -1)
+		self.characterUI.editRelation.setEnabled(enableOrNot);
+		self.characterUI.removeRelation.setEnabled(enableOrNot);
 
 
 	def unlockAcceptRelationBtn(self):
 		"""
 		Function to unlock the accept button on the addRelationUI
 		"""
-		if(self.addRel.characterList.currentRow() > -1 and self.addRel.relationType.currentRow() > -1):
-			self.addRel.accept.setEnabled(true);
+		if(self.addRelationUI.characterList.currentRow() > -1 and self.addRelationUI.relationType.currentRow() > -1):
+			self.addRelationUI.accept.setEnabled(true);
 
 	# Conversions
 	def relationConversion(self, item: int | str) -> str | int:
@@ -559,7 +425,7 @@ class UI_MainWindow(QMainWindow):
 			item (int | str): The item to be converted
 
 		Returns:
-			str | int: The item in its converted state
+			(str | int): The item in its converted state
 		"""
 		# Max Length is Girlfriend at 10
 		relationDict = {
@@ -606,7 +472,7 @@ class UI_MainWindow(QMainWindow):
 			item (int | str | None): The item to be converted
 
 		Returns:
-			str | int: The item in its converted state
+			(str | int): The item in its converted state
 		"""
 		titleDict = {
 			0: "",
@@ -701,149 +567,19 @@ class UI_MainWindow(QMainWindow):
 	#	 ██║╚██╔╝██║██╔══██║██║╚████║██╔══██║██║░░╚██╗██╔══╝░░██║╚██╔╝██║██╔══╝░░██║╚████║░░░██║░░░
 	#	 ██║░╚═╝░██║██║░░██║██║░╚███║██║░░██║╚██████╔╝███████╗██║░╚═╝░██║███████╗██║░╚███║░░░██║░░░
 	#	 ╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝░░╚══╝╚═╝░░╚═╝░╚═════╝░╚══════╝╚═╝░░░░░╚═╝╚══════╝╚═╝░░╚══╝░░░╚═╝░░░
+		
 	
-	
-	# def newFile(self):
-	# 	pass
-	# Gonna just wipe everything, close window and re-open
-	# Also ask to confirm
-
-	def createSchema(self):
-		"""
-		Creates the tables required in the sql spreadsheet
-		"""
-		if(not self.database):
-			return;
-		
-		sql = self.database.cursor();
-		sql.execute('CREATE TABLE "characters" ("id" INTEGER, "name" TEXT, "title" INTEGER, "age" INTEGER, "gender" INTEGER, "species" TEXT, "isdead" INTEGER, "information" TEXT, "relationships" TEXT)');
-		self.database.commit();
-		
-		sql.execute('CREATE TABLE "worldBuilding" ("text" TEXT, "notUsed" INTEGER);');
-		self.database.commit();
-		
-		# Versioning control system
-		sql.execute('CREATE TABLE "version" ("currentVersion TEXT, "notUsed", INTEGER)');
-		self.database.commit();
-		sql.execute('INSERT INTO version (currentVersion, notUsed) VALUES (?, ?)', (self.config["version"], 0));
-		self.database.commit();
-
-	
-	def saveFileAs(self) -> bool:
-		"""
-		Function to save a file with a specific filename
-
-		Returns:
-			bool: Whether the function executed successfully or not
-		"""
-		fileLocation = QFileDialog.getSaveFileUrl(self, "Save File", QtCore.QUrl(""), "SQL Files (*.sqlite *.sqlite3)", "SQL Files (*.sqlite *.sqlite3)")[0].toString();
-		if(fileLocation == ""):
-			return;
-		
-		fileLocation = fileLocation.replace("file:///", "");
-		fileArray = fileLocation.split("/");
-		fileName = fileArray.pop();
-		pathToFile = "/".join(fileArray);
-		filePath = os.path.join(pathToFile, fileName);
-		
-		try:
-			filePath = os.path.join(pathToFile, fileName);
-			if(not os.path.exists(pathToFile)):
-				os.makedirs(pathToFile);
-			
-			file = open(filePath, "w");
-			file.write("");
-			file.close();
-			
-			self.database = sqlite3.connect(filePath);
-			self.createSchema()
-			
-			self.fileName = filePath;
-			return true;
-		except:
-			self.errorMessage("An error occured while saving the file (Error code: SAV003)");
-			return false;
-		
-				
-	def saveFile(self):
-		if(not self.fileName):
-			successful = self.saveFileAs();
-			
-			if(not successful):
-				self.errorMessage("An error occured while saving the file (Error code: SAV002)");
-		
-		self.deleteRecords();
-		print("Saving Changes...");
-		
-		code = "SAV001";
-		try:
-			for person in self.data["characters"]:
-				sql = self.database.cursor();
-				sql.execute("INSERT INTO characters (id, name, title, age, gender, species, isdead, information, relationships) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", person);
-				self.database.commit();
-			
-			code = "SAV002";
-			for worldItem in self.data["world"]:
-				sql = self.database.cursor();
-				sql.execute("INSERT INTO worldBuilding (text, notUsed) VALUES (?, ?)", worldItem);
-				self.database.commit();
-			
-		except:
-			self.errorMessage(f"An error occured while saving the file (Error code: {code})");
-
-
-	def deleteRecords(self):
-		try:
-			sql = self.database.cursor();
-			sql.execute("DELETE FROM characters");
-			self.database.commit();
-			
-			sql.execute("DELETE FROM worldBuilding");
-			self.database.commit();
-		except:
-			self.errorMessage("An error occured while saving the file (Error code: SAV000)");
-		
-
-	def openFile(self):
-		"""
-		Opens an sqlite database
-
-		Args:
-			file (str): The URL to the file
-		"""
-		fileName = QFileDialog.getOpenFileName(self, "Choose File", "", "SQL Files (*.sqlite *.sqlite3);;All Files (*)");
-		if(not fileName[0]):
-			return;
-		
-		try:
-			self.database = sqlite3.connect(fileName[0]);
-			sql = self.database.cursor();
-			
-			sql.execute("SELECT * from version");
-			versionData = sql.fetchall();
-			if(versionData[0][0] != self.config["version"]):
-				pass
-			
-			sql.execute("SELECT * FROM characters");
-			self.data["characters"] = sql.fetchall();
-			self.populateList(self.ui.characterList, "characters");
-			
-			sql.execute("SELECT * FROM worldBuilding");
-			self.data["world"] =  sql.fetchall();
-			self.populateList(self.ui.worldBuildingList, "world");
-			
-			self.fileName = fileName[0];
-		except:
-			self.errorMessage("An error occured while trying to open the file");
-			
-	
-	def errorMessage(self, message: str):
-		QMessageBox.critical(self, "Error", message);
+	def _open(self):
+		self.file.open(self);
+		self.data = self.file.data;
+		self.populateList(self.ui.characterList, "characters");
+		self.populateList(self.ui.worldBuildingList, "world");
+		pass;
 
 
 if __name__ == "__main__":
 	app = QApplication(sys.argv);
 	app.setApplicationDisplayName("Character Tracker");
-	win = UI_MainWindow();
+	win = startProgram();
 	win.mainWindow.show();
 	sys.exit(app.exec());

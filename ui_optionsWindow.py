@@ -18,18 +18,20 @@ def resource_path(relative_path):
 	return os.path.join(base_path, relative_path);
 
 
-class Ui_optionsUI(object):
-    def setupUi(self, optionsUI):
-        optionsUI.setObjectName("optionsUI")
-        optionsUI.resize(191, 120)
-        optionsUI.setMinimumSize(QtCore.QSize(191, 120))
-        optionsUI.setMaximumSize(QtCore.QSize(191, 120))
+class Ui_optionsWindow(object):
+    def setupUi(self, optionsWindow):
+        optionsWindow.setObjectName("optionsWindow")
+        optionsWindow.setWindowModality(QtCore.Qt.ApplicationModal)
+        optionsWindow.resize(191, 120)
+        optionsWindow.setMinimumSize(QtCore.QSize(191, 120))
+        optionsWindow.setMaximumSize(QtCore.QSize(191, 120))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(resource_path("icons/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        optionsUI.setWindowIcon(icon)
-        optionsUI.setStyleSheet("background: rgb(54, 57, 63);\n"
+        optionsWindow.setWindowIcon(icon)
+        optionsWindow.setStyleSheet("background: rgb(54, 57, 63);\n"
 "color: rgb(255, 255, 255);")
-        self.acceptCancel = QtWidgets.QDialogButtonBox(optionsUI)
+        optionsWindow.setModal(True)
+        self.acceptCancel = QtWidgets.QDialogButtonBox(optionsWindow)
         self.acceptCancel.setGeometry(QtCore.QRect(20, 80, 151, 32))
         self.acceptCancel.setStyleSheet("QPushButton {\n"
 "    background: rgb(64, 68, 75);\n"
@@ -48,7 +50,7 @@ class Ui_optionsUI(object):
         self.acceptCancel.setOrientation(QtCore.Qt.Horizontal)
         self.acceptCancel.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.acceptCancel.setObjectName("acceptCancel")
-        self.layoutWidget = QtWidgets.QWidget(optionsUI)
+        self.layoutWidget = QtWidgets.QWidget(optionsWindow)
         self.layoutWidget.setGeometry(QtCore.QRect(10, 10, 171, 54))
         self.layoutWidget.setObjectName("layoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.layoutWidget)
@@ -104,17 +106,17 @@ class Ui_optionsUI(object):
         self.themeLabel.setBuddy(self.themeBox)
         self.themeLabel_2.setBuddy(self.themeBox)
 
-        self.retranslateUi(optionsUI)
-        self.acceptCancel.rejected.connect(optionsUI.close) # type: ignore
-        QtCore.QMetaObject.connectSlotsByName(optionsUI)
+        self.retranslateUi(optionsWindow)
+        self.acceptCancel.rejected.connect(optionsWindow.close) # type: ignore
+        QtCore.QMetaObject.connectSlotsByName(optionsWindow)
 
-    def retranslateUi(self, optionsUI):
+    def retranslateUi(self, optionsWindow):
         _translate = QtCore.QCoreApplication.translate
-        optionsUI.setWindowTitle(_translate("optionsUI", "Options"))
-        self.themeLabel.setText(_translate("optionsUI", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Theme:</span></p></body></html>"))
-        self.themeBox.setItemText(0, _translate("optionsUI", "Dark"))
-        self.themeBox.setItemText(1, _translate("optionsUI", "Light"))
-        self.themeLabel_2.setText(_translate("optionsUI", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Language:</span></p></body></html>"))
-        self.themeBox_2.setItemText(0, _translate("optionsUI", "English"))
-        self.themeBox_2.setItemText(1, _translate("optionsUI", "German"))
-        self.themeBox_2.setItemText(2, _translate("optionsUI", "French"))
+        optionsWindow.setWindowTitle(_translate("optionsWindow", "Options"))
+        self.themeLabel.setText(_translate("optionsWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Theme:</span></p></body></html>"))
+        self.themeBox.setItemText(0, _translate("optionsWindow", "Dark"))
+        self.themeBox.setItemText(1, _translate("optionsWindow", "Light"))
+        self.themeLabel_2.setText(_translate("optionsWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Language:</span></p></body></html>"))
+        self.themeBox_2.setItemText(0, _translate("optionsWindow", "English"))
+        self.themeBox_2.setItemText(1, _translate("optionsWindow", "German"))
+        self.themeBox_2.setItemText(2, _translate("optionsWindow", "French"))
