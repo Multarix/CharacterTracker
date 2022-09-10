@@ -108,7 +108,7 @@ class fileManager():
 					return this._errorMessage(f"An error occured while saving the file (Error code: {errorCode})");
 		
 		print("Saving Changes...");
-		errorCode = "SAV102" # Error code for record deletion
+		errorCode = "SAV102"; # Error code for record deletion
 		this._deleteRecords(); # Delete everything from our database
 		
 		errorCode = "SAV103"; # Error code for post deletion, pre character data - if you get this your data is fucked
@@ -127,7 +127,7 @@ class fileManager():
 			return print("Save Complete!"); # Console message for saving success
 		except:
 			print(f"An error occured: {errorCode})");
-			return this._errorMessage(f"An error occured while saving the file (Error code: {errorCode})");	
+			return this._errorMessage(f"An error occured while saving the file (Error code: {errorCode})");
 	# End of function
 
 
@@ -144,7 +144,7 @@ class fileManager():
 	# End of function
 	
 
-	def open(this):
+	def open(this) -> None:
 		"""
 		Opens an sqlite database
 
@@ -188,7 +188,7 @@ class fileManager():
 	# End of function
 		
 
-	def _createSchema(this):
+	def _createSchema(this) -> None:
 		"""
 		Creates the tables required in the sql spreadsheet
 		"""
@@ -211,11 +211,11 @@ class fileManager():
 	# End of function
 	
 
-	def _updateSchema(this):
+	def _updateSchema(this) -> None:
 		pass;
 	# End of function
 
 
-	def _errorMessage(this, message: str):
+	def _errorMessage(this, message: str) -> None:
 		QMessageBox.critical(this.self, "Error", message);
 	# End of function

@@ -136,7 +136,7 @@ class miscFunctions():
 	
 
 	# Disable/ Enable Buttons
-	def unlockWorldBuildingEditRemoveBtns(this):
+	def unlockWorldBuildingEditRemoveBtns(this) -> None:
 		self = this.self;
 		enableOrNot = (self.ui.worldBuildingList.currentRow() > -1);
 		self.ui.worldBuildingEdit.setEnabled(enableOrNot);
@@ -148,10 +148,10 @@ class miscFunctions():
 		self.worldBuildingUI.accept.setDisabled(self.worldBuildingUI.textEditor.toPlainText() == "");
 	# End of function
 
-	def unlockEditRemoveCharacterBtns(this):
+	def unlockEditRemoveCharacterBtns(this) -> None:
 		self = this.self;
 		currentRow = self.ui.characterList.currentRow();
-		rowCount = self.ui.characterList.count()
+		rowCount = self.ui.characterList.count();
 		enableOrNot = (currentRow > -1);
 		
 		# Up Button
@@ -171,26 +171,26 @@ class miscFunctions():
 		self.ui.actionRemove_Character.setEnabled(enableOrNot);
 	# End of function
 
-	def unlockSubmitCharacterBtn(this):
+	def unlockSubmitCharacterBtn(this) -> None:
 		self = this.self;
 		self.characterUI.acceptForm.setDisabled(self.characterUI.name == "");
 	# End of function
 
-	def unlockEditRemoveRelationBtn(this):
+	def unlockEditRemoveRelationBtn(this) -> None:
 		self = this.self;
-		enableOrNot = (self.characterUI.relationTable.currentRow() > -1)
+		enableOrNot = (self.characterUI.relationTable.currentRow() > -1);
 		self.characterUI.editRelation.setEnabled(enableOrNot);
 		self.characterUI.removeRelation.setEnabled(enableOrNot);
 	# End of function
 
-	def unlockAcceptRelationBtn(this):
+	def unlockAcceptRelationBtn(this) -> None:
 		self = this.self;
 		if(self.addRelationUI.characterList.currentRow() > -1 and self.addRelationUI.relationType.currentRow() > -1):
 			self.addRelationUI.accept.setEnabled(true);
 	# End of function
 	
 	
-	def populateList(this, table: QListWidget, type: str):
+	def populateList(this, table: QListWidget, type: str) -> None:
 		"""
 		Fills out a list with data
 
@@ -198,11 +198,11 @@ class miscFunctions():
 			table (QListWidget): A list object
 		"""
 		self = this.self;
-		prevRow = table.currentRow()
+		prevRow = table.currentRow();
 		table.clear();
 		if(type == "characters"):
 			for person in self.data[type]:
-				title = this.titleConversion(person[2])
+				title = this.titleConversion(person[2]);
 				space = " " if(len(title) > 0) else "";
 				newRow = table.count()
 				table.insertItem(newRow, f"{title}{space}{person[1]}");
@@ -211,7 +211,7 @@ class miscFunctions():
 		
 		if(type == "world"):
 			for item in self.data[type]:
-				newRow = table.count()
+				newRow = table.count();
 				table.insertItem(newRow, item[0]);
 		
 		if(type == "relation"):
@@ -224,7 +224,7 @@ class miscFunctions():
 				spaces = (self.settings["longestRelation"] - len(converted[1])) * " ";
 				fullRelation = converted[1] + spaces + " | " + converted[0];
 				
-				newRow = table.count()
+				newRow = table.count();
 				table.insertItem(newRow, fullRelation);
 
 		table.setCurrentRow(prevRow);
@@ -271,7 +271,7 @@ class miscFunctions():
 		
 	def relationTupleConversion(this, relationship: tuple) -> tuple | None:
 		self = this.self;
-		personID = relationship[0]
+		personID = relationship[0];
 		personRelation = relationship[1];
 		
 		personName = None;
@@ -283,4 +283,4 @@ class miscFunctions():
 			return None;
 		
 		personRelationName = this.relationConversion(personRelation);
-		return (personName, personRelationName)
+		return (personName, personRelationName);

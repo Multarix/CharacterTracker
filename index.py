@@ -1,8 +1,8 @@
-from __future__ import annotations	# Type hinting
-from typehinting import dataLayout, configLayout, fixesLayout
+from __future__ import annotations									# Type hinting
+from typehinting import dataLayout, configLayout, fixesLayout		# Type hinting
 
 # Misc Imports
-import sys, os, platform
+import sys, platform
 
 # QT
 from PyQt5 import QtGui, QtWidgets

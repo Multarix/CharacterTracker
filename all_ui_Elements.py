@@ -27,13 +27,13 @@ false = False;
 
 
 class windows():
-	def __init__(this, self: startProgram):
+	def __init__(this, self: startProgram) -> None:
 		this.self = self;
 		this.functions = miscFunctions(self);
 		this.buttons = buttonFunctions(self);
 
 
-	def openCreditsWindow(this):
+	def openCreditsWindow(this) -> None:
 		self = this.self;
 		self.creditsWindow = QtWidgets.QDialog();
 		self.creditsUI = creditsWindow();
@@ -42,7 +42,7 @@ class windows():
 	# End of function
 	
 	
-	def openOptionsWindow(this):
+	def openOptionsWindow(this) -> None:
 		self = this.self;
 		self.optionsWindow = QtWidgets.QDialog();
 		self.optionsUI = optionsWindow();
@@ -51,7 +51,7 @@ class windows():
 	# End of function
 	
 	
-	def openEditCharacterWindow(this, newChar: bool):
+	def openEditCharacterWindow(this, newChar: bool) -> None:
 		"""
 		Function to open the editCharacterUI when pressing the add or edit button on the mainWindowUI
 
@@ -91,8 +91,6 @@ class windows():
 		self.characterUI.acceptForm.setDisabled(newChar);
 		self.characterUI.name.textEdited.connect(this.functions.unlockSubmitCharacterBtn);
 		self.characterUI.acceptForm.clicked.connect(lambda: this.buttons.acceptCharacterBtn(newChar));
-		
-
 
 		if(not newChar):
 			currSelected = self.ui.characterList.currentRow();
@@ -126,7 +124,7 @@ class windows():
 	# End of function
 	
 
-	def openAddRelationWindow(this, existing: bool):
+	def openAddRelationWindow(this, existing: bool) -> None:
 		"""
 		Function to open the addRelationUI when pressing the add button on the editCharacterUI
 		"""
@@ -175,7 +173,7 @@ class windows():
 	# End of function
 	
 	
-	def openWorldBuildingWindow(this, newDetail: bool):
+	def openWorldBuildingWindow(this, newDetail: bool) -> None:
 		self = this.self;
 		self.worldBuildingWindow = QtWidgets.QDialog();
 		self.worldBuildingUI = worldBuildingWindow();

@@ -5,7 +5,6 @@
 #	 ██████╦╝╚██████╔╝░░░██║░░░░░░██║░░░╚█████╔╝██║░╚███║    ██║░░░░░╚██████╔╝██║░╚███║╚█████╔╝░░░██║░░░██║╚█████╔╝██║░╚███║██████╔╝
 #	 ╚═════╝░░╚═════╝░░░░╚═╝░░░░░░╚═╝░░░░╚════╝░╚═╝░░╚══╝    ╚═╝░░░░░░╚═════╝░╚═╝░░╚══╝░╚════╝░░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝╚═════╝░
 
-from PyQt5 import QtGui, QtWidgets
 from PyQt5.QtWidgets import *
 
 from typehinting import startProgram
@@ -65,7 +64,7 @@ class buttonFunctions():
 	# End of function
 	
 
-	def removeCharacterBtn(this):
+	def removeCharacterBtn(this) -> None:
 		"""
 		Function to run when pressing the remove button on the mainWindowUI
 		"""
@@ -80,7 +79,7 @@ class buttonFunctions():
 	
 
 	# Relation stuff
-	def addRelationToListBtn(this, existing: bool):
+	def addRelationToListBtn(this, existing: bool) -> None:
 		"""
 		Function to run when pressing the accept button on the addRelationUI
 		"""
@@ -110,7 +109,7 @@ class buttonFunctions():
 	# End of function
 	
 
-	def removeRelationBtn(this):
+	def removeRelationBtn(this) -> None:
 		"""
 		Function to run when the remove button is pressed on the editCharacterUI
 		"""
@@ -123,7 +122,7 @@ class buttonFunctions():
 	
 
 	# World Buidling Stuff
-	def addWorldBuildingToListBtn(this, newDetail: bool):
+	def addWorldBuildingToListBtn(this, newDetail: bool) -> None:
 		"""
 		Function to run when clicking the accept button on the worldBuildingUI
 
@@ -144,7 +143,7 @@ class buttonFunctions():
 	# End of function
 	
 	
-	def removeWorldBuilding(this):
+	def removeWorldBuilding(this) -> None:
 		"""
 		Function to run when clicking the remove button on the mainWindowUI
 		"""
