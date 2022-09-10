@@ -7,9 +7,9 @@
 
 from __future__ import annotations	# Type hinting
 
-from typehinting import startProgram, miscDataLayout
+from typehinting import startProgram
 
-from PyQt5 import QtGui, QtWidgets
+from PyQt5 import QtWidgets
 from PyQt5.QtGui import *
 
 from ui_editPersonWindow import Ui_editPersonWindow as editPersonWindow
@@ -18,6 +18,8 @@ from ui_worldBuildingWindow import Ui_worldBuildingWindow as worldBuildingWindow
 from ui_optionsWindow import Ui_optionsWindow as optionsWindow
 from ui_infoWindow import Ui_creditsWindow as creditsWindow
 
+from miscFunctions import miscFunctions
+from buttonFunctions import buttonFunctions
 
 # Fixing python to not be shit
 true = True;
@@ -25,10 +27,14 @@ false = False;
 
 
 class windows():
-	def __init__(this, ui):
-		pass;
+	def __init__(this, self: startProgram):
+		this.self = self;
+		this.functions = miscFunctions(self);
+		this.buttons = buttonFunctions(self);
 
-	def openCreditsWindow(this, self: startProgram):
+
+	def openCreditsWindow(this):
+		self = this.self;
 		self.creditsWindow = QtWidgets.QDialog();
 		self.creditsUI = creditsWindow();
 		self.creditsUI.setupUi(self.creditsWindow);
@@ -36,7 +42,8 @@ class windows():
 	# End of function
 	
 	
-	def openOptionsWindow(this, self: startProgram):
+	def openOptionsWindow(this):
+		self = this.self;
 		self.optionsWindow = QtWidgets.QDialog();
 		self.optionsUI = optionsWindow();
 		self.optionsUI.setupUi(self.optionsWindow);
@@ -44,47 +51,48 @@ class windows():
 	# End of function
 	
 	
-	def openEditCharacterWindow(this, self: startProgram, miscData: miscDataLayout, newChar: bool):
+	def openEditCharacterWindow(this, newChar: bool):
 		"""
 		Function to open the editCharacterUI when pressing the add or edit button on the mainWindowUI
 
 		Args:
 			newChar (bool): Whether a character is new or not
 		"""
-
+		self = this.self;
 		self.editCharacterWindow = QtWidgets.QWidget();
 		self.characterUI = editPersonWindow();
 		self.characterUI.setupUi(self.editCharacterWindow);
 		self.characterUI.characterID.hide(); # People don't need to see this, it's only for data tracking purposes
 		
-		# Fixing Palettes
-		self.characterUI.textEdit.setPalette(miscData["palette"]);
-		self.characterUI.name.setPalette(miscData["palette"]);
-		self.characterUI.species.setPalette(miscData["palette"]);
+		# Palette Fix
+		self.characterUI.textEdit.setPalette(self.fixes["palette"]);
+		self.characterUI.name.setPalette(self.fixes["palette"]);
+		self.characterUI.species.setPalette(self.fixes["palette"]);
+		# Font
+		self.characterUI.name.setFont(self.fixes["font"]);
+		self.characterUI.species.setFont(self.fixes["font"]);
+		self.characterUI.textEdit.setFont(self.fixes["font"]);
+		self.characterUI.relationTable.setFont(self.fixes["font"]);
 		
 		self._characterRelations.clear();
 		
 		# Buttons
 		# Add
-		self.characterUI.addRelation.clicked.connect(lambda: this.openAddRelationWindow(self, miscData, false));
+		self.characterUI.addRelation.clicked.connect(lambda: this.openAddRelationWindow(false));
 		
 		# Edit
-		self.characterUI.editRelation.clicked.connect(lambda: this.openAddRelationWindow(self, miscData, true));
-		self.characterUI.relationTable.currentRowChanged.connect(self.unlockEditRemoveRelationBtn)
+		self.characterUI.editRelation.clicked.connect(lambda: this.openAddRelationWindow(true));
+		self.characterUI.relationTable.currentRowChanged.connect(this.functions.unlockEditRemoveRelationBtn)
 		
 		# Remove
-		self.characterUI.removeRelation.clicked.connect(self.removeRelationBtn);
+		self.characterUI.removeRelation.clicked.connect(this.buttons.removeRelationBtn);
 				
 		# Accept
 		self.characterUI.acceptForm.setDisabled(newChar);
-		self.characterUI.name.textEdited.connect(self.unlockSubmitCharacterBtn);
-		self.characterUI.acceptForm.clicked.connect(lambda: self.acceptCharacterBtn(newChar));
+		self.characterUI.name.textEdited.connect(this.functions.unlockSubmitCharacterBtn);
+		self.characterUI.acceptForm.clicked.connect(lambda: this.buttons.acceptCharacterBtn(newChar));
 		
-		# Font
-		self.characterUI.name.setFont(miscData["font"]);
-		self.characterUI.species.setFont(miscData["font"]);
-		self.characterUI.textEdit.setFont(miscData["font"]);
-		self.characterUI.relationTable.setFont(miscData["font"]);
+
 
 		if(not newChar):
 			currSelected = self.ui.characterList.currentRow();
@@ -92,33 +100,17 @@ class windows():
 			# id, name, title, age, gender (0=None, 1=Male, 2=Female), species, isdead (0=Alive), information, relations
 			# 0   1     2      3    4                                  5        6                 7            8
 			
-			# ID
-			self.characterUI.characterID.setValue(charData[0]);
+			self.characterUI.characterID.setValue(charData[0]);								# ID
+			self.characterUI.name.setText(charData[1]);										# Full Name
+			self.characterUI.titleSelector.setCurrentIndex(int(charData[2]));				# Title
+			self.characterUI.age.setValue(charData[3]);										# Age
+			self.characterUI.species.setText(charData[5]);									# Species
+			self.characterUI.textEdit.setText(charData[7]);									# Character Info
+			self.characterUI.genderSelector.setCurrentIndex(charData[4]);					# Gender
 			
-			# Full Name
-			self.characterUI.name.setText(charData[1]);
-			
-			# Title
-			self.characterUI.titleSelector.setCurrentIndex(int(charData[2]));
-			
-			# Age
-			self.characterUI.age.setValue(charData[3]);
-			
-			# Species
-			self.characterUI.species.setText(charData[5]);
-			
-			# Character information
-			self.characterUI.textEdit.setText(charData[7]);
-			
-			# Is Dead
 			if(charData[6] == 1):
-				self.characterUI.dead.setChecked(true);
-			
-			# Gender
-			self.characterUI.genderSelector.setCurrentIndex(charData[4]);
-			
-			# Relations
-			relations: str;
+				self.characterUI.dead.setChecked(true);										# Is Dead
+
 			relations = charData[8];
 			if(relations):
 				relationsArray = relations.split(", "); # Each relationship is seperated by ", "
@@ -128,39 +120,43 @@ class windows():
 					# rel[0] is the person, rel[1] is the type of relationship
 					self._characterRelations.append((int(rel[0]), int(rel[1]))); # Add the item to the internal list, for later
 				
-				self.populateList(self.characterUI.relationTable, "relation");
+				this.functions.populateList(self.characterUI.relationTable, "relation");	# Relations
 		
 		self.editCharacterWindow.show();
 	# End of function
 	
 
-	def openAddRelationWindow(this, self: startProgram, miscData: miscDataLayout, existing: bool):
+	def openAddRelationWindow(this, existing: bool):
 		"""
 		Function to open the addRelationUI when pressing the add button on the editCharacterUI
 		"""
+		self = this.self;
 		self.addRelationWindow = QtWidgets.QWidget();
 		self.addRelationUI = addRelationWindow();
 		self.addRelationUI.setupUi(self.addRelationWindow);
 		
-		# Fixing Palettes
-		self.addRelationUI.search.setPalette(miscData["palette"]);
-		self.addRelationUI.searchRelation.setPalette(miscData["palette"]);
-		
-		self.populateList(self.addRelationUI.characterList, "characters");
-	
-		self.addRelationUI.accept.clicked.connect(lambda: self.addRelationToListBtn(existing));
-		self.addRelationUI.characterList.itemSelectionChanged.connect(self.unlockAcceptRelationBtn);
-		self.addRelationUI.relationType.itemSelectionChanged.connect(self.unlockAcceptRelationBtn);
-		
-		# Search bars
-		self.addRelationUI.search.textEdited.connect(lambda: self.searchBar(self.addRelationUI.search, self.addRelationUI.characterList));
-		self.addRelationUI.searchRelation.textEdited.connect(lambda: self.searchBar(self.addRelationUI.searchRelation, self.addRelationUI.relationType));
+		# Palette Fix
+		self.addRelationUI.search.setPalette(self.fixes["palette"]);
+		self.addRelationUI.searchRelation.setPalette(self.fixes["palette"]);
 		
 		# Font
-		self.addRelationUI.characterList.setFont(miscData["font"]);
-		self.addRelationUI.relationType.setFont(miscData["font"]);
-		self.addRelationUI.search.setFont(miscData["font"]);
-		self.addRelationUI.searchRelation.setFont(miscData["font"]);
+		self.addRelationUI.characterList.setFont(self.fixes["font"]);
+		self.addRelationUI.relationType.setFont(self.fixes["font"]);
+		self.addRelationUI.search.setFont(self.fixes["font"]);
+		self.addRelationUI.searchRelation.setFont(self.fixes["font"]);
+		
+		this.functions.populateList(self.addRelationUI.characterList, "characters");
+	
+		# --Connections--
+		self.addRelationUI.accept.clicked.connect(lambda: this.buttons.addRelationToListBtn(existing));
+		self.addRelationUI.characterList.itemSelectionChanged.connect(this.functions.unlockAcceptRelationBtn);
+		self.addRelationUI.relationType.itemSelectionChanged.connect(this.functions.unlockAcceptRelationBtn);
+		
+		# Search bars
+		self.addRelationUI.search.textEdited.connect(lambda: this.functions.searchBar(self.addRelationUI.search, self.addRelationUI.characterList));
+		self.addRelationUI.searchRelation.textEdited.connect(lambda: this.functions.searchBar(self.addRelationUI.searchRelation, self.addRelationUI.relationType));
+		
+
 		
 		if(existing): # Existing relationship
 			relationIndex = self.characterUI.relationTable.currentRow();
@@ -179,25 +175,25 @@ class windows():
 	# End of function
 	
 	
-	def openWorldBuildingWindow(this, self: startProgram, miscData: miscDataLayout, newDetail: bool):
+	def openWorldBuildingWindow(this, newDetail: bool):
+		self = this.self;
 		self.worldBuildingWindow = QtWidgets.QDialog();
 		self.worldBuildingUI = worldBuildingWindow();
 		self.worldBuildingUI.setupUi(self.worldBuildingWindow);
 		
-		# Fixing Palettes
-		self.worldBuildingUI.textEditor.setPalette(miscData["palette"]);
+		# Palette Fix
+		self.worldBuildingUI.textEditor.setPalette(self.fixes["palette"]);
+		# Font
+		self.worldBuildingUI.textEditor.setFont(self.fixes["font"]);
 		
 		# Accept button
 		self.worldBuildingUI.accept.setDisabled(newDetail);
-		self.worldBuildingUI.textEditor.textChanged.connect(self.unlockWorldBuildingAcceptBtn);
-		self.worldBuildingUI.accept.clicked.connect(lambda: self.addWorldBuildingToListBtn(newDetail));
+		self.worldBuildingUI.textEditor.textChanged.connect(this.functions.unlockWorldBuildingAcceptBtn);
+		self.worldBuildingUI.accept.clicked.connect(lambda: this.buttons.addWorldBuildingToListBtn(newDetail));
 		
 		if(not newDetail):
 			currRow = self.ui.worldBuildingList.currentRow();
 			self.worldBuildingUI.textEditor.setText(self.data["world"][currRow][0]);
-		
-		# Font
-		self.worldBuildingUI.textEditor.setFont(miscData["font"]);
-		
+
 		self.worldBuildingWindow.show();
 	# End of function

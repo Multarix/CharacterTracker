@@ -9,10 +9,8 @@ from __future__ import annotations
 
 import os, sys
 
-from PyQt5 import QtGui, QtWidgets
 from PyQt5.QtWidgets import *
-
-from typehinting import dataLayout, miscDataLayout, startProgram
+from typehinting import startProgram
 
 relationDict = {
 	0   : "Father",
@@ -80,9 +78,8 @@ false = False;
 
 
 class miscFunctions():
-	def __init__(this, ui: startProgram) -> None:
-		this.self = ui
-		pass;
+	def __init__(this, self: startProgram) -> None:
+		this.self = self;
 	
 	def resource_path(this, relative_path) -> str: # Borrowed from stackoverflow
 		""" Get absolute path to resource, works for dev and for PyInstaller"""
@@ -103,7 +100,7 @@ class miscFunctions():
 			elif (person[4] == 2):
 				gender = "Female";
 				
-			title = self.titleConversion(person[2]);
+			title = this.titleConversion(person[2]);
 			if(title == ""):
 				title = "None";
 			
@@ -204,7 +201,7 @@ class miscFunctions():
 		table.clear();
 		if(type == "characters"):
 			for person in self.data[type]:
-				title = self.titleConversion(person[2])
+				title = this.titleConversion(person[2])
 				space = " " if(len(title) > 0) else "";
 				newRow = table.count()
 				table.insertItem(newRow, f"{title}{space}{person[1]}");
@@ -219,11 +216,11 @@ class miscFunctions():
 		if(type == "relation"):
 			for relation in self._characterRelations:
 				
-				converted = self.relationTupleConversion(relation);
+				converted = this.relationTupleConversion(relation);
 				if(not converted[0]):
 					continue; # The relationship came up empty
 				
-				spaces = (self.longestRelation - len(converted[1])) * " ";
+				spaces = (self.settings["longestRelation"] - len(converted[1])) * " ";
 				fullRelation = converted[1] + spaces + " | " + converted[0];
 				
 				newRow = table.count()
@@ -247,7 +244,7 @@ class miscFunctions():
 		return relationDict[item];
 	# End of function
 	
-	def maxRelationLength(self) -> int:
+	def maxRelationLength(this) -> int:
 		maxValue = 0;
 		for value in relationDict:
 			item = relationDict[value];
@@ -284,5 +281,5 @@ class miscFunctions():
 		if(personName == None):
 			return None;
 		
-		personRelationName = self.relationConversion(personRelation);
+		personRelationName = this.relationConversion(personRelation);
 		return (personName, personRelationName)

@@ -21,7 +21,7 @@ class dataLayout(TypedDict):
 	world: list[worldItem];
 
 
-class miscDataLayout(TypedDict):
+class fixesLayout(TypedDict):
 	font: QtGui.QFont;
 	palette: QtGui.QPalette
 
@@ -75,6 +75,13 @@ class startProgram():
 			"characters": [],
 			"world": []
 		};
+		self.fixes: fixesLayout;
+		self.fixes = {
+			"font": QtGui.QFont,
+			"palette": QtGui.QPalette
+		}
+		
+		self.deathIcon = QtGui.QIcon;
 		
 		self.longestRelation: int;
 		self.longestRelation = 10;

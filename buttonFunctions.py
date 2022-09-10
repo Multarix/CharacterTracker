@@ -8,21 +8,23 @@
 from PyQt5 import QtGui, QtWidgets
 from PyQt5.QtWidgets import *
 
-from typehinting import dataLayout, miscDataLayout, startProgram
+from typehinting import startProgram
+from miscFunctions import miscFunctions
 
 class buttonFunctions():
-	def __init__(this, ui) -> None:
-		this.ui = ui;
-		pass
+	def __init__(this, self: startProgram) -> None:
+		this.self = self;
+		this.functions = miscFunctions(self);
 	
 	# Character stuff
-	def acceptCharacterBtn(self, newChar: bool):
+	def acceptCharacterBtn(this, newChar: bool):
 		"""
 		Function to run when the accept button is pressed on the editCharacterUI
 
 		Args:
 			newChar (bool): Whether a character is new or not
 		"""
+		self = this.self;
 		ui = self.characterUI;
 				
 		charID = ui.characterID.value();
@@ -59,14 +61,15 @@ class buttonFunctions():
 		
 		# Update the current list
 		self.ui.characterList.clear();
-		self.populateList(self.ui.characterList, "characters");
+		this.functions.populateList(self.ui.characterList, "characters");
 	# End of function
 	
 
-	def removeCharacterBtn(self):
+	def removeCharacterBtn(this):
 		"""
 		Function to run when pressing the remove button on the mainWindowUI
 		"""
+		self = this.self;
 		ui = self.ui;
 		indexOfItem = ui.characterList.currentRow();
 		ui.characterList.takeItem(ui.characterList.currentRow());
@@ -75,11 +78,11 @@ class buttonFunctions():
 	
 
 	# Relation stuff
-	def addRelationToListBtn(self, existing: bool):
+	def addRelationToListBtn(this, existing: bool):
 		"""
 		Function to run when pressing the accept button on the addRelationUI
 		"""
-		ui = self.characterUI;
+		self = this.self;
 		
 		# Person Information
 		selectedPerson = self.addRelationUI.characterList.currentRow();
@@ -87,8 +90,8 @@ class buttonFunctions():
 		
 		# Relationship
 		selectedRelation = self.addRelationUI.relationType.currentRow();
-		relationship = self.relationConversion(selectedRelation);
-		spaces = (self.longestRelation - len(relationship)) * " ";
+		relationship = this.functions.relationConversion(selectedRelation);
+		spaces = (self.settings["longestRelation"] - len(relationship)) * " ";
 		relationship = relationship + spaces +  " | ";
 		
 		if(existing):
@@ -100,15 +103,16 @@ class buttonFunctions():
 			# Adding to the table
 		
 		self.characterUI.relationTable.clear();
-		self.populateList(self.characterUI.relationTable, "relation");
+		this.functions.populateList(self.characterUI.relationTable, "relation");
 		self.addRelationWindow.close(); # Finally closing the UI
 	# End of function
 	
 
-	def removeRelationBtn(self):
+	def removeRelationBtn(this):
 		"""
 		Function to run when the remove button is pressed on the editCharacterUI
 		"""
+		self = this.self;
 		currRow = self.characterUI.relationTable.currentRow();
 		if(currRow > -1):
 			self.characterUI.relationTable.takeItem(currRow);
@@ -117,13 +121,14 @@ class buttonFunctions():
 	
 
 	# World Buidling Stuff
-	def addWorldBuildingToListBtn(self, newDetail: bool):
+	def addWorldBuildingToListBtn(this, newDetail: bool):
 		"""
 		Function to run when clicking the accept button on the worldBuildingUI
 
 		Args:
 			newDetail (bool): Whether or not it's a new detail
 		"""
+		self = this.self;
 		text = self.worldBuildingUI.textEditor.toPlainText();
 		if(newDetail):
 			self.data["world"].append((text, 0));
@@ -132,15 +137,16 @@ class buttonFunctions():
 			self.data["world"][itemRow] = (text, 0);
 		
 		self.ui.worldBuildingList.clear();
-		self.populateList(self.ui.worldBuildingList, "world");
+		this.functions.populateList(self.ui.worldBuildingList, "world");
 		self.worldBuildingWindow.close();
 	# End of function
 	
 	
-	def removeWorldBuilding(self):
+	def removeWorldBuilding(this):
 		"""
 		Function to run when clicking the remove button on the mainWindowUI
 		"""
+		self = this.self;
 		currRow = self.ui.worldBuildingList.currentRow();
 		if(currRow > -1):
 			self.ui.worldBuildingList.takeItem(currRow);
@@ -148,13 +154,14 @@ class buttonFunctions():
 	# End of function
 	
 	
-	def moveRow(self, upDown: int):
+	def moveRow(this, upDown: int):
 		"""
 		Function to move a list item up or down
 
 		Args:
 			upDown (int): 1 for down, -1 for up
 		"""
+		self = this.self;
 		currentRow = self.ui.characterList.currentRow();
 		currentItemText = self.ui.characterList.item(currentRow).text();
 		currentItemIcon = self.ui.characterList.item(currentRow).icon();

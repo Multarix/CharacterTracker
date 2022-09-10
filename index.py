@@ -1,5 +1,5 @@
 from __future__ import annotations	# Type hinting
-from typehinting import dataLayout, configLayout
+from typehinting import dataLayout, configLayout, fixesLayout
 
 # Misc Imports
 import sys, os, platform
@@ -55,15 +55,6 @@ class startProgram(QMainWindow):
 		self.mainWindow = QtWidgets.QMainWindow();
 		self.ui = mainWindow();
 		self.ui.setupUi(self.mainWindow);
-		
-		self.file = fileManager(self);
-		self.windows = windows(self);
-		self.buttons = buttonFunctions(self);
-		self.functions = miscFunctions(self);
-		
-		# Setup the rest of the stuff
-		self.settings = defaultConfig;
-		self.settings["longestRelation"] = self.functions.maxRelationLength()
 
 		# Palette fix cause modal window breaks it for some reason?
 		palette = self.ui.characterSearch.palette()
@@ -71,34 +62,44 @@ class startProgram(QMainWindow):
 		self.ui.characterSearch.setPalette(palette);
 		self.ui.worldBuildingSearch.setPalette(palette);
 		
-		miscData = {
+		self.fixes: fixesLayout
+		self.fixes = {
 			"font": monospace,
 			"palette": palette
 		}
 		
+		self.data: dataLayout;
 		self.data = {
 			"characters": [],
 			"world": []
 		};
 		
-		deathIconPath = self.functions.resource_path(f"icons\\dead_{self.settings['theme']}.png")
-		deathIcon = QtGui.QIcon();
-		self.deathIcon = deathIcon.addPixmap(QtGui.QPixmap(deathIconPath));
-
 		self._characterRelations = [];
 		
+		self.windows = windows(self);
+		self.file = fileManager(self);
+		self.buttons = buttonFunctions(self);
+		self.functions = miscFunctions(self);
+		
+		self.settings = defaultConfig;
+		self.settings["longestRelation"] = self.functions.maxRelationLength();
+		
+		deathIconPath = self.functions.resource_path(f"icons\\dead_{self.settings['theme']}.png");
+		self.deathIcon = QtGui.QIcon();
+		self.deathIcon.addPixmap(QtGui.QPixmap(deathIconPath));
+
 		# ageSlider stuff is not programatically functional yet, so hide and disable it
 		self.ui.ageSlider.setHidden(true);
 		self.ui.ageSlider.setDisabled(true);
 		self.ui.ageSliderCount.setHidden(true);
 		self.ui.ageSliderCount.setDisabled(true);
-			
-		self._connections(miscData);
+		
+		self._connections();
 		self._setFonts();
 	# End of function
 	
 		
-	def _connections(self, miscData):
+	def _connections(self):
 		ui = self.ui
 		file = self.file
 		windows = self.windows
@@ -106,12 +107,12 @@ class startProgram(QMainWindow):
 		functions = self.functions
 		
 		# --Buttons to open other windows--
-		ui.addPerson.clicked.connect(lambda: windows.openEditCharacterWindow(self, miscData, true));							# Add character
-		ui.editPerson.clicked.connect(lambda: windows.openEditCharacterWindow(self, miscData, false));							# Edit character
-		ui.characterList.itemDoubleClicked.connect(lambda: windows.openEditCharacterWindow(self, miscData, false));				# Edit character
-		ui.worldBuildingAdd.clicked.connect(lambda: windows.openWorldBuildingWindow(self, miscData, true));						# Add world building
-		ui.worldBuildingEdit.clicked.connect(lambda: windows.openWorldBuildingWindow(self, miscData, false)); 					# Edit world building
-		ui.worldBuildingList.itemDoubleClicked.connect(lambda: windows.openWorldBuildingWindow(self, miscData, false));			# Edit world building
+		ui.addPerson.clicked.connect(lambda: windows.openEditCharacterWindow(true));											# Add character
+		ui.editPerson.clicked.connect(lambda: windows.openEditCharacterWindow(false));											# Edit character
+		ui.characterList.itemDoubleClicked.connect(lambda: windows.openEditCharacterWindow(false));								# Edit character
+		ui.worldBuildingAdd.clicked.connect(lambda: windows.openWorldBuildingWindow(true));										# Add world building
+		ui.worldBuildingEdit.clicked.connect(lambda: windows.openWorldBuildingWindow(false)); 									# Edit world building
+		ui.worldBuildingList.itemDoubleClicked.connect(lambda: windows.openWorldBuildingWindow(false));							# Edit world building
 		
 		# --Functional Buttons--
 		ui.removePerson.clicked.connect(buttons.removeCharacterBtn);															# Remove Character
@@ -121,11 +122,11 @@ class startProgram(QMainWindow):
 		
 		# --Menu Options--
 		ui.action_New.triggered.connect(lambda: file.new);																		# New file
-		ui.action_Save.triggered.connect(lambda: file.save(self, false, self.data));											# Save
-		ui.actionSave_As.triggered.connect(lambda: file.save(self, true, self.data));											# Save as
-		ui.action_Open.triggered.connect(self._open);																			# Open a file
-		ui.actionAdd_Character.triggered.connect(lambda: windows.openEditCharacterWindow(self, miscData, true));				# Add character
-		ui.actionEdit_Character.triggered.connect(lambda: windows.openEditCharacterWindow(self, miscData, false));				# Edit character
+		ui.action_Save.triggered.connect(lambda: file.save(false, self.data));													# Save
+		ui.actionSave_As.triggered.connect(lambda: file.save(true, self.data));													# Save as
+		ui.action_Open.triggered.connect(self.file.open);																		# Open a file
+		ui.actionAdd_Character.triggered.connect(lambda: windows.openEditCharacterWindow(true));								# Add character
+		ui.actionEdit_Character.triggered.connect(lambda: windows.openEditCharacterWindow(false));								# Edit character
 		ui.actionRemove_Character.triggered.connect(buttons.removeCharacterBtn);												# Remove character
 		ui.actionRefresh.triggered.connect(lambda: functions.populateList(ui.characterList, "characters"));						# Refresh
 		ui.action_config.triggered.connect(lambda: windows.openOptionsWindow(self));											# Settings menu
@@ -148,15 +149,6 @@ class startProgram(QMainWindow):
 		self.ui.worldBuildingSearch.setFont(monospace);
 	# End of function
 	
-		
-	def _open(self):
-		self.file.open(self);
-		self.data = self.file.data;
-		self.functions.populateList(self.ui.characterList, "characters");
-		self.functions.populateList(self.ui.worldBuildingList, "world");
-		pass;
-	# End of function
-
 
 if(__name__ == "__main__"):
 	app = QApplication(sys.argv);
