@@ -151,14 +151,15 @@ class miscFunctions():
 	def unlockEditRemoveCharacterBtns(this):
 		self = this.self;
 		currentRow = self.ui.characterList.currentRow();
+		rowCount = self.ui.characterList.count()
 		enableOrNot = (currentRow > -1);
 		
 		# Up Button
-		upEnable = (currentRow > 0)
+		upEnable = (currentRow > 0 and rowCount > 1);
 		self.ui.moveUp.setEnabled(upEnable);
 		
 		# Down Button
-		downEnable = (-1 < currentRow < (self.ui.characterList.count() - 1));
+		downEnable = (-1 < currentRow < (rowCount - 1) and rowCount > 1);
 		self.ui.moveDown.setEnabled(downEnable);
 		
 		# Edit Buttons

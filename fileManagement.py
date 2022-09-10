@@ -183,6 +183,8 @@ class fileManager():
 			this._errorMessage(f"An error occured while opening the file (Error code: {code}");
 		
 		self.data = this.data;
+		this.functions.populateList(self.ui.characterList, "characters");
+		this.functions.populateList(self.ui.worldBuildingList, "world");
 	# End of function
 		
 

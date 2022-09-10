@@ -74,6 +74,8 @@ class buttonFunctions():
 		indexOfItem = ui.characterList.currentRow();
 		ui.characterList.takeItem(ui.characterList.currentRow());
 		del self.data["characters"][indexOfItem];
+
+		this.functions.unlockEditRemoveCharacterBtns();
 	# End of function
 	
 
