@@ -5,7 +5,7 @@ const fs = require("fs");
 // const optionsWindow = require("options.py");
 // const editWindow = rquire("editPerson.py");
 
-fileArray = ["mainWindow.py", "options.py", "info.py", "editPerson.py", "worldBuilding.py"];
+fileArray = ["ui_mainWindow.py", "ui_optionsWindow.py", "ui_infoWindow.py", "ui_editPersonWindow.py", "ui_worldBuildingWindow.py"];
 const reg = /QPixmap\("ui\\\\\.\.\/(.*?)"/
 
 const line1 = 'import sys\n';

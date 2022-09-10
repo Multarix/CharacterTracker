@@ -3,7 +3,7 @@ output/
 qtDesigner/
 tkinter/
 ui/
-characters.sqlite
+characters.chtr
 updateFiles.bat
 
 
