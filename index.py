@@ -129,8 +129,8 @@ class startProgram(QMainWindow):
 		ui.actionEdit_Character.triggered.connect(lambda: windows.openEditCharacterWindow(false));								# Edit character
 		ui.actionRemove_Character.triggered.connect(buttons.removeCharacterBtn);												# Remove character
 		ui.actionRefresh.triggered.connect(lambda: functions.populateList(ui.characterList, "characters"));						# Refresh
-		ui.action_config.triggered.connect(lambda: windows.openOptionsWindow(self));											# Settings menu
-		ui.action_Credits.triggered.connect(lambda: windows.openCreditsWindow(self));											# Credits menu
+		ui.action_config.triggered.connect(windows.openOptionsWindow);															# Settings menu
+		ui.action_Credits.triggered.connect(windows.openCreditsWindow);															# Credits menu
 		
 		# --Misc Functions--
 		ui.characterSearch.textEdited.connect(lambda: functions.searchBar(ui.characterSearch, ui.characterList));				# Character search
