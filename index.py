@@ -14,6 +14,7 @@ from fileManagement import fileManager
 from all_ui_Elements import windows
 from buttonFunctions import buttonFunctions
 from miscFunctions import miscFunctions
+from themes import themeManager
 
 ##########################
 ## To Do:				##
@@ -40,7 +41,7 @@ false = False;
 
 defaultConfig: configLayout;
 defaultConfig = {
-	"theme":"Dark",
+	"theme": 0,
 	"lang": 0,
 	"longestRelation": 0
 }
@@ -84,10 +85,12 @@ class startProgram(QMainWindow):
 		self.settings = defaultConfig;
 		self.settings["longestRelation"] = self.functions.maxRelationLength();
 		
-		deathIconPath = self.functions.resource_path(f"icons\\dead_{self.settings['theme']}.png");
-		self.deathIcon = QtGui.QIcon();
-		self.deathIcon.addPixmap(QtGui.QPixmap(deathIconPath));
-
+		# deathIconPath = self.functions.resource_path(f"icons\\dead_{self.settings['theme']}.png");
+		# self.deathIcon = QtGui.QIcon();
+		# self.deathIcon.addPixmap(QtGui.QPixmap(deathIconPath));
+		
+		self.themeManager = themeManager(self.settings["theme"]);
+		
 		# ageSlider stuff is not programatically functional yet, so hide and disable it
 		self.ui.ageSlider.setHidden(true);
 		self.ui.ageSlider.setDisabled(true);
@@ -99,7 +102,7 @@ class startProgram(QMainWindow):
 	# End of function
 	
 		
-	def _connections(self):
+	def _connections(self) -> None:
 		ui = self.ui;
 		file = self.file;
 		windows = self.windows;
@@ -141,7 +144,7 @@ class startProgram(QMainWindow):
 	# End of function
 	
 
-	def _setFonts(self):
+	def _setFonts(self) -> None:
 		self.ui.characterSearch.setFont(monospace);
 		self.ui.characterList.setFont(monospace);
 		self.ui.selectionDetails.setFont(monospace);
