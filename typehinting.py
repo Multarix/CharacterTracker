@@ -5,8 +5,6 @@ from typing import Tuple
 from PyQt5 import QtGui, QtWidgets
 from PyQt5.QtWidgets import *
 
-# from themes import themeManager
-
 from ui_mainWindow import Ui_mainWindow as mainWindow
 from ui_editPersonWindow import Ui_editPersonWindow as editPersonWindow
 from ui_addRelationWindow import Ui_addRelationWindow as addRelationWindow
@@ -33,7 +31,6 @@ class configLayout(TypedDict):
 	theme: str;
 	lang: int;
 	longestRelation: int;
-	
 	
 	
 class miscFunctions():
