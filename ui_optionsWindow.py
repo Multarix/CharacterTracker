@@ -81,30 +81,30 @@ class Ui_optionsWindow(object):
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.themeLabel_2 = QtWidgets.QLabel(self.layoutWidget)
-        self.themeLabel_2.setStyleSheet("QLabel {\n"
+        self.langLabel = QtWidgets.QLabel(self.layoutWidget)
+        self.langLabel.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
 "    font: font \"Fira Code\";\n"
 "}")
-        self.themeLabel_2.setObjectName("themeLabel_2")
-        self.horizontalLayout.addWidget(self.themeLabel_2)
-        self.themeBox_2 = QtWidgets.QComboBox(self.layoutWidget)
-        self.themeBox_2.setMinimumSize(QtCore.QSize(71, 21))
-        self.themeBox_2.setMaximumSize(QtCore.QSize(71, 21))
-        self.themeBox_2.setStyleSheet("QComboBox {\n"
+        self.langLabel.setObjectName("langLabel")
+        self.horizontalLayout.addWidget(self.langLabel)
+        self.langBox = QtWidgets.QComboBox(self.layoutWidget)
+        self.langBox.setMinimumSize(QtCore.QSize(71, 21))
+        self.langBox.setMaximumSize(QtCore.QSize(71, 21))
+        self.langBox.setStyleSheet("QComboBox {\n"
 "    background: rgb(64, 68, 75);\n"
 "    border: 1px solid rgb(50, 50, 50);\n"
 "    border-radius:5px;\n"
 "    padding-left: 3px;\n"
 "}")
-        self.themeBox_2.setObjectName("themeBox_2")
-        self.themeBox_2.addItem("")
-        self.themeBox_2.addItem("")
-        self.themeBox_2.addItem("")
-        self.horizontalLayout.addWidget(self.themeBox_2)
+        self.langBox.setObjectName("langBox")
+        self.langBox.addItem("")
+        self.langBox.addItem("")
+        self.langBox.addItem("")
+        self.horizontalLayout.addWidget(self.langBox)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.themeLabel.setBuddy(self.themeBox)
-        self.themeLabel_2.setBuddy(self.themeBox)
+        self.langLabel.setBuddy(self.themeBox)
 
         self.retranslateUi(optionsWindow)
         self.acceptCancel.rejected.connect(optionsWindow.close) # type: ignore
@@ -116,7 +116,7 @@ class Ui_optionsWindow(object):
         self.themeLabel.setText(_translate("optionsWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Theme:</span></p></body></html>"))
         self.themeBox.setItemText(0, _translate("optionsWindow", "Dark"))
         self.themeBox.setItemText(1, _translate("optionsWindow", "Light"))
-        self.themeLabel_2.setText(_translate("optionsWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Language:</span></p></body></html>"))
-        self.themeBox_2.setItemText(0, _translate("optionsWindow", "English"))
-        self.themeBox_2.setItemText(1, _translate("optionsWindow", "German"))
-        self.themeBox_2.setItemText(2, _translate("optionsWindow", "French"))
+        self.langLabel.setText(_translate("optionsWindow", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Language:</span></p></body></html>"))
+        self.langBox.setItemText(0, _translate("optionsWindow", "English"))
+        self.langBox.setItemText(1, _translate("optionsWindow", "German"))
+        self.langBox.setItemText(2, _translate("optionsWindow", "French"))

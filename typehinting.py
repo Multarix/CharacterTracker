@@ -5,6 +5,8 @@ from typing import Tuple
 from PyQt5 import QtGui, QtWidgets
 from PyQt5.QtWidgets import *
 
+# from themes import themeManager
+
 from ui_mainWindow import Ui_mainWindow as mainWindow
 from ui_editPersonWindow import Ui_editPersonWindow as editPersonWindow
 from ui_addRelationWindow import Ui_addRelationWindow as addRelationWindow
@@ -31,6 +33,62 @@ class configLayout(TypedDict):
 	theme: str;
 	lang: int;
 	longestRelation: int;
+	
+	
+	
+class miscFunctions():
+	def __init__(self) -> None:
+		pass
+	
+	def resource_path(self, relative_path: str) -> str:
+		pass
+	
+	def showDetails(this) -> None:
+		pass
+	
+	def searchBar(this, searchBar: QLineEdit, listToSearch: QListWidget) -> None:
+		pass
+	
+	def unlockWorldBuildingEditRemoveBtns(this) -> None:
+		pass
+	
+	def unlockWorldBuildingAcceptBtn(this):
+		pass
+	
+	def unlockEditRemoveCharacterBtns(this) -> None:
+		pass
+	
+	def unlockSubmitCharacterBtn(this) -> None:
+		pass
+	
+	def unlockEditRemoveRelationBtn(this) -> None:
+		pass
+	
+	def unlockAcceptRelationBtn(this) -> None:
+		pass
+	
+	def populateList(this, table: QListWidget, type: str) -> None:
+		pass
+	
+	def relationConversion(this, item: int | str) -> str | int:
+		pass
+	
+	def maxRelationLength(this) -> int:
+		pass
+	
+	def titleConversion(this, item: int | str | None) -> str | int:
+		pass
+	
+	def relationTupleConversion(this, relationship: tuple) -> tuple | None:
+		pass
+
+
+class themeManager():
+	def __init__(self) -> None:
+		self.functions = miscFunctions();
+	
+	def setTheme() -> None:
+		pass
 
 
 class startProgram():
@@ -80,6 +138,8 @@ class startProgram():
 			"font": QtGui.QFont,
 			"palette": QtGui.QPalette
 		}
+		
+		self.themeManager = themeManager()
 		
 		self.deathIcon = QtGui.QIcon;
 		

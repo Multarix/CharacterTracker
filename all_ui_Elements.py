@@ -38,6 +38,7 @@ class windows():
 		self.creditsWindow = QtWidgets.QDialog();
 		self.creditsUI = creditsWindow();
 		self.creditsUI.setupUi(self.creditsWindow);
+		self.themeManager.setTheme(self, "credits");
 		self.creditsWindow.show();
 	# End of function
 	
@@ -47,6 +48,7 @@ class windows():
 		self.optionsWindow = QtWidgets.QDialog();
 		self.optionsUI = optionsWindow();
 		self.optionsUI.setupUi(self.optionsWindow);
+		self.themeManager.setTheme(self, "options");
 		self.optionsWindow.show();
 	# End of function
 	
@@ -62,6 +64,7 @@ class windows():
 		self.editCharacterWindow = QtWidgets.QWidget();
 		self.characterUI = editPersonWindow();
 		self.characterUI.setupUi(self.editCharacterWindow);
+		self.themeManager.setTheme(self, "person");
 		self.characterUI.characterID.hide(); # People don't need to see this, it's only for data tracking purposes
 		
 		# Palette Fix
@@ -132,6 +135,7 @@ class windows():
 		self.addRelationWindow = QtWidgets.QWidget();
 		self.addRelationUI = addRelationWindow();
 		self.addRelationUI.setupUi(self.addRelationWindow);
+		self.themeManager.setTheme(self, "relation");
 		
 		# Palette Fix
 		self.addRelationUI.search.setPalette(self.fixes["palette"]);
@@ -178,6 +182,7 @@ class windows():
 		self.worldBuildingWindow = QtWidgets.QDialog();
 		self.worldBuildingUI = worldBuildingWindow();
 		self.worldBuildingUI.setupUi(self.worldBuildingWindow);
+		self.themeManager.setTheme(self, "world");
 		
 		# Palette Fix
 		self.worldBuildingUI.textEditor.setPalette(self.fixes["palette"]);

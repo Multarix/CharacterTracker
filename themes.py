@@ -1,36 +1,70 @@
+from __future__ import annotations
 from typehinting import startProgram
+
 from miscFunctions import miscFunctions
 
 from PyQt5 import QtGui
 
+from theme.darkTheme import darkTheme
+from theme.lightTheme import lightTheme
+
+# Fixing python to not be shit
 true = True;
 false = False;
 
-themes = {
+themeConversion = {
 	0: "Dark",
 	1: "Light"
 }
 
+themes = {
+	"Dark": darkTheme(),
+	"Light": lightTheme()
+};
+
 class themeManager():
 	def __init__(this, self: startProgram) -> None:
-		this.self = self;
-		this.functions = miscFunctions();
+		this.functions = miscFunctions(self);
 		
-		this.swapTheme(self.settings["theme"]);
+		this.setTheme(self, "main");
+	# End of function
+
+
+	def setTheme(this, self: startProgram, window: str, ) -> None:
+		themeString = this._themeConvert(self.settings["theme"]);
+		
+		themeClass: darkTheme | lightTheme;
+		themeClass = themes[themeString];
+		
+		if(window == "main"):
+			this._setIcons(self, themeString)
+			return themeClass.mainWindowTheme(self);
+			
+		if(window == "world"):
+			return themeClass.worldWindowTheme(self);
+			
+		if(window == "credits"):
+			return themeClass.creditWindowTheme(self);
+			
+		if(window == "options"):
+			return themeClass.optionsWindowTheme(self);
+			
+		if(window == "person"):
+			return themeClass.personWindowTheme(self);
+			
+		if(window == "relation"):
+			return themeClass.relationWindowTheme(self);
 	# End of function
 	
-
-	def swapTheme(this, theme: int):
-		themeType = themes[theme];
-		
-		this._swapIcons(themeType);
-		# this._swapColors(themeType);
+	
+	def _themeConvert(this, theme: int) -> str:
+		themeType = themeConversion[theme];
+		return themeType;
 	# End of function
 
 
-	def _swapIcons(this, theme):
-		self = this.self;
-
+	def _setIcons(this, self: startProgram, theme: str) -> None:
+	
 		self.deathIcon = this._QIcon(f"icons\\dead_{theme}.png");
 		
 		# Character related
@@ -50,10 +84,11 @@ class themeManager():
 		self.ui.action_config.setIcon(this._QIcon(f"icons\\settings_{theme}.png"));
 		self.ui.action_Exit.setIcon(this._QIcon(f"icons\\cancel_{theme}.png"));
 	# End of function
-	
-	
+
+
 	def _QIcon(this, file: str) -> QtGui.QIcon:
 		path = this.functions.resource_path(file)
 		icon = QtGui.QIcon();
 		icon.addPixmap(QtGui.QPixmap(path));
 		return icon;
+	# End of function

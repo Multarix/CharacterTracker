@@ -84,12 +84,8 @@ class startProgram(QMainWindow):
 		
 		self.settings = defaultConfig;
 		self.settings["longestRelation"] = self.functions.maxRelationLength();
-		
-		# deathIconPath = self.functions.resource_path(f"icons\\dead_{self.settings['theme']}.png");
-		# self.deathIcon = QtGui.QIcon();
-		# self.deathIcon.addPixmap(QtGui.QPixmap(deathIconPath));
-		
-		self.themeManager = themeManager(self.settings["theme"]);
+				
+		self.themeManager = themeManager(self);
 		
 		# ageSlider stuff is not programatically functional yet, so hide and disable it
 		self.ui.ageSlider.setHidden(true);
