@@ -168,11 +168,6 @@ class windows():
 		self.worldBuildingUI.setupUi(self.worldBuildingWindow);
 		self.themeManager.setTheme(self, "world");
 		
-		# Palette Fix
-		self.worldBuildingUI.textEditor.setPalette(self.fixes["palette"]);
-		# Font
-		self.worldBuildingUI.textEditor.setFont(self.fixes["font"]);
-		
 		# Accept button
 		self.worldBuildingUI.accept.setDisabled(newDetail);
 		self.worldBuildingUI.textEditor.textChanged.connect(this.functions.unlockWorldBuildingAcceptBtn);
