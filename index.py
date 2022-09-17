@@ -23,8 +23,7 @@ defaultConfig = {
 	"longestRelation": 0
 }
 
-
-def getConfigFileData() -> list[str]:
+def getConfigData() -> list[str]:
 	homePath = os.path.abspath(os.path.expanduser("~"));
 	configDirectory = os.path.join(homePath, ".characterTracker");
 	if(not os.path.exists(configDirectory)):
@@ -43,7 +42,7 @@ def getConfigFileData() -> list[str]:
 	
 	return [json.loads(configData), configPath];
 
-configData = getConfigFileData();
+configData = getConfigData();
 config = configData[0];
 configFilePath = configData[1];
 
@@ -81,18 +80,9 @@ class startProgram(QMainWindow):
 		self.mainWindow = QtWidgets.QMainWindow();
 		self.ui = mainWindow();
 		self.ui.setupUi(self.mainWindow);
-
-		# Palette fix cause modal window breaks it for some reason?
-		palette = self.ui.characterSearch.palette();
-		palette.setColor(QtGui.QPalette.PlaceholderText, QtGui.QColor("#a0a2a5"));
-		self.ui.characterSearch.setPalette(palette);
-		self.ui.worldBuildingSearch.setPalette(palette);
-		
-		self.fixes: fixesLayout
-		self.fixes = {
-			"font": monospace,
-			"palette": palette
-		}
+		self.settings = config;
+		self.fontType = monospace
+		self.themeManager = themeManager(self);
 		
 		self.data: dataLayout;
 		self.data = {
@@ -107,10 +97,7 @@ class startProgram(QMainWindow):
 		self.buttons = buttonFunctions(self);
 		self.functions = miscFunctions(self);
 		
-		self.settings = config;
 		self.settings["longestRelation"] = self.functions.maxRelationLength();
-				
-		self.themeManager = themeManager(self);
 		
 		# ageSlider stuff is not programatically functional yet, so hide and disable it
 		self.ui.ageSlider.setHidden(true);
@@ -119,7 +106,6 @@ class startProgram(QMainWindow):
 		self.ui.ageSliderCount.setDisabled(true);
 		
 		self._connections();
-		self._setFonts();
 	# End of function
 	
 		
@@ -162,15 +148,6 @@ class startProgram(QMainWindow):
 		ui.characterList.itemSelectionChanged.connect(functions.showDetails);													# Show details
 		ui.characterList.itemSelectionChanged.connect(functions.unlockEditRemoveCharacterBtns);									# Lock/ unlock character Buttons
 		ui.worldBuildingList.itemSelectionChanged.connect(functions.unlockWorldBuildingEditRemoveBtns);							# Lock/ unlock world buttons
-	# End of function
-	
-
-	def _setFonts(self) -> None:
-		self.ui.characterSearch.setFont(monospace);
-		self.ui.characterList.setFont(monospace);
-		self.ui.selectionDetails.setFont(monospace);
-		self.ui.worldBuildingList.setFont(monospace);
-		self.ui.worldBuildingSearch.setFont(monospace);
 	# End of function
 	
 

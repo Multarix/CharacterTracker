@@ -6,9 +6,13 @@ import theme.lightFolder.personWindow as personWindow
 import theme.lightFolder.relationWindow as relationWindow
 import theme.lightFolder.worldWindow as worldWindow
 
+from PyQt5 import QtGui
+
 class lightTheme():
 	def __init__(this) -> None:
 		pass
+	
+	
 	
 	def creditWindowTheme(this, self: startProgram):
 		self.creditsWindow.setStyleSheet(creditWindow.creditsWindow);
@@ -16,6 +20,7 @@ class lightTheme():
 		self.creditsUI.label_2.setStyleSheet(creditWindow.label_2);
 		self.creditsUI.label_3.setStyleSheet(creditWindow.label_3);
 		self.creditsUI.pushButton.setStyleSheet(creditWindow.pushButton);
+
 
 
 	def mainWindowTheme(this, self: startProgram):
@@ -42,6 +47,20 @@ class lightTheme():
 		self.ui.menu_File.setStyleSheet(mainWindow.menubarTab);
 		self.ui.menu_Options.setStyleSheet(mainWindow.menubarTab);
 		self.ui.menuHelp.setStyleSheet(mainWindow.menubarTab);
+		
+		# Palette fix
+		palette = self.ui.characterSearch.palette();
+		palette.setColor(QtGui.QPalette.PlaceholderText, QtGui.QColor("#a0a2a5"));
+		self.ui.characterSearch.setPalette(palette);
+		self.ui.worldBuildingSearch.setPalette(palette);
+		# Font
+		self.ui.characterSearch.setFont(self.fontType);
+		self.ui.characterList.setFont(self.fontType);
+		self.ui.selectionDetails.setFont(self.fontType);
+		self.ui.worldBuildingList.setFont(self.fontType);
+		self.ui.worldBuildingSearch.setFont(self.fontType);
+
+
 
 	def optionsWindowTheme(this, self: startProgram):
 		self.optionsWindow.setStyleSheet(optionsWindow.optionsWindow);
@@ -51,6 +70,7 @@ class lightTheme():
 		self.optionsUI.themeLabel.setStyleSheet(optionsWindow.themeLabel);
 		self.optionsUI.langBox.setStyleSheet(optionsWindow.langBox);
 		self.optionsUI.langLabel.setStyleSheet(optionsWindow.langLabel);
+
 
 
 	def personWindowTheme(this, self: startProgram):
@@ -75,6 +95,19 @@ class lightTheme():
 		self.characterUI.textEdit.setStyleSheet(personWindow.textEdit);
 		self.characterUI.titleLabel.setStyleSheet(personWindow.titleLabel);
 		self.characterUI.titleSelector.setStyleSheet(personWindow.titleSelector);
+		
+		# Palette Fix
+		palette = self.characterUI.name.palette();
+		palette.setColor(QtGui.QPalette.PlaceholderText, QtGui.QColor("#a0a2a5"));
+		self.characterUI.name.setPalette(palette);
+		self.characterUI.species.setPalette(palette);
+		self.characterUI.textEdit.setPalette(palette);
+		# Font
+		self.characterUI.name.setFont(self.fontType);
+		self.characterUI.species.setFont(self.fontType);
+		self.characterUI.textEdit.setFont(self.fontType);
+		self.characterUI.relationTable.setFont(self.fontType);
+
 
 
 	def relationWindowTheme(this, self: startProgram):
@@ -86,6 +119,18 @@ class lightTheme():
 		self.addRelationUI.relationType.setStyleSheet(relationWindow.relationType);
 		self.addRelationUI.search.setStyleSheet(relationWindow.search);
 		self.addRelationUI.searchRelation.setStyleSheet(relationWindow.searchRelation);
+		
+		# Palette Fix
+		palette = self.addRelationUI.search.palette();
+		palette.setColor(QtGui.QPalette.PlaceholderText, QtGui.QColor("#a0a2a5"));
+		self.addRelationUI.search.setPalette(palette);
+		self.addRelationUI.searchRelation.setPalette(palette);
+		# Font
+		self.addRelationUI.characterList.setFont(self.fontType);
+		self.addRelationUI.relationType.setFont(self.fontType);
+		self.addRelationUI.search.setFont(self.fontType);
+		self.addRelationUI.searchRelation.setFont(self.fontType);
+
 
 
 	def worldWindowTheme(this, self: startProgram):
@@ -94,3 +139,10 @@ class lightTheme():
 		self.worldBuildingUI.accept.setStyleSheet(worldWindow.accept);
 		self.worldBuildingUI.cancel.setStyleSheet(worldWindow.cancel);
 		self.worldBuildingUI.textEditor.setStyleSheet(worldWindow.textEditor);
+		
+		# Palette Fix
+		palette = self.worldBuildingUI.textEditor.palette();
+		palette.setColor(QtGui.QPalette.PlaceholderText, QtGui.QColor("#a0a2a5"));
+		self.worldBuildingUI.textEditor.setPalette(palette);
+		# Font
+		self.worldBuildingUI.textEditor.setFont(self.fontType);

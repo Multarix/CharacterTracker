@@ -96,12 +96,12 @@ class startProgram():
 		self.ui.setupUi();
 
 		# Credits Window
-		self.creditsWindow = QtWidgets.QDialog();
+		self.creditsWindow = QtWidgets.QWidget();
 		self.creditsUI = creditsWindow();
 		self.creditsUI.setupUi();
 		
 		# Options Window (Disabled)
-		self.optionsWindow = QtWidgets.QDialog();
+		self.optionsWindow = QtWidgets.QWidget();
 		self.optionsUI = optionsWindow();
 		self.optionsUI.setupUi();
 		
@@ -116,7 +116,7 @@ class startProgram():
 		self.addRelationUI.setupUi();
 		
 		# World Building Window
-		self.worldBuildingWindow = QtWidgets.QDialog();
+		self.worldBuildingWindow = QtWidgets.QWidget();
 		self.worldBuildingUI = worldBuildingWindow();
 		self.worldBuildingUI.setupUi();
 		
@@ -130,11 +130,7 @@ class startProgram():
 			"characters": [],
 			"world": []
 		};
-		self.fixes: fixesLayout;
-		self.fixes = {
-			"font": QtGui.QFont,
-			"palette": QtGui.QPalette
-		}
+		self.fontType = QtGui.QFont,
 		
 		self.themeManager = themeManager()
 		
