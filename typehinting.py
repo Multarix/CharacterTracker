@@ -31,6 +31,61 @@ class configLayout(TypedDict):
 	theme: str;
 	lang: int;
 	longestRelation: int;
+	
+	
+class miscFunctions():
+	def __init__(self) -> None:
+		pass
+	
+	def resource_path(self, relative_path: str) -> str:
+		pass
+	
+	def showDetails(this) -> None:
+		pass
+	
+	def searchBar(this, searchBar: QLineEdit, listToSearch: QListWidget) -> None:
+		pass
+	
+	def unlockWorldBuildingEditRemoveBtns(this) -> None:
+		pass
+	
+	def unlockWorldBuildingAcceptBtn(this):
+		pass
+	
+	def unlockEditRemoveCharacterBtns(this) -> None:
+		pass
+	
+	def unlockSubmitCharacterBtn(this) -> None:
+		pass
+	
+	def unlockEditRemoveRelationBtn(this) -> None:
+		pass
+	
+	def unlockAcceptRelationBtn(this) -> None:
+		pass
+	
+	def populateList(this, table: QListWidget, type: str) -> None:
+		pass
+	
+	def relationConversion(this, item: int | str) -> str | int:
+		pass
+	
+	def maxRelationLength(this) -> int:
+		pass
+	
+	def titleConversion(this, item: int | str | None) -> str | int:
+		pass
+	
+	def relationTupleConversion(this, relationship: tuple) -> tuple | None:
+		pass
+
+
+class themeManager():
+	def __init__(self) -> None:
+		self.functions = miscFunctions();
+	
+	def setTheme(this, self: startProgram, window: str, ) -> None:
+		pass
 
 
 class startProgram():
@@ -41,12 +96,12 @@ class startProgram():
 		self.ui.setupUi();
 
 		# Credits Window
-		self.creditsWindow = QtWidgets.QDialog();
+		self.creditsWindow = QtWidgets.QWidget();
 		self.creditsUI = creditsWindow();
 		self.creditsUI.setupUi();
 		
 		# Options Window (Disabled)
-		self.optionsWindow = QtWidgets.QDialog();
+		self.optionsWindow = QtWidgets.QWidget();
 		self.optionsUI = optionsWindow();
 		self.optionsUI.setupUi();
 		
@@ -61,7 +116,7 @@ class startProgram():
 		self.addRelationUI.setupUi();
 		
 		# World Building Window
-		self.worldBuildingWindow = QtWidgets.QDialog();
+		self.worldBuildingWindow = QtWidgets.QWidget();
 		self.worldBuildingUI = worldBuildingWindow();
 		self.worldBuildingUI.setupUi();
 		
@@ -75,11 +130,9 @@ class startProgram():
 			"characters": [],
 			"world": []
 		};
-		self.fixes: fixesLayout;
-		self.fixes = {
-			"font": QtGui.QFont,
-			"palette": QtGui.QPalette
-		}
+		self.fontType = QtGui.QFont,
+		
+		self.themeManager = themeManager()
 		
 		self.deathIcon = QtGui.QIcon;
 		

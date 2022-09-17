@@ -2,7 +2,7 @@ from __future__ import annotations									# Type hinting
 from typehinting import dataLayout, configLayout, fixesLayout		# Type hinting
 
 # Misc Imports
-import sys, platform
+import sys, platform, os, json
 
 # QT
 from PyQt5 import QtGui, QtWidgets
@@ -14,11 +14,41 @@ from fileManagement import fileManager
 from all_ui_Elements import windows
 from buttonFunctions import buttonFunctions
 from miscFunctions import miscFunctions
+from themes import themeManager
+
+defaultConfig: configLayout;
+defaultConfig = {
+	"theme": 0,
+	"lang": 0,
+	"longestRelation": 0
+}
+
+def getConfigData() -> list[str]:
+	homePath = os.path.abspath(os.path.expanduser("~"));
+	configDirectory = os.path.join(homePath, ".characterTracker");
+	if(not os.path.exists(configDirectory)):
+		os.mkdir(configDirectory);
+	
+	configPath = os.path.join(configDirectory, "config.json");
+	if(not os.path.exists(configPath)):
+		file = open(configPath, "w");
+		content = json.dumps(defaultConfig, "\t");
+		file.write(content);
+		file.close();
+	
+	f = open(configPath);
+	configData = f.read();
+	f.close();
+	
+	return [json.loads(configData), configPath];
+
+configData = getConfigData();
+config = configData[0];
+configFilePath = configData[1];
 
 ##########################
 ## To Do:				##
 ## Options Menu			##
-## - Theme				##
 ## - Language?			##
 ##						##
 ## New File				##
@@ -38,15 +68,10 @@ if(osType == "Windows"):
 true = True;
 false = False;
 
-defaultConfig: configLayout;
-defaultConfig = {
-	"theme":"Dark",
-	"lang": 0,
-	"longestRelation": 0
-}
 
 monospace = QtGui.QFont("Fira Code", 8);
 monospace.setStyleHint(styleHint);
+
 
 class startProgram(QMainWindow):
 	def __init__(self):
@@ -55,18 +80,9 @@ class startProgram(QMainWindow):
 		self.mainWindow = QtWidgets.QMainWindow();
 		self.ui = mainWindow();
 		self.ui.setupUi(self.mainWindow);
-
-		# Palette fix cause modal window breaks it for some reason?
-		palette = self.ui.characterSearch.palette();
-		palette.setColor(QtGui.QPalette.PlaceholderText, QtGui.QColor("#a0a2a5"));
-		self.ui.characterSearch.setPalette(palette);
-		self.ui.worldBuildingSearch.setPalette(palette);
-		
-		self.fixes: fixesLayout
-		self.fixes = {
-			"font": monospace,
-			"palette": palette
-		}
+		self.settings = config;
+		self.fontType = monospace
+		self.themeManager = themeManager(self);
 		
 		self.data: dataLayout;
 		self.data = {
@@ -81,13 +97,8 @@ class startProgram(QMainWindow):
 		self.buttons = buttonFunctions(self);
 		self.functions = miscFunctions(self);
 		
-		self.settings = defaultConfig;
 		self.settings["longestRelation"] = self.functions.maxRelationLength();
 		
-		deathIconPath = self.functions.resource_path(f"icons\\dead_{self.settings['theme']}.png");
-		self.deathIcon = QtGui.QIcon();
-		self.deathIcon.addPixmap(QtGui.QPixmap(deathIconPath));
-
 		# ageSlider stuff is not programatically functional yet, so hide and disable it
 		self.ui.ageSlider.setHidden(true);
 		self.ui.ageSlider.setDisabled(true);
@@ -95,11 +106,10 @@ class startProgram(QMainWindow):
 		self.ui.ageSliderCount.setDisabled(true);
 		
 		self._connections();
-		self._setFonts();
 	# End of function
 	
 		
-	def _connections(self):
+	def _connections(self) -> None:
 		ui = self.ui;
 		file = self.file;
 		windows = self.windows;
@@ -141,18 +151,21 @@ class startProgram(QMainWindow):
 	# End of function
 	
 
-	def _setFonts(self):
-		self.ui.characterSearch.setFont(monospace);
-		self.ui.characterList.setFont(monospace);
-		self.ui.selectionDetails.setFont(monospace);
-		self.ui.worldBuildingList.setFont(monospace);
-		self.ui.worldBuildingSearch.setFont(monospace);
-	# End of function
+def saveConfig(win: startProgram):
+	settings = json.dumps(win.settings, indent="\t");
 	
+	configFile = open(configFilePath, "w");
+	configFile.write(settings);
+	configFile.close();
+
 
 if(__name__ == "__main__"):
 	app = QApplication(sys.argv);
 	app.setApplicationDisplayName("Character Tracker");
+	
 	win = startProgram();
+	
+	app.aboutToQuit.connect(lambda: saveConfig(win));
 	win.mainWindow.show();
+
 	sys.exit(app.exec());

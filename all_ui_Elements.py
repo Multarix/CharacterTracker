@@ -35,18 +35,24 @@ class windows():
 
 	def openCreditsWindow(this) -> None:
 		self = this.self;
-		self.creditsWindow = QtWidgets.QDialog();
+		self.creditsWindow = QtWidgets.QWidget();
 		self.creditsUI = creditsWindow();
 		self.creditsUI.setupUi(self.creditsWindow);
+		self.themeManager.setTheme(self, "credits");
 		self.creditsWindow.show();
 	# End of function
 	
 	
 	def openOptionsWindow(this) -> None:
 		self = this.self;
-		self.optionsWindow = QtWidgets.QDialog();
+		self.optionsWindow = QtWidgets.QWidget();
 		self.optionsUI = optionsWindow();
 		self.optionsUI.setupUi(self.optionsWindow);
+		self.themeManager.setTheme(self, "options");
+		
+		self.optionsUI.themeBox.setCurrentIndex(self.settings["theme"]);
+		self.optionsUI.langBox.setCurrentIndex(self.settings["lang"]);
+		self.optionsUI.accept.clicked.connect(lambda: this.buttons.setConfig([("theme", self.optionsUI.themeBox.currentIndex()), ("lang", self.optionsUI.langBox.currentIndex())]))
 		self.optionsWindow.show();
 	# End of function
 	
@@ -62,18 +68,9 @@ class windows():
 		self.editCharacterWindow = QtWidgets.QWidget();
 		self.characterUI = editPersonWindow();
 		self.characterUI.setupUi(self.editCharacterWindow);
+		self.themeManager.setTheme(self, "person");
 		self.characterUI.characterID.hide(); # People don't need to see this, it's only for data tracking purposes
-		
-		# Palette Fix
-		self.characterUI.textEdit.setPalette(self.fixes["palette"]);
-		self.characterUI.name.setPalette(self.fixes["palette"]);
-		self.characterUI.species.setPalette(self.fixes["palette"]);
-		# Font
-		self.characterUI.name.setFont(self.fixes["font"]);
-		self.characterUI.species.setFont(self.fixes["font"]);
-		self.characterUI.textEdit.setFont(self.fixes["font"]);
-		self.characterUI.relationTable.setFont(self.fixes["font"]);
-		
+				
 		self._characterRelations.clear();
 		
 		# Buttons
@@ -132,16 +129,7 @@ class windows():
 		self.addRelationWindow = QtWidgets.QWidget();
 		self.addRelationUI = addRelationWindow();
 		self.addRelationUI.setupUi(self.addRelationWindow);
-		
-		# Palette Fix
-		self.addRelationUI.search.setPalette(self.fixes["palette"]);
-		self.addRelationUI.searchRelation.setPalette(self.fixes["palette"]);
-		
-		# Font
-		self.addRelationUI.characterList.setFont(self.fixes["font"]);
-		self.addRelationUI.relationType.setFont(self.fixes["font"]);
-		self.addRelationUI.search.setFont(self.fixes["font"]);
-		self.addRelationUI.searchRelation.setFont(self.fixes["font"]);
+		self.themeManager.setTheme(self, "relation");
 		
 		this.functions.populateList(self.addRelationUI.characterList, "characters");
 	
@@ -175,14 +163,10 @@ class windows():
 	
 	def openWorldBuildingWindow(this, newDetail: bool) -> None:
 		self = this.self;
-		self.worldBuildingWindow = QtWidgets.QDialog();
+		self.worldBuildingWindow = QtWidgets.QWidget();
 		self.worldBuildingUI = worldBuildingWindow();
 		self.worldBuildingUI.setupUi(self.worldBuildingWindow);
-		
-		# Palette Fix
-		self.worldBuildingUI.textEditor.setPalette(self.fixes["palette"]);
-		# Font
-		self.worldBuildingUI.textEditor.setFont(self.fixes["font"]);
+		self.themeManager.setTheme(self, "world");
 		
 		# Accept button
 		self.worldBuildingUI.accept.setDisabled(newDetail);

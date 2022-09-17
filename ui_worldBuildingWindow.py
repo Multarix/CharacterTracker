@@ -28,61 +28,21 @@ class Ui_worldBuildingWindow(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(resource_path("icons/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         worldBuildingWindow.setWindowIcon(icon)
-        worldBuildingWindow.setStyleSheet("background: rgb(54, 57, 63);\n"
-"color: rgb(255, 255, 255);")
-        self.WorldBuildingLabel = QtWidgets.QLabel(worldBuildingWindow)
-        self.WorldBuildingLabel.setGeometry(QtCore.QRect(10, 5, 151, 31))
-        self.WorldBuildingLabel.setStyleSheet("QLabel {\n"
-"    background: transparent;\n"
-"    font: font \"Fira Code\";\n"
-"}")
-        self.WorldBuildingLabel.setObjectName("WorldBuildingLabel")
+        self.worldBuildingLabel = QtWidgets.QLabel(worldBuildingWindow)
+        self.worldBuildingLabel.setGeometry(QtCore.QRect(10, 5, 151, 31))
+        self.worldBuildingLabel.setObjectName("worldBuildingLabel")
         self.accept = QtWidgets.QPushButton(worldBuildingWindow)
         self.accept.setEnabled(False)
         self.accept.setGeometry(QtCore.QRect(320, 10, 71, 23))
-        self.accept.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.accept.setObjectName("accept")
         self.cancel = QtWidgets.QPushButton(worldBuildingWindow)
         self.cancel.setGeometry(QtCore.QRect(400, 10, 71, 23))
-        self.cancel.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.cancel.setObjectName("cancel")
         self.textEditor = QtWidgets.QTextEdit(worldBuildingWindow)
         self.textEditor.setGeometry(QtCore.QRect(10, 40, 461, 231))
         self.textEditor.setAcceptDrops(False)
-        self.textEditor.setStyleSheet("QTextEdit {\n"
-"    background: rgb(64, 68, 75);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    padding: 3px;\n"
-"}")
         self.textEditor.setObjectName("textEditor")
-        self.WorldBuildingLabel.setBuddy(self.textEditor)
+        self.worldBuildingLabel.setBuddy(self.textEditor)
 
         self.retranslateUi(worldBuildingWindow)
         self.cancel.clicked.connect(worldBuildingWindow.close) # type: ignore
@@ -91,7 +51,7 @@ class Ui_worldBuildingWindow(object):
     def retranslateUi(self, worldBuildingWindow):
         _translate = QtCore.QCoreApplication.translate
         worldBuildingWindow.setWindowTitle(_translate("worldBuildingWindow", "Add Detail"))
-        self.WorldBuildingLabel.setText(_translate("worldBuildingWindow", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">Add Detail</span></p></body></html>"))
+        self.worldBuildingLabel.setText(_translate("worldBuildingWindow", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">Add Detail</span></p></body></html>"))
         self.accept.setText(_translate("worldBuildingWindow", "Accept"))
         self.cancel.setText(_translate("worldBuildingWindow", "Cancel"))
         self.textEditor.setHtml(_translate("worldBuildingWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"

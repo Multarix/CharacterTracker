@@ -81,10 +81,11 @@ class miscFunctions():
 	def __init__(this, self: startProgram) -> None:
 		this.self = self;
 	
-	def resource_path(this, relative_path) -> str: # Borrowed from stackoverflow
+	# Stolen from stackoverflow
+	def resource_path(this, relativePath: str) -> str: # Borrowed from stackoverflow
 		""" Get absolute path to resource, works for dev and for PyInstaller"""
-		base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)));
-		return os.path.join(base_path, relative_path);
+		basePath = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)));
+		return os.path.join(basePath, relativePath);
 	
 	
 	def showDetails(this) -> None:
@@ -188,8 +189,8 @@ class miscFunctions():
 		if(self.addRelationUI.characterList.currentRow() > -1 and self.addRelationUI.relationType.currentRow() > -1):
 			self.addRelationUI.accept.setEnabled(true);
 	# End of function
-	
-	
+
+
 	def populateList(this, table: QListWidget, type: str) -> None:
 		"""
 		Fills out a list with data
@@ -229,8 +230,8 @@ class miscFunctions():
 
 		table.setCurrentRow(prevRow);
 	# End of function
-	
-	
+
+
 	# Conversions
 	def relationConversion(this, item: int | str) -> str | int:
 		"""
@@ -244,7 +245,7 @@ class miscFunctions():
 		"""
 		return relationDict[item];
 	# End of function
-	
+
 	def maxRelationLength(this) -> int:
 		maxValue = 0;
 		for value in relationDict:
@@ -253,9 +254,9 @@ class miscFunctions():
 				maxValue = len(item);
 		
 		return maxValue;
-			
-	
-	
+	# End of function
+
+
 	def titleConversion(this, item: int | str | None) -> str | int:
 		"""
 		Function to convert a title to/from an int/ string
@@ -268,7 +269,8 @@ class miscFunctions():
 		"""
 		return titleDict[item];
 	# End of function
-		
+
+
 	def relationTupleConversion(this, relationship: tuple) -> tuple | None:
 		self = this.self;
 		personID = relationship[0];

@@ -29,8 +29,6 @@ class Ui_mainWindow(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(resource_path("icons/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         mainWindow.setWindowIcon(icon)
-        mainWindow.setStyleSheet("background: rgb(54, 57, 63);\n"
-"color: rgb(255, 255, 255);")
         mainWindow.setIconSize(QtCore.QSize(48, 48))
         self.centralwidget = QtWidgets.QWidget(mainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -38,106 +36,22 @@ class Ui_mainWindow(object):
         self.tabWidget.setGeometry(QtCore.QRect(-3, -22, 491, 391))
         self.tabWidget.setMinimumSize(QtCore.QSize(491, 0))
         self.tabWidget.setAutoFillBackground(False)
-        self.tabWidget.setStyleSheet("QTabWidget {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QTabWidget::tab-bar {\n"
-"    left: 305px;\n"
-"    top: 62px;\n"
-"}\n"
-"\n"
-"QTabBar::tab {\n"
-"    background: rgb(64, 68, 75);\n"
-"}\n"
-"\n"
-"QTabBar::tab:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QTabBar::tab:selected {\n"
-"    background: rgb(89, 93, 99);\n"
-"    color: rgb(255, 255, 255);\n"
-"}")
         self.tabWidget.setObjectName("tabWidget")
         self.Characters = QtWidgets.QWidget()
-        self.Characters.setStyleSheet("")
         self.Characters.setObjectName("Characters")
         self.removePerson = QtWidgets.QPushButton(self.Characters)
         self.removePerson.setEnabled(False)
         self.removePerson.setGeometry(QtCore.QRect(150, 310, 61, 23))
-        self.removePerson.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.removePerson.setObjectName("removePerson")
         self.editPerson = QtWidgets.QPushButton(self.Characters)
         self.editPerson.setEnabled(False)
         self.editPerson.setGeometry(QtCore.QRect(80, 310, 61, 23))
-        self.editPerson.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.editPerson.setObjectName("editPerson")
         self.charactersLabel = QtWidgets.QLabel(self.Characters)
         self.charactersLabel.setGeometry(QtCore.QRect(10, 5, 161, 31))
-        self.charactersLabel.setStyleSheet("QLabel {\n"
-"    background: transparent;\n"
-"    font: font \"Fira Code\";\n"
-"}")
         self.charactersLabel.setObjectName("charactersLabel")
         self.characterList = QtWidgets.QListWidget(self.Characters)
         self.characterList.setGeometry(QtCore.QRect(10, 70, 221, 231))
-        self.characterList.setStyleSheet("QListWidget{\n"
-"    color: rgb(255, 255, 255);\n"
-"    background: rgb(64, 68, 75);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    outline: 0;\n"
-"}\n"
-"\n"
-"QListWidget:item{\n"
-"    color: rgb(255, 255, 255);\n"
-"    padding: 3px;\n"
-"    border: 1px solid transparent;\n"
-"    border-radius: 5px;\n"
-"}\n"
-"\n"
-"QListWidget:item:hover{\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
-"    background: rgb(74, 76, 79);\n"
-"    border: 1px solid rgb(64, 66, 75);\n"
-"}\n"
-"\n"
-"QListWidget:item:selected{\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
-"    background: rgb(93, 94, 97);\n"
-"    border: 1px solid rgb(74, 76, 79);\n"
-"}")
         self.characterList.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustIgnored)
         self.characterList.setAutoScroll(True)
         self.characterList.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
@@ -153,14 +67,6 @@ class Ui_mainWindow(object):
         self.characterSearch.setGeometry(QtCore.QRect(10, 40, 221, 21))
         self.characterSearch.setAcceptDrops(False)
         self.characterSearch.setToolTip("")
-        self.characterSearch.setStyleSheet("QLineEdit {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
-"}")
         self.characterSearch.setObjectName("characterSearch")
         self.selectionDetails = QtWidgets.QListWidget(self.Characters)
         self.selectionDetails.setEnabled(True)
@@ -170,18 +76,6 @@ class Ui_mainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.selectionDetails.sizePolicy().hasHeightForWidth())
         self.selectionDetails.setSizePolicy(sizePolicy)
-        self.selectionDetails.setStyleSheet("QListWidget{\n"
-"    color: rgb(255, 255, 255);\n"
-"    background: rgb(64, 68, 75);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    outline: 0;\n"
-"}\n"
-"\n"
-"QListWidget:item{\n"
-"    padding: 3px;\n"
-"    background: rgb(64, 68, 75);\n"
-"}")
         self.selectionDetails.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.selectionDetails.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContentsOnFirstShow)
         self.selectionDetails.setAutoScroll(False)
@@ -195,62 +89,17 @@ class Ui_mainWindow(object):
         self.selectionDetails.setObjectName("selectionDetails")
         self.addPerson = QtWidgets.QPushButton(self.Characters)
         self.addPerson.setGeometry(QtCore.QRect(10, 310, 61, 23))
-        self.addPerson.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.addPerson.setObjectName("addPerson")
         self.moveUp = QtWidgets.QPushButton(self.Characters)
         self.moveUp.setEnabled(False)
         self.moveUp.setGeometry(QtCore.QRect(240, 310, 31, 23))
-        self.moveUp.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.moveUp.setObjectName("moveUp")
         self.moveDown = QtWidgets.QPushButton(self.Characters)
         self.moveDown.setEnabled(False)
         self.moveDown.setGeometry(QtCore.QRect(270, 310, 31, 23))
-        self.moveDown.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.moveDown.setObjectName("moveDown")
         self.ageSlider = QtWidgets.QSlider(self.Characters)
         self.ageSlider.setGeometry(QtCore.QRect(314, 310, 130, 20))
-        self.ageSlider.setStyleSheet("QSlider {\n"
-"    background: transparent;\n"
-"}")
         self.ageSlider.setMaximum(30)
         self.ageSlider.setPageStep(1)
         self.ageSlider.setOrientation(QtCore.Qt.Horizontal)
@@ -259,115 +108,31 @@ class Ui_mainWindow(object):
         self.ageSlider.setObjectName("ageSlider")
         self.ageSliderCount = QtWidgets.QLabel(self.Characters)
         self.ageSliderCount.setGeometry(QtCore.QRect(455, 310, 15, 20))
-        self.ageSliderCount.setStyleSheet("QLabel {\n"
-"    background: transparent;\n"
-"    font: font \"Fira Code\";\n"
-"}")
         self.ageSliderCount.setObjectName("ageSliderCount")
         self.tabWidget.addTab(self.Characters, "")
         self.WorldBuilding = QtWidgets.QWidget()
         self.WorldBuilding.setObjectName("WorldBuilding")
         self.worldBuildingAdd = QtWidgets.QPushButton(self.WorldBuilding)
         self.worldBuildingAdd.setGeometry(QtCore.QRect(10, 310, 61, 23))
-        self.worldBuildingAdd.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.worldBuildingAdd.setObjectName("worldBuildingAdd")
         self.worldBuildingEdit = QtWidgets.QPushButton(self.WorldBuilding)
         self.worldBuildingEdit.setEnabled(False)
         self.worldBuildingEdit.setGeometry(QtCore.QRect(80, 310, 61, 23))
-        self.worldBuildingEdit.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.worldBuildingEdit.setObjectName("worldBuildingEdit")
         self.worldBuildingRemove = QtWidgets.QPushButton(self.WorldBuilding)
         self.worldBuildingRemove.setEnabled(False)
         self.worldBuildingRemove.setGeometry(QtCore.QRect(150, 310, 61, 23))
-        self.worldBuildingRemove.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.worldBuildingRemove.setObjectName("worldBuildingRemove")
         self.worldBuildingSearch = QtWidgets.QLineEdit(self.WorldBuilding)
         self.worldBuildingSearch.setGeometry(QtCore.QRect(10, 40, 221, 21))
         self.worldBuildingSearch.setAcceptDrops(False)
         self.worldBuildingSearch.setToolTip("")
-        self.worldBuildingSearch.setStyleSheet("QLineEdit{\n"
-"    background: rgb(64, 68, 75);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
-"}")
         self.worldBuildingSearch.setObjectName("worldBuildingSearch")
         self.worldBuildingLabel = QtWidgets.QLabel(self.WorldBuilding)
         self.worldBuildingLabel.setGeometry(QtCore.QRect(10, 5, 221, 31))
-        self.worldBuildingLabel.setStyleSheet("QLabel {\n"
-"    background: transparent;\n"
-"    font: font \"Fira Code\";\n"
-"}")
         self.worldBuildingLabel.setObjectName("worldBuildingLabel")
         self.worldBuildingList = QtWidgets.QListWidget(self.WorldBuilding)
         self.worldBuildingList.setGeometry(QtCore.QRect(10, 70, 461, 231))
-        self.worldBuildingList.setStyleSheet("QListWidget{\n"
-"    color: rgb(255, 255, 255);\n"
-"    background: rgb(64, 68, 75);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    outline: 0;\n"
-"}\n"
-"\n"
-"QListWidget:item{\n"
-"    color: rgb(255, 255, 255);\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
-"    border: 1px solid transparent;\n"
-"    padding-top: 5px;\n"
-"    padding-bottom: 5px;\n"
-"    border-radius: 5px;\n"
-"}\n"
-"\n"
-"QListWidget:item:hover{\n"
-"    background: rgb(74, 76, 79);\n"
-"    border: 1px solid rgb(64, 66, 75);\n"
-"}\n"
-"\n"
-"QListWidget:item:selected{\n"
-"    background: rgb(93, 94, 97);\n"
-"    border: 1px solid rgb(74, 76, 79);\n"
-"}")
         self.worldBuildingList.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.worldBuildingList.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustIgnored)
         self.worldBuildingList.setAutoScroll(True)
@@ -387,99 +152,13 @@ class Ui_mainWindow(object):
         mainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(mainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 479, 21))
-        self.menubar.setStyleSheet("QMenuBar {\n"
-"    background: rgb(41, 43, 47);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QMenuBar::item {\n"
-"    background: rgb(41, 43, 47);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QMenuBar::item:selected {\n"
-"    background: rgb(64, 68, 74);\n"
-"    color: rgb(255, 255, 255);\n"
-"}")
         self.menubar.setNativeMenuBar(True)
         self.menubar.setObjectName("menubar")
         self.menu_File = QtWidgets.QMenu(self.menubar)
-        self.menu_File.setStyleSheet("QMenu {\n"
-"    background: rgb(41, 43, 47);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QMenu::item {\n"
-"    background: rgb(41, 43, 47);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QMenu::item:selected {\n"
-"    background: rgb(64, 68, 74);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QMenu::item:disabled {\n"
-"    background: rgb(41, 43, 47);\n"
-"    color: rgb(126, 126, 126);\n"
-"}\n"
-"\n"
-"QMenu::separator {\n"
-"    color: rgb(0, 0, 0);\n"
-"    padding-top: 4px;\n"
-"}")
         self.menu_File.setObjectName("menu_File")
         self.menu_Options = QtWidgets.QMenu(self.menubar)
-        self.menu_Options.setStyleSheet("QMenu {\n"
-"    background: rgb(41, 43, 47);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QMenu::item {\n"
-"    background: rgb(41, 43, 47);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QMenu::item:selected {\n"
-"    background: rgb(64, 68, 74);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QMenu::item:disabled {\n"
-"    background: rgb(41, 43, 47);\n"
-"    color: rgb(126, 126, 126);\n"
-"}\n"
-"\n"
-"QMenu::separator {\n"
-"    color: rgb(0, 0, 0);\n"
-"    padding-top: 4px;\n"
-"}")
         self.menu_Options.setObjectName("menu_Options")
         self.menuHelp = QtWidgets.QMenu(self.menubar)
-        self.menuHelp.setStyleSheet("QMenu {\n"
-"    background: rgb(41, 43, 47);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QMenu::item {\n"
-"    background: rgb(41, 43, 47);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QMenu::item:selected {\n"
-"    background: rgb(64, 68, 74);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QMenu::item:disabled {\n"
-"    background: rgb(41, 43, 47);\n"
-"    color: rgb(126, 126, 126);\n"
-"}\n"
-"\n"
-"QMenu::separator {\n"
-"    color: rgb(0, 0, 0);\n"
-"    padding-top: 4px;\n"
-"}")
         self.menuHelp.setObjectName("menuHelp")
         mainWindow.setMenuBar(self.menubar)
         self.action_Open = QtWidgets.QAction(mainWindow)
@@ -498,7 +177,7 @@ class Ui_mainWindow(object):
         self.action_Save.setIcon(icon3)
         self.action_Save.setObjectName("action_Save")
         self.action_config = QtWidgets.QAction(mainWindow)
-        self.action_config.setEnabled(False)
+        self.action_config.setEnabled(True)
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(resource_path("icons/settings_Dark.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.action_config.setIcon(icon4)
