@@ -32,7 +32,7 @@ def getConfigData() -> list[str]:
 	configPath = os.path.join(configDirectory, "config.json");
 	if(not os.path.exists(configPath)):
 		file = open(configPath, "w");
-		content = json.dumps(defaultConfig, "\t");
+		content = json.dumps(defaultConfig, indent="\t");
 		file.write(content);
 		file.close();
 	
