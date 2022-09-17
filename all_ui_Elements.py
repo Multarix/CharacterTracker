@@ -35,7 +35,7 @@ class windows():
 
 	def openCreditsWindow(this) -> None:
 		self = this.self;
-		self.creditsWindow = QtWidgets.QDialog();
+		self.creditsWindow = QtWidgets.QWidget();
 		self.creditsUI = creditsWindow();
 		self.creditsUI.setupUi(self.creditsWindow);
 		self.themeManager.setTheme(self, "credits");
@@ -45,10 +45,12 @@ class windows():
 	
 	def openOptionsWindow(this) -> None:
 		self = this.self;
-		self.optionsWindow = QtWidgets.QDialog();
+		self.optionsWindow = QtWidgets.QWidget();
 		self.optionsUI = optionsWindow();
 		self.optionsUI.setupUi(self.optionsWindow);
 		self.themeManager.setTheme(self, "options");
+		
+		self.optionsUI.accept.clicked.connect(lambda: this.buttons.setConfig([("theme", self.optionsUI.themeBox.currentIndex()), ("lang", self.optionsUI.langBox.currentIndex())]))
 		self.optionsWindow.show();
 	# End of function
 	

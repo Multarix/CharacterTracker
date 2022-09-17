@@ -22,34 +22,11 @@ class Ui_optionsWindow(object):
     def setupUi(self, optionsWindow):
         optionsWindow.setObjectName("optionsWindow")
         optionsWindow.setWindowModality(QtCore.Qt.ApplicationModal)
-        optionsWindow.resize(191, 120)
-        optionsWindow.setMinimumSize(QtCore.QSize(191, 120))
-        optionsWindow.setMaximumSize(QtCore.QSize(191, 120))
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(resource_path("icons/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        optionsWindow.setWindowIcon(icon)
+        optionsWindow.resize(191, 111)
+        optionsWindow.setMinimumSize(QtCore.QSize(191, 111))
+        optionsWindow.setMaximumSize(QtCore.QSize(191, 111))
         optionsWindow.setStyleSheet("background: rgb(54, 57, 63);\n"
 "color: rgb(255, 255, 255);")
-        optionsWindow.setModal(True)
-        self.acceptCancel = QtWidgets.QDialogButtonBox(optionsWindow)
-        self.acceptCancel.setGeometry(QtCore.QRect(20, 80, 151, 32))
-        self.acceptCancel.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
-        self.acceptCancel.setOrientation(QtCore.Qt.Horizontal)
-        self.acceptCancel.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
-        self.acceptCancel.setObjectName("acceptCancel")
         self.layoutWidget = QtWidgets.QWidget(optionsWindow)
         self.layoutWidget.setGeometry(QtCore.QRect(10, 10, 171, 54))
         self.layoutWidget.setObjectName("layoutWidget")
@@ -103,11 +80,45 @@ class Ui_optionsWindow(object):
         self.langBox.addItem("")
         self.horizontalLayout.addWidget(self.langBox)
         self.verticalLayout.addLayout(self.horizontalLayout)
+        self.cancel = QtWidgets.QPushButton(optionsWindow)
+        self.cancel.setGeometry(QtCore.QRect(100, 80, 71, 23))
+        self.cancel.setStyleSheet("QPushButton {\n"
+"    background: rgb(64, 68, 75);\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: rgb(79, 83, 89);\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background: rgb(54, 57, 63);\n"
+"    color: rgb(126, 126, 126);\n"
+"}")
+        self.cancel.setObjectName("cancel")
+        self.accept = QtWidgets.QPushButton(optionsWindow)
+        self.accept.setGeometry(QtCore.QRect(20, 80, 71, 23))
+        self.accept.setStyleSheet("QPushButton {\n"
+"    background: rgb(64, 68, 75);\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: rgb(79, 83, 89);\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background: rgb(54, 57, 63);\n"
+"    color: rgb(126, 126, 126);\n"
+"}")
+        self.accept.setObjectName("accept")
         self.themeLabel.setBuddy(self.themeBox)
         self.langLabel.setBuddy(self.themeBox)
 
         self.retranslateUi(optionsWindow)
-        self.acceptCancel.rejected.connect(optionsWindow.close) # type: ignore
+        self.cancel.clicked.connect(optionsWindow.close) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(optionsWindow)
 
     def retranslateUi(self, optionsWindow):
@@ -120,3 +131,5 @@ class Ui_optionsWindow(object):
         self.langBox.setItemText(0, _translate("optionsWindow", "English"))
         self.langBox.setItemText(1, _translate("optionsWindow", "German"))
         self.langBox.setItemText(2, _translate("optionsWindow", "French"))
+        self.cancel.setText(_translate("optionsWindow", "Cancel"))
+        self.accept.setText(_translate("optionsWindow", "Accept"))

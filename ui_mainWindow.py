@@ -498,7 +498,7 @@ class Ui_mainWindow(object):
         self.action_Save.setIcon(icon3)
         self.action_Save.setObjectName("action_Save")
         self.action_config = QtWidgets.QAction(mainWindow)
-        self.action_config.setEnabled(False)
+        self.action_config.setEnabled(True)
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(resource_path("icons/settings_Dark.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.action_config.setIcon(icon4)

@@ -2,7 +2,7 @@ from __future__ import annotations									# Type hinting
 from typehinting import dataLayout, configLayout, fixesLayout		# Type hinting
 
 # Misc Imports
-import sys, platform
+import sys, platform, os, json
 
 # QT
 from PyQt5 import QtGui, QtWidgets
@@ -15,6 +15,37 @@ from all_ui_Elements import windows
 from buttonFunctions import buttonFunctions
 from miscFunctions import miscFunctions
 from themes import themeManager
+
+defaultConfig: configLayout;
+defaultConfig = {
+	"theme": 0,
+	"lang": 0,
+	"longestRelation": 0
+}
+
+
+def getConfigFileData() -> list[str]:
+	homePath = os.path.abspath(os.path.expanduser("~"));
+	configDirectory = os.path.join(homePath, ".characterTracker");
+	if(not os.path.exists(configDirectory)):
+		os.mkdir(configDirectory);
+	
+	configPath = os.path.join(configDirectory, "config.json");
+	if(not os.path.exists(configPath)):
+		file = open(configPath, "w");
+		content = json.dumps(defaultConfig, "\t");
+		file.write(content);
+		file.close();
+	
+	f = open(configPath);
+	configData = f.read();
+	f.close();
+	
+	return [json.loads(configData), configPath];
+
+configData = getConfigFileData();
+config = configData[0];
+configFilePath = configData[1];
 
 ##########################
 ## To Do:				##
@@ -39,12 +70,6 @@ if(osType == "Windows"):
 true = True;
 false = False;
 
-defaultConfig: configLayout;
-defaultConfig = {
-	"theme": 0,
-	"lang": 0,
-	"longestRelation": 0
-}
 
 monospace = QtGui.QFont("Fira Code", 8);
 monospace.setStyleHint(styleHint);
@@ -82,7 +107,7 @@ class startProgram(QMainWindow):
 		self.buttons = buttonFunctions(self);
 		self.functions = miscFunctions(self);
 		
-		self.settings = defaultConfig;
+		self.settings = config;
 		self.settings["longestRelation"] = self.functions.maxRelationLength();
 				
 		self.themeManager = themeManager(self);
@@ -149,9 +174,21 @@ class startProgram(QMainWindow):
 	# End of function
 	
 
+def saveConfig(win: startProgram):
+	settings = json.dumps(win.settings);
+	
+	configFile = open(configFilePath, "w");
+	configFile.write(settings);
+	configFile.close();
+
+
 if(__name__ == "__main__"):
 	app = QApplication(sys.argv);
 	app.setApplicationDisplayName("Character Tracker");
+	
 	win = startProgram();
+	
+	app.aboutToQuit.connect(lambda: saveConfig(win));
 	win.mainWindow.show();
+
 	sys.exit(app.exec());

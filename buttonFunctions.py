@@ -4,6 +4,7 @@
 #	 ██╔══██╗██║░░░██║░░░██║░░░░░░██║░░░██║░░██║██║╚████║    ██╔══╝░░██║░░░██║██║╚████║██║░░██╗░░░██║░░░██║██║░░██║██║╚████║░╚═══██╗
 #	 ██████╦╝╚██████╔╝░░░██║░░░░░░██║░░░╚█████╔╝██║░╚███║    ██║░░░░░╚██████╔╝██║░╚███║╚█████╔╝░░░██║░░░██║╚█████╔╝██║░╚███║██████╔╝
 #	 ╚═════╝░░╚═════╝░░░░╚═╝░░░░░░╚═╝░░░░╚════╝░╚═╝░░╚══╝    ╚═╝░░░░░░╚═════╝░╚═╝░░╚══╝░╚════╝░░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝╚═════╝░
+from __future__ import annotations	# Type hinting
 
 from PyQt5.QtWidgets import *
 
@@ -182,3 +183,22 @@ class buttonFunctions():
 		self.ui.characterList.item(newRowIndex).setIcon(currentItemIcon);
 		
 		self.ui.characterList.setCurrentRow(currentRow + upDown);
+	# End of function
+	
+	
+	def setConfig(this, settings: list[tuple[str, str]]):
+		self = this.self;
+		theme = self.settings["theme"];
+		# lang = self.settings["lang"];
+		
+		# Set the settings
+		for setting in settings:
+			self.settings[setting[0]] = setting[1];
+		
+		# If the theme changed, change the theme
+		if(theme != self.settings["theme"]):
+			self.themeManager.setTheme(self, "main");
+		
+		# Close the window
+		self.optionsWindow.close();
+			

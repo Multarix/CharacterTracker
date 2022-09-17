@@ -84,7 +84,7 @@ class themeManager():
 	def __init__(self) -> None:
 		self.functions = miscFunctions();
 	
-	def setTheme() -> None:
+	def setTheme(this, self: startProgram, window: str, ) -> None:
 		pass
 
 

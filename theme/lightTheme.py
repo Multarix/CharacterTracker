@@ -45,7 +45,8 @@ class lightTheme():
 
 	def optionsWindowTheme(this, self: startProgram):
 		self.optionsWindow.setStyleSheet(optionsWindow.optionsWindow);
-		self.optionsUI.acceptCancel.setStyleSheet(optionsWindow.acceptCancel);
+		self.optionsUI.accept.setStyleSheet(optionsWindow.acceptCancel);
+		self.optionsUI.cancel.setStyleSheet(optionsWindow.acceptCancel);
 		self.optionsUI.themeBox.setStyleSheet(optionsWindow.themeBox);
 		self.optionsUI.themeLabel.setStyleSheet(optionsWindow.themeLabel);
 		self.optionsUI.langBox.setStyleSheet(optionsWindow.langBox);
