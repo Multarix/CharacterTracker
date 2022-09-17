@@ -1,10 +1,12 @@
 # Random garbage
+.vscode
 output/
 qtDesigner/
 tkinter/
 ui/
 characters.chtr
 updateFiles.bat
+*.code-workspace
 
 
 # Byte-compiled / optimized / DLL files

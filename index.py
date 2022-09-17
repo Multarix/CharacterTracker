@@ -72,6 +72,7 @@ false = False;
 monospace = QtGui.QFont("Fira Code", 8);
 monospace.setStyleHint(styleHint);
 
+
 class startProgram(QMainWindow):
 	def __init__(self):
 		super().__init__();
@@ -151,7 +152,7 @@ class startProgram(QMainWindow):
 	
 
 def saveConfig(win: startProgram):
-	settings = json.dumps(win.settings);
+	settings = json.dumps(win.settings, indent="\t");
 	
 	configFile = open(configFilePath, "w");
 	configFile.write(settings);
