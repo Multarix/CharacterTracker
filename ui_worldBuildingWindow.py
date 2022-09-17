@@ -28,59 +28,19 @@ class Ui_worldBuildingWindow(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(resource_path("icons/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         worldBuildingWindow.setWindowIcon(icon)
-        worldBuildingWindow.setStyleSheet("background: rgb(54, 57, 63);\n"
-"color: rgb(255, 255, 255);")
         self.worldBuildingLabel = QtWidgets.QLabel(worldBuildingWindow)
         self.worldBuildingLabel.setGeometry(QtCore.QRect(10, 5, 151, 31))
-        self.worldBuildingLabel.setStyleSheet("QLabel {\n"
-"    background: transparent;\n"
-"    font: font \"Fira Code\";\n"
-"}")
         self.worldBuildingLabel.setObjectName("worldBuildingLabel")
         self.accept = QtWidgets.QPushButton(worldBuildingWindow)
         self.accept.setEnabled(False)
         self.accept.setGeometry(QtCore.QRect(320, 10, 71, 23))
-        self.accept.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.accept.setObjectName("accept")
         self.cancel = QtWidgets.QPushButton(worldBuildingWindow)
         self.cancel.setGeometry(QtCore.QRect(400, 10, 71, 23))
-        self.cancel.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.cancel.setObjectName("cancel")
         self.textEditor = QtWidgets.QTextEdit(worldBuildingWindow)
         self.textEditor.setGeometry(QtCore.QRect(10, 40, 461, 231))
         self.textEditor.setAcceptDrops(False)
-        self.textEditor.setStyleSheet("QTextEdit {\n"
-"    background: rgb(64, 68, 75);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    padding: 3px;\n"
-"}")
         self.textEditor.setObjectName("textEditor")
         self.worldBuildingLabel.setBuddy(self.textEditor)
 

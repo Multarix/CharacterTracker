@@ -25,8 +25,6 @@ class Ui_optionsWindow(object):
         optionsWindow.resize(191, 111)
         optionsWindow.setMinimumSize(QtCore.QSize(191, 111))
         optionsWindow.setMaximumSize(QtCore.QSize(191, 111))
-        optionsWindow.setStyleSheet("background: rgb(54, 57, 63);\n"
-"color: rgb(255, 255, 255);")
         self.layoutWidget = QtWidgets.QWidget(optionsWindow)
         self.layoutWidget.setGeometry(QtCore.QRect(10, 10, 171, 54))
         self.layoutWidget.setObjectName("layoutWidget")
@@ -36,21 +34,11 @@ class Ui_optionsWindow(object):
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.themeLabel = QtWidgets.QLabel(self.layoutWidget)
-        self.themeLabel.setStyleSheet("QLabel {\n"
-"    background: transparent;\n"
-"    font: font \"Fira Code\";\n"
-"}")
         self.themeLabel.setObjectName("themeLabel")
         self.horizontalLayout_2.addWidget(self.themeLabel)
         self.themeBox = QtWidgets.QComboBox(self.layoutWidget)
         self.themeBox.setMinimumSize(QtCore.QSize(71, 21))
         self.themeBox.setMaximumSize(QtCore.QSize(71, 21))
-        self.themeBox.setStyleSheet("QComboBox {\n"
-"    background: rgb(64, 68, 75);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    padding-left: 3px;\n"
-"}")
         self.themeBox.setObjectName("themeBox")
         self.themeBox.addItem("")
         self.themeBox.addItem("")
@@ -59,21 +47,11 @@ class Ui_optionsWindow(object):
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.langLabel = QtWidgets.QLabel(self.layoutWidget)
-        self.langLabel.setStyleSheet("QLabel {\n"
-"    background: transparent;\n"
-"    font: font \"Fira Code\";\n"
-"}")
         self.langLabel.setObjectName("langLabel")
         self.horizontalLayout.addWidget(self.langLabel)
         self.langBox = QtWidgets.QComboBox(self.layoutWidget)
         self.langBox.setMinimumSize(QtCore.QSize(71, 21))
         self.langBox.setMaximumSize(QtCore.QSize(71, 21))
-        self.langBox.setStyleSheet("QComboBox {\n"
-"    background: rgb(64, 68, 75);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    padding-left: 3px;\n"
-"}")
         self.langBox.setObjectName("langBox")
         self.langBox.addItem("")
         self.langBox.addItem("")
@@ -82,37 +60,9 @@ class Ui_optionsWindow(object):
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.cancel = QtWidgets.QPushButton(optionsWindow)
         self.cancel.setGeometry(QtCore.QRect(100, 80, 71, 23))
-        self.cancel.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.cancel.setObjectName("cancel")
         self.accept = QtWidgets.QPushButton(optionsWindow)
         self.accept.setGeometry(QtCore.QRect(20, 80, 71, 23))
-        self.accept.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.accept.setObjectName("accept")
         self.themeLabel.setBuddy(self.themeBox)
         self.langLabel.setBuddy(self.themeBox)

@@ -34,95 +34,20 @@ class Ui_addRelationWindow(object):
         icon.addPixmap(QtGui.QPixmap(resource_path("icons/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         addRelationWindow.setWindowIcon(icon)
         addRelationWindow.setToolTip("")
-        addRelationWindow.setStyleSheet("background: rgb(54, 57, 63);\n"
-"color: rgb(255, 255, 255);")
         self.characterList = QtWidgets.QListWidget(addRelationWindow)
         self.characterList.setGeometry(QtCore.QRect(10, 70, 221, 121))
-        self.characterList.setStyleSheet("QListWidget{\n"
-"    color: rgb(255, 255, 255);\n"
-"    background: rgb(64, 68, 75);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    outline: 0;\n"
-"}\n"
-"\n"
-"QListWidget:item{\n"
-"    color: rgb(255, 255, 255);\n"
-"    padding: 3px;\n"
-"    border: 1px solid transparent;\n"
-"    border-radius: 5px;\n"
-"}\n"
-"\n"
-"QListWidget:item:hover{\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
-"    background: rgb(74, 76, 79);\n"
-"    border: 1px solid rgb(64, 66, 75);\n"
-"}\n"
-"\n"
-"QListWidget:item:selected{\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
-"    background: rgb(93, 94, 97);\n"
-"    border: 1px solid rgb(74, 76, 79);\n"
-"}")
         self.characterList.setIconSize(QtCore.QSize(11, 11))
         self.characterList.setUniformItemSizes(True)
         self.characterList.setObjectName("characterList")
         self.accept = QtWidgets.QPushButton(addRelationWindow)
         self.accept.setEnabled(False)
         self.accept.setGeometry(QtCore.QRect(240, 170, 71, 23))
-        self.accept.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.accept.setObjectName("accept")
         self.label = QtWidgets.QLabel(addRelationWindow)
         self.label.setGeometry(QtCore.QRect(10, 5, 181, 31))
-        self.label.setStyleSheet("QLabel {\n"
-"    background: transparent;\n"
-"}")
         self.label.setObjectName("label")
         self.relationType = QtWidgets.QListWidget(addRelationWindow)
         self.relationType.setGeometry(QtCore.QRect(240, 70, 151, 91))
-        self.relationType.setStyleSheet("QListWidget{\n"
-"    color: rgb(255, 255, 255);\n"
-"    background: rgb(64, 68, 75);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    outline: 0;\n"
-"}\n"
-"\n"
-"QListWidget:item{\n"
-"    color: rgb(255, 255, 255);\n"
-"    padding: 3px;\n"
-"    border: 1px solid transparent;\n"
-"    border-radius: 5px;\n"
-"}\n"
-"\n"
-"QListWidget:item:hover{\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
-"    background: rgb(74, 76, 79);\n"
-"    border: 1px solid rgb(64, 66, 75);\n"
-"}\n"
-"\n"
-"QListWidget:item:selected{\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
-"    background: rgb(93, 94, 97);\n"
-"    border: 1px solid rgb(74, 76, 79);\n"
-"}")
         self.relationType.setUniformItemSizes(True)
         self.relationType.setObjectName("relationType")
         item = QtWidgets.QListWidgetItem()
@@ -157,47 +82,17 @@ class Ui_addRelationWindow(object):
         self.relationType.addItem(item)
         self.cancel = QtWidgets.QPushButton(addRelationWindow)
         self.cancel.setGeometry(QtCore.QRect(320, 170, 71, 23))
-        self.cancel.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.cancel.setObjectName("cancel")
         self.search = QtWidgets.QLineEdit(addRelationWindow)
         self.search.setGeometry(QtCore.QRect(10, 40, 221, 21))
         self.search.setAcceptDrops(False)
         self.search.setToolTip("")
-        self.search.setStyleSheet("QLineEdit {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
-"}")
         self.search.setText("")
         self.search.setObjectName("search")
         self.searchRelation = QtWidgets.QLineEdit(addRelationWindow)
         self.searchRelation.setGeometry(QtCore.QRect(240, 40, 151, 21))
         self.searchRelation.setAcceptDrops(False)
         self.searchRelation.setToolTip("")
-        self.searchRelation.setStyleSheet("QLineEdit {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
-"}")
         self.searchRelation.setText("")
         self.searchRelation.setObjectName("searchRelation")
         self.label.setBuddy(self.characterList)

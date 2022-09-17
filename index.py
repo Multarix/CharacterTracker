@@ -49,7 +49,6 @@ configFilePath = configData[1];
 ##########################
 ## To Do:				##
 ## Options Menu			##
-## - Theme				##
 ## - Language?			##
 ##						##
 ## New File				##

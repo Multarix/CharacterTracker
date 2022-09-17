@@ -34,59 +34,23 @@ class Ui_editPersonWindow(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(resource_path("icons/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         editPersonWindow.setWindowIcon(icon)
-        editPersonWindow.setStyleSheet("background: rgb(54, 57, 63);\n"
-"color: rgb(255, 255, 255);")
         self.acceptForm = QtWidgets.QPushButton(editPersonWindow)
         self.acceptForm.setEnabled(False)
         self.acceptForm.setGeometry(QtCore.QRect(250, 360, 231, 23))
-        self.acceptForm.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.acceptForm.setDefault(False)
         self.acceptForm.setObjectName("acceptForm")
         self.textEdit = QtWidgets.QTextEdit(editPersonWindow)
         self.textEdit.setGeometry(QtCore.QRect(10, 130, 231, 251))
         self.textEdit.setAcceptDrops(False)
-        self.textEdit.setStyleSheet("QTextEdit {\n"
-"    background: rgb(64, 68, 75);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    padding: 3px;\n"
-"}")
         self.textEdit.setObjectName("textEdit")
         self.charInfoLabel = QtWidgets.QLabel(editPersonWindow)
         self.charInfoLabel.setGeometry(QtCore.QRect(13, 110, 191, 16))
-        self.charInfoLabel.setStyleSheet("QLabel {\n"
-"    background: transparent;\n"
-"    font: font \"Fira Code\";\n"
-"}")
         self.charInfoLabel.setObjectName("charInfoLabel")
         self.titleLabel = QtWidgets.QLabel(editPersonWindow)
         self.titleLabel.setGeometry(QtCore.QRect(13, 10, 47, 16))
-        self.titleLabel.setStyleSheet("QLabel {\n"
-"    background: transparent;\n"
-"    font: font \"Fira Code\";\n"
-"}")
         self.titleLabel.setObjectName("titleLabel")
         self.titleSelector = QtWidgets.QComboBox(editPersonWindow)
         self.titleSelector.setGeometry(QtCore.QRect(10, 30, 71, 21))
-        self.titleSelector.setStyleSheet("QComboBox {\n"
-"    background: rgb(64, 68, 75);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    padding-left: 3px;\n"
-"}")
         self.titleSelector.setObjectName("titleSelector")
         self.titleSelector.addItem("")
         self.titleSelector.addItem("")
@@ -102,188 +66,61 @@ class Ui_editPersonWindow(object):
         self.titleSelector.addItem("")
         self.age = QtWidgets.QSpinBox(editPersonWindow)
         self.age.setGeometry(QtCore.QRect(250, 80, 61, 22))
-        self.age.setStyleSheet("QSpinBox {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    padding-left: 3px;\n"
-"}\n"
-"\n"
-"QSpinBox:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.age.setMaximum(9999999)
         self.age.setObjectName("age")
         self.addRelation = QtWidgets.QPushButton(editPersonWindow)
         self.addRelation.setGeometry(QtCore.QRect(250, 330, 71, 23))
-        self.addRelation.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.addRelation.setObjectName("addRelation")
         self.fullNameLabel = QtWidgets.QLabel(editPersonWindow)
         self.fullNameLabel.setGeometry(QtCore.QRect(103, 10, 171, 16))
-        self.fullNameLabel.setStyleSheet("QLabel {\n"
-"    background: transparent;\n"
-"    font: font \"Fira Code\";\n"
-"}")
         self.fullNameLabel.setObjectName("fullNameLabel")
         self.speciesLabel = QtWidgets.QLabel(editPersonWindow)
         self.speciesLabel.setGeometry(QtCore.QRect(13, 60, 47, 16))
-        self.speciesLabel.setStyleSheet("QLabel {\n"
-"    background: transparent;\n"
-"    font: font \"Fira Code\";\n"
-"}")
         self.speciesLabel.setObjectName("speciesLabel")
         self.removeRelation = QtWidgets.QPushButton(editPersonWindow)
         self.removeRelation.setEnabled(False)
         self.removeRelation.setGeometry(QtCore.QRect(410, 330, 71, 23))
-        self.removeRelation.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.removeRelation.setObjectName("removeRelation")
         self.dead = QtWidgets.QCheckBox(editPersonWindow)
         self.dead.setGeometry(QtCore.QRect(330, 80, 81, 20))
-        self.dead.setStyleSheet("QCheckBox{\n"
-"    color: white;\n"
-"    background: transparent;\n"
-"    font: font \"Fira Code\";\n"
-"}")
         self.dead.setObjectName("dead")
         self.species = QtWidgets.QLineEdit(editPersonWindow)
         self.species.setGeometry(QtCore.QRect(10, 80, 131, 21))
         self.species.setAcceptDrops(False)
         self.species.setToolTip("")
-        self.species.setStyleSheet("QLineEdit {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
-"}")
         self.species.setText("")
         self.species.setObjectName("species")
         self.genderLabel = QtWidgets.QLabel(editPersonWindow)
         self.genderLabel.setGeometry(QtCore.QRect(163, 60, 47, 16))
-        self.genderLabel.setStyleSheet("QLabel {\n"
-"    background: transparent;\n"
-"    font: font \"Fira Code\";\n"
-"}")
         self.genderLabel.setObjectName("genderLabel")
         self.name = QtWidgets.QLineEdit(editPersonWindow)
         self.name.setGeometry(QtCore.QRect(100, 30, 161, 21))
         self.name.setAcceptDrops(False)
         self.name.setToolTip("")
-        self.name.setStyleSheet("QLineEdit {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
-"}")
         self.name.setText("")
         self.name.setObjectName("name")
         self.genderSelector = QtWidgets.QComboBox(editPersonWindow)
         self.genderSelector.setGeometry(QtCore.QRect(160, 80, 71, 21))
-        self.genderSelector.setStyleSheet("QComboBox {\n"
-"    background: rgb(64, 68, 75);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    padding-left: 3px;\n"
-"}")
         self.genderSelector.setObjectName("genderSelector")
         self.genderSelector.addItem("")
         self.genderSelector.addItem("")
         self.genderSelector.addItem("")
         self.ageLabel = QtWidgets.QLabel(editPersonWindow)
         self.ageLabel.setGeometry(QtCore.QRect(253, 60, 47, 16))
-        self.ageLabel.setStyleSheet("QLabel {\n"
-"    background: transparent;\n"
-"    font: font \"Fira Code\";\n"
-"}")
         self.ageLabel.setObjectName("ageLabel")
         self.relationLabel = QtWidgets.QLabel(editPersonWindow)
         self.relationLabel.setGeometry(QtCore.QRect(253, 110, 101, 16))
-        self.relationLabel.setStyleSheet("QLabel {\n"
-"    background: transparent;\n"
-"    font: font \"Fira Code\";\n"
-"}")
         self.relationLabel.setObjectName("relationLabel")
         self.relationTable = QtWidgets.QListWidget(editPersonWindow)
         self.relationTable.setGeometry(QtCore.QRect(250, 130, 231, 191))
         self.relationTable.setMinimumSize(QtCore.QSize(0, 0))
         self.relationTable.setMaximumSize(QtCore.QSize(101010, 101010))
-        self.relationTable.setStyleSheet("QListWidget{\n"
-"    color: rgb(255, 255, 255);\n"
-"    background: rgb(64, 68, 75);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    outline: 0;\n"
-"}\n"
-"\n"
-"QListWidget:item{\n"
-"    color: rgb(255, 255, 255);\n"
-"    padding: 3px;\n"
-"    border: 1px solid transparent;\n"
-"    border-radius: 5px;\n"
-"}\n"
-"\n"
-"QListWidget:item:hover{\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
-"    background: rgb(74, 76, 79);\n"
-"    border: 1px solid rgb(64, 66, 75);\n"
-"}\n"
-"\n"
-"QListWidget:item:selected{\n"
-"    padding-left: 3px;\n"
-"    padding-right: 3px;\n"
-"    background: rgb(93, 94, 97);\n"
-"    border: 1px solid rgb(74, 76, 79);\n"
-"}")
         self.relationTable.setUniformItemSizes(True)
         self.relationTable.setObjectName("relationTable")
         self.characterID = QtWidgets.QSpinBox(editPersonWindow)
         self.characterID.setEnabled(False)
         self.characterID.setGeometry(QtCore.QRect(420, 30, 61, 22))
         self.characterID.setToolTip("")
-        self.characterID.setStyleSheet("QSpinBox {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"    border: 1px solid rgb(50, 50, 50);\n"
-"    border-radius:5px;\n"
-"    padding-left: 3px;\n"
-"}\n"
-"\n"
-"QSpinBox:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.characterID.setFrame(True)
         self.characterID.setReadOnly(True)
         self.characterID.setButtonSymbols(QtWidgets.QAbstractSpinBox.PlusMinus)
@@ -293,20 +130,6 @@ class Ui_editPersonWindow(object):
         self.editRelation = QtWidgets.QPushButton(editPersonWindow)
         self.editRelation.setEnabled(False)
         self.editRelation.setGeometry(QtCore.QRect(330, 330, 71, 23))
-        self.editRelation.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.editRelation.setObjectName("editRelation")
         self.characterID.raise_()
         self.acceptForm.raise_()

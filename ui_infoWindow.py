@@ -26,8 +26,6 @@ class Ui_creditsWindow(object):
         creditsWindow.setMinimumSize(QtCore.QSize(251, 113))
         creditsWindow.setMaximumSize(QtCore.QSize(251, 113))
         creditsWindow.setWindowTitle("")
-        creditsWindow.setStyleSheet("background: rgb(54, 57, 63);\n"
-"color: rgb(255, 255, 255);")
         self.layoutWidget = QtWidgets.QWidget(creditsWindow)
         self.layoutWidget.setGeometry(QtCore.QRect(20, 6, 209, 69))
         self.layoutWidget.setObjectName("layoutWidget")
@@ -35,25 +33,12 @@ class Ui_creditsWindow(object):
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.label = QtWidgets.QLabel(self.layoutWidget)
-        self.label.setStyleSheet("QLabel {\n"
-"    background: transparent;\n"
-"}")
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
         self.label_2 = QtWidgets.QLabel(self.layoutWidget)
-        self.label_2.setStyleSheet("QLabel {\n"
-"    background: transparent;\n"
-"}")
         self.label_2.setObjectName("label_2")
         self.verticalLayout.addWidget(self.label_2)
         self.label_3 = QtWidgets.QLabel(self.layoutWidget)
-        self.label_3.setStyleSheet("QLabel {\n"
-"    background: transparent;\n"
-"}\n"
-"\n"
-"QLabel:link {\n"
-"    color: rgb(255, 255, 255);\n"
-"}")
         self.label_3.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
         self.label_3.setObjectName("label_3")
         self.verticalLayout.addWidget(self.label_3)
@@ -66,20 +51,6 @@ class Ui_creditsWindow(object):
         sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
         self.pushButton.setSizePolicy(sizePolicy)
         self.pushButton.setMaximumSize(QtCore.QSize(70, 30))
-        self.pushButton.setStyleSheet("QPushButton {\n"
-"    background: rgb(64, 68, 75);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: rgb(79, 83, 89);\n"
-"    color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {\n"
-"    background: rgb(54, 57, 63);\n"
-"    color: rgb(126, 126, 126);\n"
-"}")
         self.pushButton.setDefault(True)
         self.pushButton.setObjectName("pushButton")
         self.label.setBuddy(self.pushButton)
