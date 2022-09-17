@@ -201,4 +201,5 @@ class buttonFunctions():
 		
 		# Close the window
 		self.optionsWindow.close();
+		this.functions.populateList(self.ui.characterList, "characters");
 			
