@@ -4,4 +4,3 @@ themeBox		= "QComboBox {\n	background: rgb(64, 68, 75);\n	border: 1px solid rgb(
 themeLabel		= 'QLabel {\n	background: transparent;\n	font: font "Fira Code";\n}'
 langBox			= "QComboBox {\n	background: rgb(64, 68, 75);\n	border: 1px solid rgb(50, 50, 50);\n	border-radius:5px;\n	padding-left: 3px;\n}"
 langLabel		= 'QLabel {\n	background: transparent;\n	font: font "Fira Code";\n}'
-
