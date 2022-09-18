@@ -54,6 +54,8 @@ class darkTheme():
 		self.ui.characterSearch.setPalette(palette);
 		self.ui.worldBuildingSearch.setPalette(palette);
 		# Font
+		self.ui.charactersLabel.setFont(self.fontType);
+		self.ui.worldBuildingLabel.setFont(self.fontType);
 		self.ui.characterSearch.setFont(self.fontType);
 		self.ui.characterList.setFont(self.fontType);
 		self.ui.selectionDetails.setFont(self.fontType);
