@@ -119,7 +119,6 @@ class miscFunctions():
 		"""
 		Function to hide or show items in the characterList on the mainWindowUI based on searchbar text
 		"""
-		self = this.self;
 		searchTerm = searchBar.text();
 		characterList = []
 		for i in range(listToSearch.count()):

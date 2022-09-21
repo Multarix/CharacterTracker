@@ -62,6 +62,7 @@ class buttonFunctions():
 		# Update the current list
 		self.ui.characterList.clear();
 		this.functions.populateList(self.ui.characterList, "characters");
+		this.functions.searchBar(self.ui.characterSearch, self.ui.characterList);
 	# End of function
 	
 
@@ -140,6 +141,7 @@ class buttonFunctions():
 		
 		self.ui.worldBuildingList.clear();
 		this.functions.populateList(self.ui.worldBuildingList, "world");
+		this.functions.searchBar(self.ui.worldBuildingSearch, self.ui.worldBuildingList);
 		self.worldBuildingWindow.close();
 	# End of function
 	
