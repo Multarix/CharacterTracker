@@ -63,5 +63,5 @@ class Ui_creditsWindow(object):
         _translate = QtCore.QCoreApplication.translate
         self.label.setText(_translate("creditsWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:16pt; font-weight:600;\">Character Tracker</span></p></body></html>"))
         self.label_2.setText(_translate("creditsWindow", "<html><head/><body><p align=\"center\">© 2022 Multarix. All Rights Reserved</p></body></html>"))
-        self.label_3.setText(_translate("creditsWindow", "<html><head/><body><p align=\"center\">https://github.com/Multarix</p></body></html>"))
+        self.label_3.setText(_translate("creditsWindow", "<html><head/><body><p align=\"center\"><a href=\"https://github.com/Multarix\"><span style=\" text-decoration: underline; color:#0000ff;\">https://github.com/Multarix</span></a></p></body></html>"))
         self.pushButton.setText(_translate("creditsWindow", "I see..."))

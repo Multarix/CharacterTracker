@@ -22,9 +22,9 @@ class Ui_worldBuildingWindow(object):
     def setupUi(self, worldBuildingWindow):
         worldBuildingWindow.setObjectName("worldBuildingWindow")
         worldBuildingWindow.setWindowModality(QtCore.Qt.ApplicationModal)
-        worldBuildingWindow.resize(481, 281)
-        worldBuildingWindow.setMinimumSize(QtCore.QSize(481, 281))
-        worldBuildingWindow.setMaximumSize(QtCore.QSize(481, 281))
+        worldBuildingWindow.resize(511, 281)
+        worldBuildingWindow.setMinimumSize(QtCore.QSize(511, 281))
+        worldBuildingWindow.setMaximumSize(QtCore.QSize(511, 281))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(resource_path("icons/icon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         worldBuildingWindow.setWindowIcon(icon)
@@ -33,19 +33,27 @@ class Ui_worldBuildingWindow(object):
         self.worldBuildingLabel.setObjectName("worldBuildingLabel")
         self.accept = QtWidgets.QPushButton(worldBuildingWindow)
         self.accept.setEnabled(False)
-        self.accept.setGeometry(QtCore.QRect(320, 10, 71, 23))
+        self.accept.setGeometry(QtCore.QRect(350, 10, 71, 23))
         self.accept.setObjectName("accept")
         self.cancel = QtWidgets.QPushButton(worldBuildingWindow)
-        self.cancel.setGeometry(QtCore.QRect(400, 10, 71, 23))
+        self.cancel.setGeometry(QtCore.QRect(430, 10, 71, 23))
         self.cancel.setObjectName("cancel")
         self.textEditor = QtWidgets.QTextEdit(worldBuildingWindow)
-        self.textEditor.setGeometry(QtCore.QRect(10, 40, 461, 231))
+        self.textEditor.setGeometry(QtCore.QRect(10, 40, 491, 231))
         self.textEditor.setAcceptDrops(False)
         self.textEditor.setObjectName("textEditor")
+        self.addToTimeline = QtWidgets.QCheckBox(worldBuildingWindow)
+        self.addToTimeline.setGeometry(QtCore.QRect(160, 10, 91, 23))
+        self.addToTimeline.setObjectName("addToTimeline")
+        self.yearOfEvent = QtWidgets.QSpinBox(worldBuildingWindow)
+        self.yearOfEvent.setEnabled(False)
+        self.yearOfEvent.setGeometry(QtCore.QRect(260, 10, 81, 23))
+        self.yearOfEvent.setObjectName("yearOfEvent")
         self.worldBuildingLabel.setBuddy(self.textEditor)
 
         self.retranslateUi(worldBuildingWindow)
         self.cancel.clicked.connect(worldBuildingWindow.close) # type: ignore
+        self.addToTimeline.toggled['bool'].connect(self.yearOfEvent.setEnabled) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(worldBuildingWindow)
 
     def retranslateUi(self, worldBuildingWindow):
@@ -60,3 +68,5 @@ class Ui_worldBuildingWindow(object):
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;\"><br /></p></body></html>"))
         self.textEditor.setPlaceholderText(_translate("worldBuildingWindow", "Type here..."))
+        self.addToTimeline.setText(_translate("worldBuildingWindow", "Add to Timeline"))
+        self.yearOfEvent.setPrefix(_translate("worldBuildingWindow", "Year "))

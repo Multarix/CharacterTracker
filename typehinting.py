@@ -15,10 +15,19 @@ from ui_infoWindow import Ui_creditsWindow as creditsWindow
 characterRelations = Tuple[int, int]
 character = Tuple[int, str, int, int, int, str, int, str, str]
 worldItem = Tuple[str, int]
+eventItem = Tuple[int, int, int, str]
+
+class settingsLayout(TypedDict):
+	timelineLength: int;
+	monthsPerYear: int;
+	startYear: int;
+
 class dataLayout(TypedDict):
-	"""Character and World data layout"""
+	"""Character, world, events and settings layout"""
 	characters: list[character];
 	world: list[worldItem];
+	events: list[eventItem];
+	settings: settingsLayout;
 
 
 class fixesLayout(TypedDict):

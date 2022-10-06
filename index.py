@@ -1,5 +1,5 @@
-from __future__ import annotations									# Type hinting
-from typehinting import dataLayout, configLayout, fixesLayout		# Type hinting
+from __future__ import annotations					# Type hinting
+from typehinting import dataLayout, configLayout	# Type hinting
 
 # Misc Imports
 import sys, platform, os, json
@@ -87,7 +87,9 @@ class startProgram(QMainWindow):
 		self.data: dataLayout;
 		self.data = {
 			"characters": [],
-			"world": []
+			"world": [],
+			"events": [],
+			"settings": {}
 		};
 		
 		self._characterRelations = [];

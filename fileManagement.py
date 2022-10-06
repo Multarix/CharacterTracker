@@ -27,7 +27,7 @@ class fileManager():
 		this.self = self
 		this.functions = miscFunctions(self);
 		
-		this._version = "1.1";
+		this._version = 2;
 		this._fileName = None;
 		this._database = None;
 		
@@ -39,9 +39,30 @@ class fileManager():
 
 	
 	def new(this) -> None:
-		# Gonna just wipe everything, close window and re-open?
-		# Also ask to confirm
-		pass
+		self = this.self;
+
+		# "Any unsaved changed will be lost, continue?"
+		
+		if(true):
+			return
+		
+		# If yes, remove everything
+		this._fileName = None;
+		this._database = None;
+		this.data = {
+			"characters": [],
+			"world": []
+		};
+		self.data = this.data;
+		
+		self.ui.characterList.clear();
+		self.ui.characterSearch.clear();
+		self.ui.selectionDetails.clear();
+		self.ui.worldBuildingList.clear();
+		self.ui.worldBuildingSearch.clear();
+		self._characterRelations.clear();
+		
+		
 	# End of function
 	
 	
@@ -162,11 +183,19 @@ class fileManager():
 			this._database = sqlite3.connect(fileName);
 			sql = this._database.cursor();
 			
-			code = "OPN001"; # No version table
-			sql.execute("SELECT * from version");
+			code = "OPN001"; # Cannot find the version
+			versionData = None;
+			
+			sql.execute('SELECT name FROM sqlite_master WHERE type="table" AND name="version"');
+			table = sql.fetchall();
+			tableName = table[0] if(table) else "config";
+			
+			sql.execute(f"SELECT version FROM {tableName}");
 			versionData = sql.fetchall();
+						
 			if(versionData[0][0] < this._version):
-				this._updateSchema();
+				this._updateSchema(versionData[0][0]);
+		
 			
 			code = "OPN002"; # No characters table
 			sql.execute("SELECT * FROM characters");
@@ -177,6 +206,21 @@ class fileManager():
 			sql.execute("SELECT * FROM worldBuilding");
 			this.data["world"] =  sql.fetchall();
 			this.functions.populateList(self.ui.worldBuildingList, "world");
+			
+			code = "OPN004"; # No events table
+			sql.execute("SELECT * FROM events");
+			this.data["events"] =  sql.fetchall();
+			# this.functions.populateList(self.ui.eventsList, "events");
+			
+			code = "OPN005"; # No config table... honestly how tf did you get this error?
+			sql.execute("SELECT * FROM config");
+			configData = sql.fetchall();
+			configData = configData[0];
+			this.data["settings"] = {
+				"timelineLength": configData[1],
+				"monthsPerYear": configData[2],
+				"startYear": configData[3]
+			}
 			
 			this._fileName = fileName;
 		except:
@@ -211,8 +255,28 @@ class fileManager():
 	# End of function
 	
 
-	def _updateSchema(this) -> None:
-		pass;
+	def _updateSchema(this, version) -> None:
+		"""
+		Update the database to the latest format
+
+		Args:
+			version (str | int): The version of the database
+		"""
+		if(version == "1.1"):
+			sql = this._database.cursor();
+			
+			sql.execute('DROP TABLE version');
+			this._database.commit();
+			
+			sql.execute('CREATE TABLE "config" ("version" INTEGER, "timelineLength" INTEGER, "monthsPerYear" INTEGER, "startYear" INTEGER)');
+			this._database.commit();
+			
+			sql.execute('INSERT INTO config (version, timelineLength, monthsPerYear, startYear) VALUES (?, ?, ?, ?)', (2, 10, 12, 2022));
+			this._database.commit();
+			
+			sql.execute('CREATE TABLE "events" ("yearOfEvent" INTEGER, "monthOfEvent" INTEGER, "onTimeline" INTEGER, "data" TEXT)');
+			this._database.commit();
+
 	# End of function
 
 
