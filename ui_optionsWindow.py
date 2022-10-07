@@ -26,7 +26,7 @@ class Ui_optionsWindow(object):
         optionsWindow.setMinimumSize(QtCore.QSize(341, 276))
         optionsWindow.setMaximumSize(QtCore.QSize(341, 276))
         self.layoutWidget = QtWidgets.QWidget(optionsWindow)
-        self.layoutWidget.setGeometry(QtCore.QRect(10, 10, 323, 221))
+        self.layoutWidget.setGeometry(QtCore.QRect(20, 10, 301, 221))
         self.layoutWidget.setObjectName("layoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.layoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -128,10 +128,10 @@ class Ui_optionsWindow(object):
         self.cancel.setObjectName("cancel")
         self.acceptCancelLayout.addWidget(self.cancel)
         self.themeLabel.setBuddy(self.themeBox)
-        self.langLabel.setBuddy(self.themeBox)
-        self.timelineLength.setBuddy(self.themeBox)
-        self.monthPerYear.setBuddy(self.themeBox)
-        self.startYear.setBuddy(self.themeBox)
+        self.langLabel.setBuddy(self.langBox)
+        self.timelineLength.setBuddy(self.timelineLength_spin)
+        self.monthPerYear.setBuddy(self.monthPerYear_spin)
+        self.startYear.setBuddy(self.startYear_spin)
 
         self.retranslateUi(optionsWindow)
         self.cancel.clicked.connect(optionsWindow.close) # type: ignore
