@@ -37,7 +37,7 @@ class fixesLayout(TypedDict):
 
 class configLayout(TypedDict):
 	"""Config settings layout"""
-	theme: str;
+	theme: int;
 	lang: int;
 	longestRelation: int;
 	
