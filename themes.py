@@ -65,23 +65,23 @@ class themeManager():
 
 	def _setIcons(this, self: startProgram, theme: str) -> None:
 	
-		self.deathIcon = this._QIcon(f"icons\\dead_{theme}.png");
+		self.deathIcon = this._QIcon(f"icons\\dead_{theme}.png");					# type: ignore
 		
 		# Character related
-		self.ui.actionAdd_Character.setIcon(this._QIcon(f"icons\\addPerson_{theme}.png"));
-		self.ui.actionEdit_Character.setIcon(this._QIcon(f"icons\\editCharacter_{theme}.png"));
-		self.ui.actionRemove_Character.setIcon(this._QIcon(f"icons\\removeCharacter_{theme}.png"));
+		self.ui.action_Add_Character.setIcon(this._QIcon(f"icons\\addPerson_{theme}.png"));
+		self.ui.action_Edit_Character.setIcon(this._QIcon(f"icons\\editCharacter_{theme}.png"));
+		self.ui.action_Remove_Character.setIcon(this._QIcon(f"icons\\removeCharacter_{theme}.png"));
 
 		# File related
 		self.ui.action_New.setIcon(this._QIcon(f"icons\\new_{theme}.png"));
 		self.ui.action_Open.setIcon(this._QIcon(f"icons\\open_{theme}.png"));
 		self.ui.action_Save.setIcon(this._QIcon(f"icons\\save_{theme}.png"));
-		self.ui.actionSave_As.setIcon(this._QIcon(f"icons\\saveAs_{theme}.png"));
+		self.ui.action_Save_As.setIcon(this._QIcon(f"icons\\saveAs_{theme}.png"));
 		
 		# Misc
-		self.ui.actionRefresh.setIcon(this._QIcon(f"icons\\refresh_{theme}.png"));
+		self.ui.action_Refresh.setIcon(this._QIcon(f"icons\\refresh_{theme}.png"));
 		self.ui.action_Credits.setIcon(this._QIcon(f"icons\\about_{theme}.png"));
-		self.ui.action_config.setIcon(this._QIcon(f"icons\\settings_{theme}.png"));
+		self.ui.action_Settings.setIcon(this._QIcon(f"icons\\settings_{theme}.png"));
 		self.ui.action_Exit.setIcon(this._QIcon(f"icons\\cancel_{theme}.png"));
 	# End of function
 
