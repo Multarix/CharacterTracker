@@ -4,9 +4,9 @@
 #	 ██╔══██╗██║░░░██║░░░██║░░░░░░██║░░░██║░░██║██║╚████║    ██╔══╝░░██║░░░██║██║╚████║██║░░██╗░░░██║░░░██║██║░░██║██║╚████║░╚═══██╗
 #	 ██████╦╝╚██████╔╝░░░██║░░░░░░██║░░░╚█████╔╝██║░╚███║    ██║░░░░░╚██████╔╝██║░╚███║╚█████╔╝░░░██║░░░██║╚█████╔╝██║░╚███║██████╔╝
 #	 ╚═════╝░░╚═════╝░░░░╚═╝░░░░░░╚═╝░░░░╚════╝░╚═╝░░╚══╝    ╚═╝░░░░░░╚═════╝░╚═╝░░╚══╝░╚════╝░░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝╚═════╝░
-from __future__ import annotations	# Type hinting
+from __future__ import annotations			# Type hinting
 
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import *				# type: ignore
 
 from typehinting import startProgram
 from miscFunctions import miscFunctions
@@ -188,7 +188,7 @@ class buttonFunctions():
 	# End of function
 	
 	
-	def setConfig(this, settings: list[tuple[str, str]]):
+	def setConfig(this, settings: list[tuple[str, int]]):
 		self = this.self;
 		theme = self.settings["theme"];
 		# lang = self.settings["lang"];

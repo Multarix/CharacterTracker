@@ -5,12 +5,12 @@
 #	 ╚██████╔╝██║    ██║░░░░░╚██████╔╝██║░╚███║╚█████╔╝░░░██║░░░██║╚█████╔╝██║░╚███║██████╔╝
 #	 ░╚═════╝░╚═╝    ╚═╝░░░░░░╚═════╝░╚═╝░░╚══╝░╚════╝░░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝╚═════╝░
 
-from __future__ import annotations	# Type hinting
+from __future__ import annotations					# Type hinting
 
 from typehinting import startProgram
 
 from PyQt5 import QtWidgets
-from PyQt5.QtGui import *
+from PyQt5.QtGui import *							# type: ignore
 
 from ui_editPersonWindow import Ui_editPersonWindow as editPersonWindow
 from ui_addRelationWindow import Ui_addRelationWindow as addRelationWindow

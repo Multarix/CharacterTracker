@@ -6,7 +6,7 @@ import sys, platform, os, json
 
 # QT
 from PyQt5 import QtGui, QtWidgets
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import *						# type: ignore
 
 from ui_mainWindow import Ui_mainWindow as mainWindow
 
@@ -16,6 +16,7 @@ from buttonFunctions import buttonFunctions
 from miscFunctions import miscFunctions
 from themes import themeManager
 
+
 defaultConfig: configLayout;
 defaultConfig = {
 	"theme": 0,
@@ -23,7 +24,8 @@ defaultConfig = {
 	"longestRelation": 0
 }
 
-def getConfigData() -> list[str]:
+
+def getConfigData() -> list:
 	homePath = os.path.abspath(os.path.expanduser("~"));
 	configDirectory = os.path.join(homePath, ".characterTracker");
 	if(not os.path.exists(configDirectory)):
@@ -43,6 +45,8 @@ def getConfigData() -> list[str]:
 	return [json.loads(configData), configPath];
 
 configData = getConfigData();
+
+config: dict[str, int];
 config = configData[0];
 configFilePath = configData[1];
 
@@ -82,30 +86,36 @@ class startProgram(QMainWindow):
 		self.ui.setupUi(self.mainWindow);
 		self.settings = config;
 		self.fontType = monospace
-		self.themeManager = themeManager(self);
+		self.themeManager = themeManager(self);								# type: ignore
 		
 		self.data: dataLayout;
 		self.data = {
 			"characters": [],
 			"world": [],
 			"events": [],
-			"settings": {}
+			"settings": {
+				"timelineLength": 10,
+				"monthsPerYear": 12,
+				"startYear": 2022
+			}
 		};
 		
 		self._characterRelations = [];
 		
-		self.windows = windows(self);
-		self.file = fileManager(self);
-		self.buttons = buttonFunctions(self);
-		self.functions = miscFunctions(self);
+		self.windows = windows(self);										# type: ignore
+		self.file = fileManager(self);										# type: ignore
+		self.buttons = buttonFunctions(self);								# type: ignore
+		self.functions = miscFunctions(self);								# type: ignore
 		
-		self.settings["longestRelation"] = self.functions.maxRelationLength();
+		config["longestRelation"] = self.functions.maxRelationLength();
 		
 		# ageSlider stuff is not programatically functional yet, so hide and disable it
-		self.ui.ageSlider.setHidden(true);
-		self.ui.ageSlider.setDisabled(true);
-		self.ui.ageSliderCount.setHidden(true);
-		self.ui.ageSliderCount.setDisabled(true);
+		self.ui.timelineSlider.setHidden(true);
+		self.ui.timelineSlider.setDisabled(true);
+		self.ui.timeline.setHidden(true);
+		self.ui.timeline.setDisabled(true);
+		self.ui.timelineLabel.setHidden(true);
+		self.ui.timelineLabel.setDisabled(true);
 		
 		self._connections();
 	# End of function
@@ -135,13 +145,13 @@ class startProgram(QMainWindow):
 		# --Menu Options--
 		ui.action_New.triggered.connect(lambda: file.new);																		# New file
 		ui.action_Save.triggered.connect(lambda: file.save(false, self.data));													# Save
-		ui.actionSave_As.triggered.connect(lambda: file.save(true, self.data));													# Save as
+		ui.action_Save_As.triggered.connect(lambda: file.save(true, self.data));												# Save as
 		ui.action_Open.triggered.connect(self.file.open);																		# Open a file
-		ui.actionAdd_Character.triggered.connect(lambda: windows.openEditCharacterWindow(true));								# Add character
-		ui.actionEdit_Character.triggered.connect(lambda: windows.openEditCharacterWindow(false));								# Edit character
-		ui.actionRemove_Character.triggered.connect(buttons.removeCharacterBtn);												# Remove character
-		ui.actionRefresh.triggered.connect(lambda: functions.populateList(ui.characterList, "characters"));						# Refresh
-		ui.action_config.triggered.connect(windows.openOptionsWindow);															# Settings menu
+		ui.action_Add_Character.triggered.connect(lambda: windows.openEditCharacterWindow(true));								# Add character
+		ui.action_Edit_Character.triggered.connect(lambda: windows.openEditCharacterWindow(false));								# Edit character
+		ui.action_Remove_Character.triggered.connect(buttons.removeCharacterBtn);												# Remove character
+		ui.action_Refresh.triggered.connect(lambda: functions.populateList(ui.characterList, "characters"));					# Refresh
+		ui.action_Settings.triggered.connect(windows.openOptionsWindow);														# Settings menu
 		ui.action_Credits.triggered.connect(windows.openCreditsWindow);															# Credits menu
 		
 		# --Misc Functions--

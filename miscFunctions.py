@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import os, sys
 
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import *			# type: ignore
 from typehinting import startProgram
 
 relationDict = {
@@ -164,11 +164,11 @@ class miscFunctions():
 		
 		# Edit Buttons
 		self.ui.editPerson.setEnabled(enableOrNot);
-		self.ui.actionEdit_Character.setEnabled(enableOrNot);
+		self.ui.action_Edit_Character.setEnabled(enableOrNot);
 		
 		# Remove Buttons
 		self.ui.removePerson.setEnabled(enableOrNot);
-		self.ui.actionRemove_Character.setEnabled(enableOrNot);
+		self.ui.action_Remove_Character.setEnabled(enableOrNot);
 	# End of function
 
 	def unlockSubmitCharacterBtn(this) -> None:
@@ -207,7 +207,7 @@ class miscFunctions():
 				newRow = table.count()
 				table.insertItem(newRow, f"{title}{space}{person[1]}");
 				if(person[6] == 1):
-					table.item(newRow).setIcon(self.deathIcon);
+					table.item(newRow).setIcon(self.deathIcon);					# type: ignore
 		
 		if(type == "world"):
 			for item in self.data[type]:
@@ -218,8 +218,8 @@ class miscFunctions():
 			for relation in self._characterRelations:
 				
 				converted = this.relationTupleConversion(relation);
-				if(not converted[0]):
-					continue; # The relationship came up empty
+				if(not converted):
+					continue; # The relationship came up empty (sounds like my life)
 				
 				spaces = (self.settings["longestRelation"] - len(converted[1])) * " ";
 				fullRelation = converted[1] + spaces + " | " + converted[0];
@@ -232,7 +232,7 @@ class miscFunctions():
 
 
 	# Conversions
-	def relationConversion(this, item: int | str) -> str | int:
+	def relationConversion(this, item: int | str) -> str:
 		"""
 		Function to convert a relationship to/from an int/ string
 
@@ -245,18 +245,8 @@ class miscFunctions():
 		return relationDict[item];
 	# End of function
 
-	def maxRelationLength(this) -> int:
-		maxValue = 0;
-		for value in relationDict:
-			item = relationDict[value];
-			if(len(item) > maxValue):
-				maxValue = len(item);
-		
-		return maxValue;
-	# End of function
 
-
-	def titleConversion(this, item: int | str | None) -> str | int:
+	def titleConversion(this, item: int | str | None) -> str:
 		"""
 		Function to convert a title to/from an int/ string
 
@@ -266,7 +256,20 @@ class miscFunctions():
 		Returns:
 			(str | int): The item in its converted state
 		"""
+		if(item == None):
+			item = 0;
 		return titleDict[item];
+	# End of function
+
+
+	def maxRelationLength(this) -> int:
+		maxValue = 0;
+		for value in relationDict:
+			item = relationDict[value];
+			if(len(item) > maxValue):
+				maxValue = len(item);
+		
+		return maxValue;
 	# End of function
 
 
