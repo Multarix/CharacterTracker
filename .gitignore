@@ -4,6 +4,8 @@ output/
 qtDesigner/
 tkinter/
 ui/
+theme/lightFolder/toDelete/
+theme/darkFolder/toDelete/
 characters.chtr
 updateFiles.bat
 *.code-workspace
