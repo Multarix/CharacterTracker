@@ -13,7 +13,7 @@ import sqlite3
 import os
 
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import *						# type: ignore
 
 from miscFunctions import miscFunctions
 
@@ -23,23 +23,30 @@ false = False;
 
 
 class fileManager():
-	def __init__(this, self: startProgram) -> None:
-		this.self = self
-		this.functions = miscFunctions(self);
+	def __init__(self, this: startProgram) -> None:
+		self.this = this
+		self.functions = miscFunctions(this);
 		
-		this._version = 2;
-		this._fileName = None;
-		this._database = None;
+		self._version = 2;
+		self._fileName = None;
 		
-		this.data: dataLayout;
-		this.data = {
+		self._database = None;
+		
+		self.data: dataLayout;
+		self.data = {
 			"characters": [],
-			"world": []
+			"world": [],
+			"events": [],
+			"settings": {
+				"timelineLength": 10,
+				"monthsPerYear": 12,
+				"startYear": 2022,
+			}
 		};
 
 	
-	def new(this) -> None:
-		self = this.self;
+	def new(self) -> None:
+		this = self.this;
 
 		# "Any unsaved changed will be lost, continue?"
 		
@@ -47,26 +54,30 @@ class fileManager():
 			return
 		
 		# If yes, remove everything
-		this._fileName = None;
-		this._database = None;
-		this.data = {
+		self._fileName = None;
+		self._database = None;
+		self.data = {
 			"characters": [],
-			"world": []
+			"world": [],
+			"events": [],
+			"settings": {
+				"timelineLength": 10,
+				"monthsPerYear": 12,
+				"startYear": 2022,
+			}
 		};
-		self.data = this.data;
+		this.data = this.data;
 		
-		self.ui.characterList.clear();
-		self.ui.characterSearch.clear();
-		self.ui.selectionDetails.clear();
-		self.ui.worldBuildingList.clear();
-		self.ui.worldBuildingSearch.clear();
-		self._characterRelations.clear();
-		
-		
+		this.ui.characterList.clear();
+		this.ui.characterSearch.clear();
+		this.ui.selectionDetails.clear();
+		this.ui.worldBuildingList.clear();
+		this.ui.worldBuildingSearch.clear();
+		this._characterRelations.clear();
 	# End of function
 	
 	
-	def _saveAs(this) -> bool | str:
+	def _saveAs(self) -> bool | str | int:
 		"""
 		Extra function to save a file with a specific filename
 
@@ -74,7 +85,7 @@ class fileManager():
 			bool | str: Returns false if there were no errors, otherwise returns the error code
 		"""
 		# Get the new save location
-		fileLocation = QFileDialog.getSaveFileUrl(this.self, "Save File", QtCore.QUrl(""), "Character Tracker (*.chtr)", "Character Tracker (*.chtr)");
+		fileLocation = QFileDialog.getSaveFileUrl(self.this, "Save File", QtCore.QUrl(""), "Character Tracker (*.chtr)", "Character Tracker (*.chtr)");	# type: ignore
 		
 		if(fileLocation[0].toString() != ''): # If the user clicked cancel/ closed the dialog
 			fileLocation = fileLocation[0].toString();
@@ -98,19 +109,21 @@ class fileManager():
 			file.close(); # And then save it
 			
 			errorCode = "SQL000"; # Error code for connecting to the SQL
-			this._database = sqlite3.connect(filePath); # Now we turn it into a database
+			self._database = sqlite3.connect(filePath); # Now we turn it into a database
 			
 			errorCode = "SQL001"; # Error code for creating the SQL Schema
-			this._createSchema(); # And create the SQL Schema
+			self._createSchema(); # And create the SQL Schema
 			
-			this._fileName = filePath; # Assuming nothing went wrong, we can now set our fileName variable
+			self._fileName = filePath; # Assuming nothing went wrong, we can now set our fileName variable
 			return false; # Return false, cause there were no errors
 		except:
 			return errorCode; # Something went wrong, so we return the code
 	# End of function
 	
+	
+	
 				
-	def save(this, saveAs: bool, data: dataLayout) -> None:
+	def save(self, saveAs: bool, data: dataLayout) -> None:
 		"""
 		Function to save a file
 
@@ -118,70 +131,74 @@ class fileManager():
 			saveAs (bool): Whether or not to call _saveAs()
 			data (dataLayout): The data to save
 		"""
-		if(not this._fileName or saveAs): # If the fileName has not been set, or saveAs is true
-			errorCode = this._saveAs(); # We go through 'Save As'
+		if(not self._database or not self._fileName or saveAs): # If the fileName has not been set, or saveAs is true
+			errorCode = self._saveAs(); # We go through 'Save As'
 			
 			if(errorCode): # If there was an error
 				if(errorCode == 1):
 					return;
-				else:
-					print(f"An error occured: {errorCode})");
-					return this._errorMessage(f"An error occured while saving the file (Error code: {errorCode})");
+			
+			print(f"An error occured: {errorCode})");
+			return self._errorMessage(f"An error occured while saving the file (Error code: {errorCode})");
 		
 		print("Saving Changes...");
 		errorCode = "SAV102"; # Error code for record deletion
-		this._deleteRecords(); # Delete everything from our database
+		self._deleteRecords(); # Delete everything from our database
 		
 		errorCode = "SAV103"; # Error code for post deletion, pre character data - if you get this your data is fucked
 		try:
+			# self._database = sqlite3.Connection;
 			for person in data["characters"]:
-				sql = this._database.cursor();
+				sql = self._database.cursor();
 				sql.execute("INSERT INTO characters (id, name, title, age, gender, species, isdead, information, relationships) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", person);
-				this._database.commit();
+				self._database.commit();
 			
 			errorCode = "SAV104"; # Error code for post character data, pre world data
 			for worldItem in data["world"]:
-				sql = this._database.cursor();
+				sql = self._database.cursor();
 				sql.execute("INSERT INTO worldBuilding (text, notUsed) VALUES (?, ?)", worldItem);
-				this._database.commit();
+				self._database.commit();
 			
 			return print("Save Complete!"); # Console message for saving success
 		except:
 			print(f"An error occured: {errorCode})");
-			return this._errorMessage(f"An error occured while saving the file (Error code: {errorCode})");
+			return self._errorMessage(f"An error occured while saving the file (Error code: {errorCode})");
 	# End of function
 
 
-	def _deleteRecords(this) -> None:
+	def _deleteRecords(self) -> None:
+		if(not self._database):
+			return;
+
 		try:
-			sql = this._database.cursor();
+			sql = self._database.cursor();
 			sql.execute("DELETE FROM characters");
-			this._database.commit();
+			self._database.commit();
 			
 			sql.execute("DELETE FROM worldBuilding");
-			this._database.commit();
+			self._database.commit();
 		except:
-			this._errorMessage("An error occured while saving the file (Error code: SAV000)"); # Error Code for during deleting data
+			self._errorMessage("An error occured while saving the file (Error code: SAV000)"); # Error Code for during deleting data
 	# End of function
 	
 
-	def open(this) -> None:
+	def open(self) -> None:
 		"""
 		Opens an sqlite database
 
 		Args:
 			file (str): The URL to the file
 		"""
-		self = this.self;
-		fileName = QFileDialog.getOpenFileName(self, "Choose File", "", "Character Tracker (*.chtr);;All Files (*)")[0];
+		this = self.this;
+		fileName = QFileDialog.getOpenFileName(this, "Choose File", "", "Character Tracker (*.chtr);;All Files (*)")[0];	# type: ignore
 		
 		if(not fileName): # If the user clicked cancel/ closed the dialog
 			return;
 		
 		code = "OPN000"; # Not valid SQL
 		try:
-			this._database = sqlite3.connect(fileName);
-			sql = this._database.cursor();
+			self._database = sqlite3.connect(fileName);
+			sql = self._database.cursor();
 			
 			code = "OPN001"; # Cannot find the version
 			versionData = None;
@@ -193,93 +210,105 @@ class fileManager():
 			sql.execute(f"SELECT version FROM {tableName}");
 			versionData = sql.fetchall();
 						
-			if(versionData[0][0] < this._version):
-				this._updateSchema(versionData[0][0]);
+			if(versionData[0][0] < self._version):
+				self._updateSchema(versionData[0][0]);
 		
 			
 			code = "OPN002"; # No characters table
 			sql.execute("SELECT * FROM characters");
-			this.data["characters"] = sql.fetchall();
-			this.functions.populateList(self.ui.characterList, "characters");
+			self.data["characters"] = sql.fetchall();
+			# self.functions.populateList(this.ui.characterList, "characters");
 			
 			code = "OPN003"; # No worldbuilding table
 			sql.execute("SELECT * FROM worldBuilding");
-			this.data["world"] =  sql.fetchall();
-			this.functions.populateList(self.ui.worldBuildingList, "world");
+			self.data["world"] =  sql.fetchall();
+			# self.functions.populateList(this.ui.worldBuildingList, "world");
 			
 			code = "OPN004"; # No events table
 			sql.execute("SELECT * FROM events");
-			this.data["events"] =  sql.fetchall();
-			# this.functions.populateList(self.ui.eventsList, "events");
+			self.data["events"] =  sql.fetchall();
+			# self.functions.populateList(this.ui.eventsList, "events");
 			
 			code = "OPN005"; # No config table... honestly how tf did you get this error?
 			sql.execute("SELECT * FROM config");
 			configData = sql.fetchall();
 			configData = configData[0];
-			this.data["settings"] = {
+			self.data["settings"] = {
 				"timelineLength": configData[1],
 				"monthsPerYear": configData[2],
 				"startYear": configData[3]
 			}
 			
-			this._fileName = fileName;
+			self._fileName = fileName;
 		except:
-			this._errorMessage(f"An error occured while opening the file (Error code: {code}");
+			self._errorMessage(f"An error occured while opening the file (Error code: {code}");
 		
-		self.data = this.data;
-		this.functions.populateList(self.ui.characterList, "characters");
-		this.functions.populateList(self.ui.worldBuildingList, "world");
+		this.data = self.data;
+		self.functions.populateList(this.ui.characterList, "characters");
+		self.functions.populateList(this.ui.worldBuildingList, "world");
+		self.functions.populateList(this.ui.eventsList, "events");
 	# End of function
 		
 
-	def _createSchema(this) -> None:
+	def _createSchema(self) -> None:
 		"""
 		Creates the tables required in the sql spreadsheet
 		"""
-		if(not this._database):
+		if(not self._database):
 			return;
 		
 		# Data storage
-		sql = this._database.cursor();
+		sql = self._database.cursor();
 		sql.execute('CREATE TABLE "characters" ("id" INTEGER, "name" TEXT, "title" INTEGER, "age" INTEGER, "gender" INTEGER, "species" TEXT, "isdead" INTEGER, "information" TEXT, "relationships" TEXT)');
-		this._database.commit();
+		self._database.commit();
 		
 		sql.execute('CREATE TABLE "worldBuilding" ("text" TEXT, "notUsed" INTEGER);');
-		this._database.commit();
+		self._database.commit();
 		
-		# Versioning control system
-		sql.execute('CREATE TABLE "version" ("currentVersion TEXT, "notUsed", INTEGER)');
-		this._database.commit();
-		sql.execute('INSERT INTO version (currentVersion, notUsed) VALUES (?, ?)', (this._version, 0));
-		this._database.commit();
+		self._v2Schema();
 	# End of function
 	
 
-	def _updateSchema(this, version) -> None:
+	def _v2Schema(self) -> None:
+		"""
+		Adds data relevant to version 2 of the schema
+		"""
+		if(not self._database):
+			return;
+
+		sql = self._database.cursor();
+		sql.execute('CREATE TABLE "config" ("version" INTEGER, "timelineLength" INTEGER, "monthsPerYear" INTEGER, "startYear" INTEGER)');
+		self._database.commit();
+			
+		sql.execute('INSERT INTO config (version, timelineLength, monthsPerYear, startYear) VALUES (?, ?, ?, ?)', (2, 10, 12, 2022));
+		self._database.commit();
+			
+		sql.execute('CREATE TABLE "events" ("yearOfEvent" INTEGER, "monthOfEvent" INTEGER, "onTimeline" INTEGER, "data" TEXT)');
+		self._database.commit();
+
+
+	def _updateSchema(self, version) -> None:
 		"""
 		Update the database to the latest format
 
 		Args:
 			version (str | int): The version of the database
 		"""
+		
+		if(not self._database):
+			return;
+		
 		if(version == "1.1"):
-			sql = this._database.cursor();
+			sql = self._database.cursor();
 			
 			sql.execute('DROP TABLE version');
-			this._database.commit();
+			self._database.commit();
 			
-			sql.execute('CREATE TABLE "config" ("version" INTEGER, "timelineLength" INTEGER, "monthsPerYear" INTEGER, "startYear" INTEGER)');
-			this._database.commit();
-			
-			sql.execute('INSERT INTO config (version, timelineLength, monthsPerYear, startYear) VALUES (?, ?, ?, ?)', (2, 10, 12, 2022));
-			this._database.commit();
-			
-			sql.execute('CREATE TABLE "events" ("yearOfEvent" INTEGER, "monthOfEvent" INTEGER, "onTimeline" INTEGER, "data" TEXT)');
-			this._database.commit();
+			self._v2Schema();
 
 	# End of function
 
 
-	def _errorMessage(this, message: str) -> None:
-		QMessageBox.critical(this.self, "Error", message);
+	def _errorMessage(self, message: str) -> None:
+		QMessageBox.critical(self.this, "Error", message);	# type: ignore
 	# End of function
