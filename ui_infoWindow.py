@@ -27,7 +27,7 @@ class Ui_creditsWindow(object):
         creditsWindow.setMaximumSize(QtCore.QSize(251, 113))
         creditsWindow.setWindowTitle("")
         self.layoutWidget = QtWidgets.QWidget(creditsWindow)
-        self.layoutWidget.setGeometry(QtCore.QRect(20, 6, 209, 69))
+        self.layoutWidget.setGeometry(QtCore.QRect(20, 10, 209, 61))
         self.layoutWidget.setObjectName("layoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.layoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -62,6 +62,6 @@ class Ui_creditsWindow(object):
     def retranslateUi(self, creditsWindow):
         _translate = QtCore.QCoreApplication.translate
         self.programName.setText(_translate("creditsWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:16pt; font-weight:600;\">Character Tracker</span></p></body></html>"))
-        self.copyright.setText(_translate("creditsWindow", "<html><head/><body><p align=\"center\">© 2022 Multarix. All Rights Reserved</p></body></html>"))
+        self.copyright.setText(_translate("creditsWindow", "<html><head/><body><p align=\"center\">© 2022 Multarix</p></body></html>"))
         self.link.setText(_translate("creditsWindow", "<html><head/><body><p align=\"center\"><a href=\"https://github.com/Multarix\"><span style=\" text-decoration: underline; color:#0000ff;\">https://github.com/Multarix</span></a></p></body></html>"))
-        self.pushButton.setText(_translate("creditsWindow", "I see..."))
+        self.pushButton.setText(_translate("creditsWindow", "Ok"))

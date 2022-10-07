@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui/mainRedesign.ui'
+# Form implementation generated from reading ui file 'ui/mainWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -24,6 +24,9 @@ class Ui_mainWindow(object):
         mainWindow.resize(571, 506)
         mainWindow.setMinimumSize(QtCore.QSize(1, 1))
         mainWindow.setMaximumSize(QtCore.QSize(1071, 533))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(resource_path("icons/icon.ico")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        mainWindow.setWindowIcon(icon)
         mainWindow.setStyleSheet("")
         self.centralwidget = QtWidgets.QWidget(mainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -55,9 +58,6 @@ class Ui_mainWindow(object):
         self.tabWidget.setGeometry(QtCore.QRect(-2, -22, 577, 498))
         self.tabWidget.setMinimumSize(QtCore.QSize(1, 1))
         self.tabWidget.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.tabWidget.setStyleSheet("QTabWidget::pane {\n"
-"    border: 0px;\n"
-"}")
         self.tabWidget.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.tabWidget.setObjectName("tabWidget")
         self.charactersTab = QtWidgets.QWidget()
@@ -66,7 +66,7 @@ class Ui_mainWindow(object):
         self.addPerson.setGeometry(QtCore.QRect(10, 420, 61, 23))
         self.addPerson.setObjectName("addPerson")
         self.charactersLabel = QtWidgets.QLabel(self.charactersTab)
-        self.charactersLabel.setGeometry(QtCore.QRect(10, -2, 221, 31))
+        self.charactersLabel.setGeometry(QtCore.QRect(10, 2, 221, 31))
         self.charactersLabel.setMinimumSize(QtCore.QSize(221, 31))
         self.charactersLabel.setMaximumSize(QtCore.QSize(221, 31))
         self.charactersLabel.setObjectName("charactersLabel")
@@ -127,7 +127,7 @@ class Ui_mainWindow(object):
         self.eventsTab = QtWidgets.QWidget()
         self.eventsTab.setObjectName("eventsTab")
         self.eventsLabel = QtWidgets.QLabel(self.eventsTab)
-        self.eventsLabel.setGeometry(QtCore.QRect(10, -2, 300, 31))
+        self.eventsLabel.setGeometry(QtCore.QRect(10, 2, 300, 31))
         self.eventsLabel.setMinimumSize(QtCore.QSize(221, 31))
         self.eventsLabel.setMaximumSize(QtCore.QSize(300, 31))
         self.eventsLabel.setObjectName("eventsLabel")
@@ -194,7 +194,7 @@ class Ui_mainWindow(object):
         self.worldBuildingRemove.setGeometry(QtCore.QRect(150, 420, 61, 23))
         self.worldBuildingRemove.setObjectName("worldBuildingRemove")
         self.worldBuildingLabel = QtWidgets.QLabel(self.detailsTab)
-        self.worldBuildingLabel.setGeometry(QtCore.QRect(10, -2, 300, 31))
+        self.worldBuildingLabel.setGeometry(QtCore.QRect(10, 2, 300, 31))
         self.worldBuildingLabel.setMinimumSize(QtCore.QSize(221, 31))
         self.worldBuildingLabel.setMaximumSize(QtCore.QSize(300, 31))
         self.worldBuildingLabel.setObjectName("worldBuildingLabel")
@@ -268,7 +268,7 @@ class Ui_mainWindow(object):
         self.worldBuildingLabel.setBuddy(self.worldBuildingList)
 
         self.retranslateUi(mainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         self.timelineSlider.valueChanged['int'].connect(self.timeline.setNum) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(mainWindow)
 
@@ -285,7 +285,7 @@ class Ui_mainWindow(object):
         self.characterSearch.setPlaceholderText(_translate("mainWindow", "Search Characters"))
         self.removePerson.setText(_translate("mainWindow", "Remove"))
         self.editPerson.setText(_translate("mainWindow", "Edit..."))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.charactersTab), _translate("mainWindow", "Page"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.charactersTab), _translate("mainWindow", "Characters"))
         self.eventsLabel.setText(_translate("mainWindow", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">Lore/ Events</span></p></body></html>"))
         self.eventsList.setSortingEnabled(False)
         self.eventsSearch.setPlaceholderText(_translate("mainWindow", "Search Events"))
