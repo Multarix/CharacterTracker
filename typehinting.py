@@ -1,3 +1,4 @@
+# type: ignore
 from __future__ import annotations
 from typing import TypedDict
 from typing import Tuple
@@ -13,9 +14,9 @@ from ui_optionsWindow import Ui_optionsWindow as optionsWindow
 from ui_infoWindow import Ui_creditsWindow as creditsWindow
 
 characterRelations = Tuple[int, int]
-character = Tuple[int, str, int, int, int, str, int, str, str]
+character = Tuple[int, str, str, int, int, int, str, int, str, str]
 worldItem = Tuple[str, int]
-eventItem = Tuple[int, int, int, str]
+eventItem = Tuple[int, int, int, str, str]
 
 class settingsLayout(TypedDict):
 	timelineLength: int;
