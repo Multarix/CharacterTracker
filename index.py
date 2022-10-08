@@ -109,13 +109,8 @@ class startProgram(QMainWindow):
 		
 		config["longestRelation"] = self.functions.maxRelationLength();
 		
-		# ageSlider stuff is not programatically functional yet, so hide and disable it
-		self.ui.timelineSlider.setHidden(true);
+		# Timeline stuff is not programatically functional yet, so disable it
 		self.ui.timelineSlider.setDisabled(true);
-		self.ui.timeline.setHidden(true);
-		self.ui.timeline.setDisabled(true);
-		self.ui.timelineLabel.setHidden(true);
-		self.ui.timelineLabel.setDisabled(true);
 		
 		self._connections();
 	# End of function

@@ -31,7 +31,7 @@ class Ui_mainWindow(object):
         self.centralwidget = QtWidgets.QWidget(mainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.timeline = QtWidgets.QLabel(self.centralwidget)
-        self.timeline.setGeometry(QtCore.QRect(526, 451, 31, 21))
+        self.timeline.setGeometry(QtCore.QRect(526, 453, 31, 21))
         self.timeline.setStyleSheet("QLabel {\n"
 "    background: transparent;\n"
 "    font: 75 12pt \"Fira Code\";\n"
@@ -39,12 +39,12 @@ class Ui_mainWindow(object):
 "}")
         self.timeline.setObjectName("timeline")
         self.timelineLabel = QtWidgets.QLabel(self.centralwidget)
-        self.timelineLabel.setGeometry(QtCore.QRect(10, 446, 221, 31))
+        self.timelineLabel.setGeometry(QtCore.QRect(10, 448, 221, 31))
         self.timelineLabel.setMinimumSize(QtCore.QSize(221, 31))
         self.timelineLabel.setMaximumSize(QtCore.QSize(221, 31))
         self.timelineLabel.setObjectName("timelineLabel")
         self.timelineSlider = QtWidgets.QSlider(self.centralwidget)
-        self.timelineSlider.setGeometry(QtCore.QRect(130, 452, 391, 22))
+        self.timelineSlider.setGeometry(QtCore.QRect(120, 452, 401, 22))
         self.timelineSlider.setMinimumSize(QtCore.QSize(0, 0))
         self.timelineSlider.setMinimum(0)
         self.timelineSlider.setMaximum(10)
@@ -276,7 +276,7 @@ class Ui_mainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         mainWindow.setWindowTitle(_translate("mainWindow", "MainWindow"))
         self.timeline.setText(_translate("mainWindow", "<html><head/><body><p>0</p></body></html>"))
-        self.timelineLabel.setText(_translate("mainWindow", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">Timeline</span></p></body></html>"))
+        self.timelineLabel.setText(_translate("mainWindow", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">Timeline</span></p></body></html>"))
         self.addPerson.setText(_translate("mainWindow", "Add..."))
         self.charactersLabel.setText(_translate("mainWindow", "<html><head/><body><p><span style=\" font-size:18pt; font-weight:600;\">Characters</span></p></body></html>"))
         self.moveUp.setText(_translate("mainWindow", "▲"))
