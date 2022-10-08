@@ -205,12 +205,13 @@ class fileManager():
 			
 			sql.execute('SELECT name FROM sqlite_master WHERE type="table" AND name="version"');
 			table = sql.fetchall();
-			tableName = table[0] if(table) else "config";
+			tableName = table[0][0] if(table) else "config";
+			print(tableName)
 			
-			sql.execute(f"SELECT version FROM {tableName}");
+			sql.execute(f"SELECT * FROM {tableName}");
 			versionData = sql.fetchall();
 						
-			if(versionData[0][0] < self._version):
+			if(versionData[0][0] != self._version):
 				self._updateSchema(versionData[0][0]);
 		
 			
@@ -277,14 +278,27 @@ class fileManager():
 			return;
 
 		sql = self._database.cursor();
+		
+		# Create config and events
 		sql.execute('CREATE TABLE "config" ("version" INTEGER, "timelineLength" INTEGER, "monthsPerYear" INTEGER, "startYear" INTEGER)');
 		self._database.commit();
-			
 		sql.execute('INSERT INTO config (version, timelineLength, monthsPerYear, startYear) VALUES (?, ?, ?, ?)', (2, 10, 12, 2022));
 		self._database.commit();
-			
 		sql.execute('CREATE TABLE "events" ("yearOfEvent" INTEGER, "monthOfEvent" INTEGER, "onTimeline" INTEGER, "data" TEXT)');
 		self._database.commit();
+		# move character data to a new table format
+		sql.execute('SELECT * FROM characters');
+		oldDataFormat = sql.fetchall();
+		
+		sql.execute('DROP TABLE characters');
+		self._database.commit();
+		sql.execute('CREATE TABLE "characters" ("id" INTEGER, "firstName" TEXT, "lastName" TEXT, "title" INTEGER, "age" INTEGER, "gender" INTEGER, "species" TEXT, "isdead" INTEGER, "information" TEXT, "relationships" TEXT)');
+		self._database.commit();
+		
+		for character in oldDataFormat:
+			sql.execute('INSERT INTO characters (id, firstName, lastName, title, age, gender, species, isdead, information, relationships) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', (character[0], character[1], "", character[2], character[3], character[4], character[5], character[6], character[7], character[8]));
+			self._database.commit();
+	# End of function
 
 
 	def _updateSchema(self, version) -> None:
@@ -298,7 +312,7 @@ class fileManager():
 		if(not self._database):
 			return;
 		
-		if(version == "1.1"):
+		if(version == "1.2"):
 			sql = self._database.cursor();
 			
 			sql.execute('DROP TABLE version');

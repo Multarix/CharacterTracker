@@ -86,34 +86,35 @@ class windows():
 				
 		# Accept
 		self.characterUI.acceptForm.setDisabled(newChar);
-		self.characterUI.name.textEdited.connect(this.functions.unlockSubmitCharacterBtn);
+		self.characterUI.firstName.textEdited.connect(this.functions.unlockSubmitCharacterBtn);
 		self.characterUI.acceptForm.clicked.connect(lambda: this.buttons.acceptCharacterBtn(newChar));
 
 		if(not newChar):
 			currSelected = self.ui.characterList.currentRow();
 			charData = self.data["characters"][currSelected];
-			# id, name, title, age, gender (0=None, 1=Male, 2=Female), species, isdead (0=Alive), information, relations
-			# 0   1     2      3    4                                  5        6                 7            8
+			# id, firstName, lastName, title, age, gender (0=None, 1=Male, 2=Female), species, isdead (0=Alive), information, relations
+			# 0   1          2         3      4    5                                  6        7                 8            9
 			
 			self.characterUI.characterID.setValue(charData[0]);								# ID
-			self.characterUI.name.setText(charData[1]);										# Full Name
-			self.characterUI.titleSelector.setCurrentIndex(int(charData[2]));				# Title
-			self.characterUI.age.setValue(charData[3]);										# Age
-			self.characterUI.species.setText(charData[5]);									# Species
-			self.characterUI.textEdit.setText(charData[7]);									# Character Info
-			self.characterUI.genderSelector.setCurrentIndex(charData[4]);					# Gender
+			self.characterUI.firstName.setText(charData[1]);								# First Name
+			self.characterUI.lastName.setText(charData[2]);									# Last Name
+			self.characterUI.titleSelector.setCurrentIndex(int(charData[3]));				# Title
+			self.characterUI.age.setValue(charData[4]);										# Age
+			self.characterUI.genderSelector.setCurrentIndex(charData[5]);					# Gender
+			self.characterUI.species.setText(charData[6]);									# Species
 			
-			if(charData[6] == 1):
+			if(charData[7] == 1):
 				self.characterUI.dead.setChecked(true);										# Is Dead
+			
+			self.characterUI.textEdit.setText(charData[8]);									# Character Information
 
-			relations = charData[8];
+			relations = charData[9];
 			if(relations):
-				relationsArray = relations.split(", "); # Each relationship is seperated by ", "
+				relationsArray = relations.split(", ");										# Each relationship is seperated by ", "
 				
 				for relation in relationsArray:
-					rel = relation.split("|"); # Each side of the relation is seperated by a "|"
-					# rel[0] is the person, rel[1] is the type of relationship
-					self._characterRelations.append((int(rel[0]), int(rel[1]))); # Add the item to the internal list, for later
+					rel = relation.split("|"); 												# Each side of the relation is seperated by a "|", rel[0] is the person, rel[1] is the type of relationship
+					self._characterRelations.append((int(rel[0]), int(rel[1])));			# Add the item to the internal list, for later
 				
 				this.functions.populateList(self.characterUI.relationTable, "relation");	# Relations
 		
