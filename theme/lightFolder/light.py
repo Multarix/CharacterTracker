@@ -109,8 +109,8 @@ QTabWidget {
 	color: rgb(0, 0, 0);
 }
 QTabWidget::tab-bar {
-	left: 336px;
-	top: 53px;
+	left: 335px;
+	top: 51px;
 }
 QTabWidget::pane {
 	border: 0px;
