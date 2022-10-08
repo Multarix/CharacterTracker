@@ -96,22 +96,24 @@ class miscFunctions():
 			person = self.data["characters"][self.ui.characterList.currentRow()];
 	
 			gender = "None";
-			if(person[4] == 1):
+			if(person[5] == 1):
 				gender = "Male";
-			elif (person[4] == 2):
+			elif (person[5] == 2):
 				gender = "Female";
 				
-			title = this.titleConversion(person[2]);
+			title = this.titleConversion(person[3]);
 			if(title == ""):
 				title = "None";
+				
+			lastName = f" {person[2]}" if(person[2]) else "";
 			
 			self.ui.selectionDetails.insertItem(0, f"Title   ::  {title}");
-			self.ui.selectionDetails.insertItem(1, f"Name    ::  {person[1]}");
+			self.ui.selectionDetails.insertItem(1, f"Name    ::  {person[1]}{lastName}");
 			self.ui.selectionDetails.insertItem(2, f"Sex     ::  {gender}");
-			self.ui.selectionDetails.insertItem(3, f"Age     ::  {person[3]}");
-			self.ui.selectionDetails.insertItem(4, f"Species ::  {person[5]}");
-			self.ui.selectionDetails.insertItem(5, f"Status  ::  {'Alive' if(person[6] == 0) else 'Dead'}");
-			self.ui.selectionDetails.insertItem(6, f"\n{person[7]}");
+			self.ui.selectionDetails.insertItem(3, f"Age     ::  {person[4]}");
+			self.ui.selectionDetails.insertItem(4, f"Species ::  {person[6]}");
+			self.ui.selectionDetails.insertItem(5, f"Status  ::  {'Alive' if(person[7] == 0) else 'Dead'}");
+			self.ui.selectionDetails.insertItem(6, f"\n{person[8]}");
 	# End of function
 	
 	
@@ -173,7 +175,7 @@ class miscFunctions():
 
 	def unlockSubmitCharacterBtn(this) -> None:
 		self = this.self;
-		self.characterUI.acceptForm.setDisabled(self.characterUI.name == "");
+		self.characterUI.acceptForm.setDisabled(self.characterUI.firstName == "");
 	# End of function
 
 	def unlockEditRemoveRelationBtn(this) -> None:
@@ -200,32 +202,52 @@ class miscFunctions():
 		self = this.self;
 		prevRow = table.currentRow();
 		table.clear();
-		if(type == "characters"):
-			for person in self.data[type]:
-				title = this.titleConversion(person[2]);
-				space = " " if(len(title) > 0) else "";
-				newRow = table.count()
-				table.insertItem(newRow, f"{title}{space}{person[1]}");
-				if(person[6] == 1):
-					table.item(newRow).setIcon(self.deathIcon);					# type: ignore
 		
-		if(type == "world"):
-			for item in self.data[type]:
-				newRow = table.count();
-				table.insertItem(newRow, item[0]);
-		
-		if(type == "relation"):
-			for relation in self._characterRelations:
+		match type:
+			case "characters":
+				for person in self.data[type]:
+					title = this.titleConversion(person[3]);
+					space = " " if(len(title) > 0) else "";
+					newRow = table.count()
+					table.insertItem(newRow, f"{title}{space}{person[1]} {person[2]}");
+					if(person[7] == 1):
+						table.item(newRow).setIcon(self.deathIcon);		# type: ignore
+				# No Fallthrough
 				
-				converted = this.relationTupleConversion(relation);
-				if(not converted):
-					continue; # The relationship came up empty (sounds like my life)
+			case "world":
+				for item in self.data[type]:
+					newRow = table.count();
+					table.insertItem(newRow, item[0]);
+				# No Fallthrough
+					
+			case "relation":
+				for relation in self._characterRelations:
 				
-				spaces = (self.settings["longestRelation"] - len(converted[1])) * " ";
-				fullRelation = converted[1] + spaces + " | " + converted[0];
+					converted = this.relationTupleConversion(relation);
+					if(not converted):
+						continue; # The relationship came up empty (sounds just like my life)
+					
+					spaces = (self.settings["longestRelation"] - len(converted[1])) * " ";
+					fullRelation = converted[1] + spaces + " | " + converted[0];
+					
+					newRow = table.count();
+					table.insertItem(newRow, fullRelation);
+				# No Fallthrough
 				
-				newRow = table.count();
-				table.insertItem(newRow, fullRelation);
+			case "events":
+				for evt in self.data["events"]:
+				
+					eventName = evt[3];
+					eventDescription = evt[4];
+					
+					eventData = f"{eventName}\n\n{eventDescription}";
+					
+					newRow = table.count();
+					table.insertItem(newRow, eventData);
+				# No Fallthrough
+				
+			case _: # Default Case
+				return;
 
 		table.setCurrentRow(prevRow);
 	# End of function
