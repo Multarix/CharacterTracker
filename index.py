@@ -95,7 +95,7 @@ class startProgram(QMainWindow):
 			"events": [],
 			"settings": {
 				"timelineLength": 10,
-				"monthsPerYear": 12,
+				"timelineScale": 1,
 				"startYear": 2022
 			}
 		};

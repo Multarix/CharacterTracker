@@ -129,10 +129,13 @@ QTabBar::tab:selected {
 
 
 /* QCheckBox */
-QCheckBox{
+QCheckBox {
 	color: rgb(255, 255, 255);
 	background: transparent;
 	font: font "Fira Code";
+}
+QCheckBox::disabled {
+	color: rgb(126, 126, 126);
 }
 
 

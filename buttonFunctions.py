@@ -31,7 +31,8 @@ class buttonFunctions():
 		if(newChar and len(self.data["characters"]) >=1):
 			charID = self.data["characters"][-1][0] + 1;
 				
-		name = ui.name.text();
+		name = ui.firstName.text();
+		lastName = ui.lastName.text();
 		title = ui.titleSelector.currentIndex();
 		age = ui.age.value();
 		species = ui.species.text();
@@ -51,12 +52,12 @@ class buttonFunctions():
 		self.editCharacterWindow.close(); # We no longer need anything from this ui, the rest can be done with it closed
 		
 		if(newChar): # New Character, apply to data
-			self.data["characters"].append((int(charID), name, int(title), int(age), int(gender), species, int(isDead), info, relationString));
+			self.data["characters"].append((int(charID), name, lastName, int(title), int(age), int(gender), species, int(isDead), info, relationString));
 						
 		else: # Not new character, find the character and overwrite it
 			for i in range(len(self.data["characters"])):
 				if(self.data["characters"][i][0] == charID):
-					self.data["characters"][i] = (int(charID), name, int(title), int(age), int(gender), species, int(isDead), info, relationString);
+					self.data["characters"][i] = (int(charID), name, lastName, int(title), int(age), int(gender), species, int(isDead), info, relationString);
 					break;
 		
 		# Update the current list

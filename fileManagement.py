@@ -39,7 +39,7 @@ class fileManager():
 			"events": [],
 			"settings": {
 				"timelineLength": 10,
-				"monthsPerYear": 12,
+				"timelineScale": 1,
 				"startYear": 2022,
 			}
 		};
@@ -62,7 +62,7 @@ class fileManager():
 			"events": [],
 			"settings": {
 				"timelineLength": 10,
-				"monthsPerYear": 12,
+				"timelineScale": 1,
 				"startYear": 2022,
 			}
 		};
@@ -235,7 +235,7 @@ class fileManager():
 			configData = configData[0];
 			self.data["settings"] = {
 				"timelineLength": configData[1],
-				"monthsPerYear": configData[2],
+				"timelineScale": configData[2],
 				"startYear": configData[3]
 			}
 			
@@ -281,7 +281,7 @@ class fileManager():
 		# Create config and events
 		sql.execute('CREATE TABLE "config" ("version" INTEGER, "timelineLength" INTEGER, "monthsPerYear" INTEGER, "startYear" INTEGER)');
 		self._database.commit();
-		sql.execute('INSERT INTO config (version, timelineLength, monthsPerYear, startYear) VALUES (?, ?, ?, ?)', (2, 10, 12, 2022));
+		sql.execute('INSERT INTO config (version, timelineLength, timelineScale, startYear) VALUES (?, ?, ?, ?)', (2, 10, 12, 2022));
 		self._database.commit();
 		sql.execute('CREATE TABLE "events" ("yearOfEvent" INTEGER, "monthOfEvent" INTEGER, "onTimeline" INTEGER, "eventName" TEXT, "eventDescription" TEXT)');
 		self._database.commit();

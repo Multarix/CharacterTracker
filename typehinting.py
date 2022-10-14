@@ -20,7 +20,7 @@ eventItem = Tuple[int, int, int, str, str]
 
 class settingsLayout(TypedDict):
 	timelineLength: int;
-	monthsPerYear: int;
+	timelineScale: int;
 	startYear: int;
 
 class dataLayout(TypedDict):

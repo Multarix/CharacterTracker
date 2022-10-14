@@ -1,6 +1,6 @@
 # type: ignore
 from typehinting import startProgram
-import theme.darkFolder.dark as theme
+import theme.dark as theme
 
 # from PyQt5 import QtGui
 
