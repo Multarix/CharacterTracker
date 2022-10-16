@@ -123,6 +123,12 @@ class startProgram(QMainWindow):
 		buttons = self.buttons;
 		functions = self.functions;
 		
+		# --Fix Scrollbars--
+		ui.characterList.verticalScrollBar().setSingleStep(10);
+		ui.selectionDetails.verticalScrollBar().setSingleStep(10);
+		ui.eventList.verticalScrollBar().setSingleStep(10);
+		ui.worldBuildingList.verticalScrollBar().setSingleStep(10);
+		
 		# --Buttons to open other windows--
 		ui.addPerson.clicked.connect(lambda: windows.openEditCharacterWindow(true));											# Add character
 		ui.editPerson.clicked.connect(lambda: windows.openEditCharacterWindow(false));											# Edit character
@@ -130,9 +136,13 @@ class startProgram(QMainWindow):
 		ui.worldBuildingAdd.clicked.connect(lambda: windows.openWorldBuildingWindow(true));										# Add world building
 		ui.worldBuildingEdit.clicked.connect(lambda: windows.openWorldBuildingWindow(false)); 									# Edit world building
 		ui.worldBuildingList.itemDoubleClicked.connect(lambda: windows.openWorldBuildingWindow(false));							# Edit world building
+		ui.eventAdd.clicked.connect(lambda: windows.openEventWindow(true));														# Add event
+		ui.eventEdit.clicked.connect(lambda: windows.openEventWindow(false));													# Edit event
+		ui.eventList.itemDoubleClicked.connect(lambda: windows.openEventWindow(false));											# Edit event
 		
 		# --Functional Buttons--
 		ui.removePerson.clicked.connect(buttons.removeCharacterBtn);															# Remove Character
+		ui.eventRemove.clicked.connect(buttons.removeEventBtn);																	# Remove Event
 		ui.worldBuildingRemove.clicked.connect(buttons.removeWorldBuilding);													# Remove world building
 		ui.moveUp.clicked.connect(lambda: buttons.moveRow(-1)); 																# Move a row up
 		ui.moveDown.clicked.connect(lambda: buttons.moveRow(1));																# Move a row down
@@ -151,9 +161,11 @@ class startProgram(QMainWindow):
 		
 		# --Misc Functions--
 		ui.characterSearch.textEdited.connect(lambda: functions.searchBar(ui.characterSearch, ui.characterList));				# Character search
+		ui.eventSearch.textEdited.connect(lambda: functions.searchBar(ui.eventSearch, ui.eventList));							# Event search
 		ui.worldBuildingSearch.textEdited.connect(lambda: functions.searchBar(ui.worldBuildingSearch, ui.worldBuildingList));	# World search
 		ui.characterList.itemSelectionChanged.connect(functions.showDetails);													# Show details
 		ui.characterList.itemSelectionChanged.connect(functions.unlockEditRemoveCharacterBtns);									# Lock/ unlock character Buttons
+		ui.eventList.itemSelectionChanged.connect(functions.unlockEditRemoveEventBtns);											# Lock/ unlock event Buttons
 		ui.worldBuildingList.itemSelectionChanged.connect(functions.unlockWorldBuildingEditRemoveBtns);							# Lock/ unlock world buttons
 	# End of function
 	

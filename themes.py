@@ -54,6 +54,9 @@ class themeManager():
 			
 		if(window == "relation"):
 			return themeClass.relationWindowTheme(self);
+			
+		if(window == "events"):
+			return themeClass.eventWindowTheme(self);
 	# End of function
 	
 	

@@ -17,6 +17,7 @@ from ui_addRelationWindow import Ui_addRelationWindow as addRelationWindow
 from ui_worldBuildingWindow import Ui_worldBuildingWindow as worldBuildingWindow
 from ui_optionsWindow import Ui_optionsWindow as optionsWindow
 from ui_infoWindow import Ui_creditsWindow as creditsWindow
+from ui_eventWindow import Ui_eventWindow as eventWindow
 
 from miscFunctions import miscFunctions
 from buttonFunctions import buttonFunctions
@@ -52,7 +53,11 @@ class windows():
 		
 		self.optionsUI.themeBox.setCurrentIndex(self.settings["theme"]);
 		self.optionsUI.langBox.setCurrentIndex(self.settings["lang"]);
-		self.optionsUI.accept.clicked.connect(lambda: this.buttons.setConfig([("theme", self.optionsUI.themeBox.currentIndex()), ("lang", self.optionsUI.langBox.currentIndex())]))
+		self.optionsUI.timelineLength_spin.setValue(self.data["settings"]["timelineLength"]);
+		self.optionsUI.timelineScaleBox.setCurrentIndex(self.data["settings"]["timelineScale"]);
+		self.optionsUI.startYear_spin.setValue(self.data["settings"]["startYear"]);
+		
+		self.optionsUI.accept.clicked.connect(lambda: this.buttons.setConfig([("theme", self.optionsUI.themeBox.currentIndex()), ("lang", self.optionsUI.langBox.currentIndex())], {"timelineLength": self.optionsUI.timelineLength_spin.value(), "timelineScale": self.optionsUI.timelineScaleBox.currentIndex(), "startYear": self.optionsUI.startYear_spin.value()}))
 		self.optionsWindow.show();
 	# End of function
 	
@@ -106,7 +111,9 @@ class windows():
 			if(charData[7] == 1):
 				self.characterUI.dead.setChecked(true);										# Is Dead
 			
-			self.characterUI.textEdit.setText(charData[8]);									# Character Information
+			charInfoArray = charData[8].split("│");
+			charInfo = "\n".join(charInfoArray);
+			self.characterUI.textEdit.setText(charInfo);									# Character Information
 
 			relations = charData[9];
 			if(relations):
@@ -118,6 +125,9 @@ class windows():
 				
 				this.functions.populateList(self.characterUI.relationTable, "relation");	# Relations
 		
+		else:
+			self.characterUI.characterID.setValue(this.functions.getNextID("characters"));
+			
 		self.editCharacterWindow.show();
 	# End of function
 	
@@ -176,7 +186,38 @@ class windows():
 		
 		if(not newDetail):
 			currRow = self.ui.worldBuildingList.currentRow();
-			self.worldBuildingUI.textEditor.setText(self.data["world"][currRow][0]);
+					
+			text = this.functions.addLinebreaks(self.data["world"][currRow][0]);
+			self.worldBuildingUI.textEditor.setText(text);
 
 		self.worldBuildingWindow.show();
+	# End of function
+	
+	
+	def openEventWindow(this, newDetail: bool) -> None:
+		self = this.self;
+		self.eventWindow = QtWidgets.QWidget();
+		self.eventUI = eventWindow();
+		self.eventUI.setupUi(self.eventWindow);
+		self.themeManager.setTheme(self, "events");
+		
+		# Accept button
+		self.eventUI.accept.setDisabled(newDetail);
+		self.eventUI.eventName.textChanged.connect(this.functions.unlockAddEventsAcceptBtn);
+		self.eventUI.accept.clicked.connect(lambda: this.buttons.addEventToListBtn(newDetail));
+		
+		if(not newDetail):
+			currRow = self.ui.eventList.currentRow();
+			self.eventUI.yearSpin.setValue(self.data["events"][currRow][0]);
+			self.eventUI.monthSpin.setValue(self.data["events"][currRow][1]);
+			
+			onTimeline = true if self.data["events"][currRow][2] == 1 else false;
+			self.eventUI.addToTimeline.setChecked(onTimeline);
+			
+			self.eventUI.eventName.setText(self.data["events"][currRow][3]);
+			
+			text = this.functions.addLinebreaks(self.data["events"][currRow][4]);
+			self.eventUI.textEditor.setText(text);
+		
+		self.eventWindow.show();
 	# End of function

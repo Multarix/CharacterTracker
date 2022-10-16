@@ -22,6 +22,7 @@ class lightTheme():
 		self.mainWindow.setStyleSheet(theme.window);
 		
 		self.ui.selectionDetails.setStyleSheet(theme.selectionDetails);
+		self.ui.eventList.setStyleSheet(theme.worldBuildingList);
 		self.ui.worldBuildingList.setStyleSheet(theme.worldBuildingList);
 		
 		# # Palette fix
@@ -31,15 +32,15 @@ class lightTheme():
 		# self.ui.worldBuildingSearch.setPalette(palette);
 		# Font
 		self.ui.characterSearch.setFont(self.fontType);
-		self.ui.eventsSearch.setFont(self.fontType);
+		self.ui.eventSearch.setFont(self.fontType);
 		self.ui.worldBuildingSearch.setFont(self.fontType);
 		
 		self.ui.charactersLabel.setFont(self.fontType);
-		self.ui.eventsLabel.setFont(self.fontType);
+		self.ui.eventLabel.setFont(self.fontType);
 		self.ui.worldBuildingLabel.setFont(self.fontType);
 		
 		self.ui.characterList.setFont(self.fontType);
-		self.ui.eventsList.setFont(self.fontType)
+		self.ui.eventList.setFont(self.fontType)
 		self.ui.worldBuildingList.setFont(self.fontType);
 		self.ui.selectionDetails.setFont(self.fontType);
 		
@@ -93,3 +94,15 @@ class lightTheme():
 		# self.worldBuildingUI.textEditor.setPalette(palette);
 		# Font
 		self.worldBuildingUI.textEditor.setFont(self.fontType);
+		
+	
+	
+	def eventWindowTheme(this, self: startProgram):
+		self.eventWindow.setStyleSheet(theme.window);
+		
+		# # Palette Fix
+		# palette = self.eventUI.textEditor.palette();
+		# palette.setColor(QtGui.QPalette.PlaceholderText, QtGui.QColor("#a0a2a5"));
+		# self.eventUI.textEditor.setPalette(palette);
+		# Font
+		self.eventUI.textEditor.setFont(self.fontType);

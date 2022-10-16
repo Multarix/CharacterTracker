@@ -6,9 +6,11 @@
 #	 ╚═════╝░░╚═════╝░░░░╚═╝░░░░░░╚═╝░░░░╚════╝░╚═╝░░╚══╝    ╚═╝░░░░░░╚═════╝░╚═╝░░╚══╝░╚════╝░░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝╚═════╝░
 from __future__ import annotations			# Type hinting
 
+import re
+
 from PyQt5.QtWidgets import *				# type: ignore
 
-from typehinting import startProgram
+from typehinting import startProgram, settingsLayout
 from miscFunctions import miscFunctions
 
 class buttonFunctions():
@@ -36,7 +38,17 @@ class buttonFunctions():
 		title = ui.titleSelector.currentIndex();
 		age = ui.age.value();
 		species = ui.species.text();
-		info = ui.textEdit.toPlainText();
+		
+		# Because QT is fuckin weird with text boxes, we gonna fix it up
+		infoArray = re.split("(\n|\r|\n\r|\r\n)", f"{ui.textEdit.toPlainText()}");
+		infoArrayFixed = [];
+		for item in infoArray:
+			if(item == "\n" or item == "\r" or item == "\n\r" or item == "\r\n"):
+				continue
+			infoArrayFixed.append(item);
+		info = "│".join(infoArrayFixed);
+
+		
 		gender = ui.genderSelector.currentIndex();
 		
 		isDead = 0;
@@ -133,7 +145,9 @@ class buttonFunctions():
 			newDetail (bool): Whether or not it's a new detail
 		"""
 		self = this.self;
-		text = self.worldBuildingUI.textEditor.toPlainText();
+	
+		text = this.functions.removeLinebreaks(self.worldBuildingUI.textEditor.toPlainText());
+		
 		if(newDetail):
 			self.data["world"].append((text, 0));
 		else:
@@ -156,6 +170,45 @@ class buttonFunctions():
 		if(currRow > -1):
 			self.ui.worldBuildingList.takeItem(currRow);
 			del self.data["world"][currRow];
+	# End of function
+	
+	
+	def addEventToListBtn(this, newEvent: bool) -> None:
+		"""
+		Function to run when clicking the accept button on the eventUI
+
+		Args:
+			newEvent (bool): Whether or not it's a new event
+		"""
+		self = this.self;
+		description = this.functions.removeLinebreaks(self.eventUI.textEditor.toPlainText());
+		name = self.eventUI.eventName.text();
+		yearOfEvent = self.eventUI.yearSpin.value();
+		monthOfEvent = self.eventUI.monthSpin.value();
+		onTimeline = 1 if(self.eventUI.addToTimeline.isChecked()) else 0;
+		
+		if(newEvent):
+			self.data["events"].append((yearOfEvent, monthOfEvent, onTimeline, name, description));
+		else:
+			itemRow = self.ui.eventList.currentRow();
+			self.data["events"][itemRow] = (yearOfEvent, monthOfEvent, onTimeline, name, description);
+			
+		self.ui.eventList.clear();
+		this.functions.populateList(self.ui.eventList, "events");
+		this.functions.searchBar(self.ui.eventSearch, self.ui.eventList);
+		self.eventWindow.close();
+	# End of function
+	
+	
+	def removeEventBtn(this) -> None:
+		"""
+		Function to run when clicking the remove button on the mainWindowUI
+		"""
+		self = this.self;
+		currRow = self.ui.eventList.currentRow();
+		if(currRow > -1):
+			self.ui.eventList.takeItem(currRow);
+			del self.data["events"][currRow];
 	# End of function
 	
 	
@@ -189,20 +242,25 @@ class buttonFunctions():
 	# End of function
 	
 	
-	def setConfig(this, settings: list[tuple[str, int]]):
+	def setConfig(this, globalSettings: list[tuple[str, int]], databaseSettings: settingsLayout):
 		self = this.self;
-		theme = self.settings["theme"];
-		# lang = self.settings["lang"];
 		
-		# Set the settings
-		for setting in settings:
+		theme = self.settings["theme"];
+		lang = self.settings["lang"];
+		
+		# Set the Global Settings
+		for setting in globalSettings:
 			self.settings[setting[0]] = setting[1];
 		
 		# If the theme changed, change the theme
 		if(theme != self.settings["theme"]):
 			self.themeManager.setTheme(self, "main");
+			
+		# Set the database settings
+		self.data["settings"] = databaseSettings;
 		
+		self.ui.timelineSlider.setMaximum(self.data["settings"]["timelineLength"]);
+			
 		# Close the window
 		self.optionsWindow.close();
 		this.functions.populateList(self.ui.characterList, "characters");
-			

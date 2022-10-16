@@ -5,7 +5,7 @@ const fs = require("fs");
 // const optionsWindow = require("options.py");
 // const editWindow = rquire("editPerson.py");
 
-fileArray = ["ui_mainWindow.py", "ui_optionsWindow.py", "ui_infoWindow.py", "ui_editPersonWindow.py", "ui_worldBuildingWindow.py", "ui_addRelationWindow.py", "ui_events.py"];
+fileArray = ["ui_mainWindow.py", "ui_optionsWindow.py", "ui_infoWindow.py", "ui_editPersonWindow.py", "ui_worldBuildingWindow.py", "ui_addRelationWindow.py", "ui_eventWindow.py"];
 const reg = /QPixmap\("ui\\\\\.\.\/(.*?)"/
 
 const line0 = "# type: ignore\n";

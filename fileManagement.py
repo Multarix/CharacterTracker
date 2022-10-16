@@ -120,8 +120,6 @@ class fileManager():
 			return errorCode; # Something went wrong, so we return the code
 	# End of function
 	
-	
-	
 				
 	def save(self, saveAs: bool, data: dataLayout) -> None:
 		"""
@@ -143,25 +141,33 @@ class fileManager():
 		
 		print("Saving Changes...");
 		errorCode = "SAV102"; # Error code for record deletion
-		self._deleteRecords(); # Delete everything from our database
+		self._deleteRecords(); # Delete everything from the database
 		
 		errorCode = "SAV103"; # Error code for post deletion, pre character data - if you get this your data is fucked
 		try:
-			# self._database = sqlite3.Connection;
+			# self._database: sqlite3.Connection;
+			sql = self._database.cursor();
 			for person in data["characters"]:
-				sql = self._database.cursor();
 				sql.execute("INSERT INTO characters (id, firstName, lastName, title, age, gender, species, isdead, information, relationships) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", person);
 				self._database.commit();
 			
 			errorCode = "SAV104"; # Error code for post character data, pre world data
 			for worldItem in data["world"]:
-				sql = self._database.cursor();
 				sql.execute("INSERT INTO worldBuilding (text, notUsed) VALUES (?, ?)", worldItem);
 				self._database.commit();
 			
+			errorCode = "SAV105"; # Error code for post world data, pre event data
+			for eventItem in data["events"]:
+				sql.execute("INSERT INTO events (yearOfEvent, monthOfEvent, onTimeline, eventName, eventDescription) VALUES (?, ?, ?, ?, ?)", eventItem);
+				self._database.commit();
+			
+			errorCode = "SAV106"; # Error code for post event data, pre config data
+			configData = (data["settings"]["timelineLength"], data["settings"]["timelineScale"], data["settings"]["startYear"]);
+			sql.execute(f"UPDATE config SET timelineLength = ?, timelineScale = ?, startYear = ?", configData);
+			
 			return print("Save Complete!"); # Console message for saving success
 		except:
-			print(f"An error occured: {errorCode})");
+			print(f"An error occured: {errorCode}");
 			return self._errorMessage(f"An error occured while saving the file (Error code: {errorCode})");
 	# End of function
 
@@ -176,6 +182,9 @@ class fileManager():
 			self._database.commit();
 			
 			sql.execute("DELETE FROM worldBuilding");
+			self._database.commit();
+			
+			sql.execute("DELETE FROM events");
 			self._database.commit();
 		except:
 			self._errorMessage("An error occured while saving the file (Error code: SAV000)"); # Error Code for during deleting data
@@ -246,7 +255,8 @@ class fileManager():
 		this.data = self.data;
 		self.functions.populateList(this.ui.characterList, "characters");
 		self.functions.populateList(this.ui.worldBuildingList, "world");
-		self.functions.populateList(this.ui.eventsList, "events");
+		self.functions.populateList(this.ui.eventList, "events");
+		self.this.ui.timelineSlider.setMaximum(self.data["settings"]["timelineLength"]);
 	# End of function
 		
 

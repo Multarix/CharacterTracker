@@ -12,13 +12,14 @@ from ui_addRelationWindow import Ui_addRelationWindow as addRelationWindow
 from ui_worldBuildingWindow import Ui_worldBuildingWindow as worldBuildingWindow
 from ui_optionsWindow import Ui_optionsWindow as optionsWindow
 from ui_infoWindow import Ui_creditsWindow as creditsWindow
+from ui_eventWindow import Ui_eventWindow as eventWindow
 
 characterRelations = Tuple[int, int]
 character = Tuple[int, str, str, int, int, int, str, int, str, str]
 worldItem = Tuple[str, int]
 eventItem = Tuple[int, int, int, str, str]
 
-class settingsLayout(TypedDict):
+class settingsLayout(TypedDict): # total=False
 	timelineLength: int;
 	timelineScale: int;
 	startYear: int;
@@ -88,6 +89,18 @@ class miscFunctions():
 	
 	def relationTupleConversion(this, relationship: tuple) -> tuple | None:
 		pass
+	
+	def removeLinebreaks(this, text: str) -> str:
+		pass
+	
+	def addLinebreaks(this, text: str) -> str:
+		pass
+	
+	def getNextID(this, type: str) -> int:
+		pass
+	
+	def orderEventsChronologically(this) -> None:
+		pass
 
 
 class themeManager():
@@ -129,6 +142,10 @@ class startProgram():
 		self.worldBuildingWindow = QtWidgets.QWidget();
 		self.worldBuildingUI = worldBuildingWindow();
 		self.worldBuildingUI.setupUi();
+		
+		self.eventWindow = QtWidgets.QWidget();
+		self.eventUI = eventWindow();
+		self.eventUI.setupUi();
 		
 		self.settings: configLayout
 		self.settings = {

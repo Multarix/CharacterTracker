@@ -7,8 +7,7 @@
 
 from __future__ import annotations
 
-import os, sys
-
+import os, sys, re
 from PyQt5.QtWidgets import *			# type: ignore
 from typehinting import startProgram
 
@@ -113,7 +112,11 @@ class miscFunctions():
 			self.ui.selectionDetails.insertItem(3, f"Age     ::  {person[4]}");
 			self.ui.selectionDetails.insertItem(4, f"Species ::  {person[6]}");
 			self.ui.selectionDetails.insertItem(5, f"Status  ::  {'Alive' if(person[7] == 0) else 'Dead'}");
-			self.ui.selectionDetails.insertItem(6, f"\n{person[8]}");
+			
+			charInfoArray = person[8].split("│");
+			charInfo = "\n".join(charInfoArray);
+			self.ui.selectionDetails.insertItem(6, f"\n{charInfo}");
+			self.ui.selectionDetails.insertItem(7, "");
 	# End of function
 	
 	
@@ -148,6 +151,17 @@ class miscFunctions():
 	def unlockWorldBuildingAcceptBtn(this):
 		self = this.self;
 		self.worldBuildingUI.accept.setDisabled(self.worldBuildingUI.textEditor.toPlainText() == "");
+	# End of function
+	
+	def unlockEditRemoveEventBtns(this) -> None:
+		self = this.self;
+		enableOrNot = (self.ui.eventList.currentRow() > -1);
+		self.ui.eventEdit.setEnabled(enableOrNot);
+		self.ui.eventRemove.setEnabled(enableOrNot);
+	
+	def unlockAddEventsAcceptBtn(this):
+		self = this.self;
+		self.eventUI.accept.setDisabled(self.eventUI.eventName.text() == "");
 	# End of function
 
 	def unlockEditRemoveCharacterBtns(this) -> None:
@@ -217,7 +231,7 @@ class miscFunctions():
 			case "world":
 				for item in self.data[type]:
 					newRow = table.count();
-					table.insertItem(newRow, item[0]);
+					table.insertItem(newRow, this.addLinebreaks(item[0]));
 				# No Fallthrough
 					
 			case "relation":
@@ -235,15 +249,25 @@ class miscFunctions():
 				# No Fallthrough
 				
 			case "events":
+				self.data["events"] = this.orderEventsChronologically();
 				for evt in self.data["events"]:
 				
+					yearOfEvent = evt[0];
+					monthOfEvent = evt[1];
+					
 					eventName = evt[3];
 					eventDescription = evt[4];
 					
-					eventData = f"{eventName}\n\n{eventDescription}";
+					eventData = f"- Year {yearOfEvent}, Month {monthOfEvent}\n{eventName}\n\n{this.addLinebreaks(eventDescription)}\n\u200b";
 					
 					newRow = table.count();
 					table.insertItem(newRow, eventData);
+				
+				# Add an extra row and and disable it
+				# newRow = table.count()
+				# table.insertItem(newRow, "");
+				# it = table.item(newRow)
+				# it.setFlags(Qt.NoItemFlags);
 				# No Fallthrough
 				
 			case _: # Default Case
@@ -310,3 +334,114 @@ class miscFunctions():
 		
 		personRelationName = this.relationConversion(personRelation);
 		return (personName, personRelationName);
+	# End of function
+	
+	
+	def removeLinebreaks(this, text: str) -> str:
+		"""
+		Removes the weird Qt Formatting for linebreaks
+
+		Args:
+			text (str): The text to be fixed
+
+		Returns:
+			(str): The fixed text
+		"""
+		textArray = re.split("(\n|\r|\n\r|\r\n)", f"{text}");
+		textArrayFixed = [];
+		for item in textArray:
+			if(item == "\n" or item == "\r" or item == "\n\r" or item == "\r\n"):
+				continue;
+			textArrayFixed.append(item);
+		fixedText = "│".join(textArrayFixed);
+		
+		return fixedText;
+	# End of function
+	
+	
+	def addLinebreaks(this, text: str) -> str:
+		"""
+		Adds in correct linebreaks that were removed via removeLinebreaks
+
+		Args:
+			text (str): The text to be fixed
+
+		Returns:
+			(str): The fixed text
+		"""
+		textWithLinebreaks = text.replace("│", "\n");
+		return textWithLinebreaks;
+	# End of function
+	
+	
+	def getNextID(this, type: str) -> int:
+		self = this.self;
+		if(len(self.data[type]) == 0):
+			return 0;
+		
+		highestID = 0;
+		for item in self.data[type]:
+			if(item[0] > highestID):
+				highestID = item[0];
+		
+		return highestID + 1;
+	# End of function
+		
+	
+	def orderEventsChronologically(this) -> list[tuple[int, int, int, str, str]]:
+		self = this.self;
+		events = self.data["events"];
+		
+		dateObject: dict[int, dict[int, list[tuple[int, int, int, str, str]]]];
+		dateObject = {};
+		
+		for event in events:
+			year = event[0];
+			
+			if(year not in dateObject):
+				dateObject[year] = {};
+			
+			month = event[1];
+			if(month not in dateObject[year]):
+				dateObject[year][month] = [];
+			
+			dateObject[year][month].append(event);
+			
+		orderedEvents = [];
+		
+		sort = this._bubbleSort
+		for year in sort(list(dateObject.keys())):
+			for month in sort(list(dateObject[year].keys())):
+				for item in dateObject[year][month]:
+					orderedEvents.append(item);
+		
+		return orderedEvents;
+	# End of function
+
+
+	def _bubbleSort(this, array: list) -> list:
+		for element in array:
+			sorted = true;
+			lastSort = 1;
+				
+			for i in range(len(array) - lastSort):
+
+				itemA = array[i];
+				itemB = array[i + 1];
+				
+				if(itemA <= itemB):
+					continue;
+
+				array[i] = itemB;
+				array[i + 1] = itemA;
+				
+				if(sorted):
+					sorted = false;
+				
+			if(sorted):
+				break;
+				
+			lastSort += 1;
+			
+		return array;
+	# End of function
