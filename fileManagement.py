@@ -214,14 +214,14 @@ class fileManager():
 			
 			sql.execute('SELECT name FROM sqlite_master WHERE type="table" AND name="version"');
 			table = sql.fetchall();
-			tableName = table[0][0] if(table) else "config";
 			
+			tableName = table[0][0] if(table) else "config";
 			sql.execute(f"SELECT * FROM {tableName}");
+			
 			versionData = sql.fetchall();
-						
-			if(versionData[0][0] != self._version):
+			
+			if(not versionData or versionData[0][0] != self._version):
 				self._updateSchema(versionData[0][0]);
-		
 			
 			code = "OPN002"; # No characters table
 			sql.execute("SELECT * FROM characters");
@@ -289,11 +289,14 @@ class fileManager():
 		sql = self._database.cursor();
 		
 		# Create config and events
-		sql.execute('CREATE TABLE "config" ("version" INTEGER, "timelineLength" INTEGER, "monthsPerYear" INTEGER, "startYear" INTEGER)');
+		sql.execute('CREATE TABLE "config" ("version" INTEGER, "timelineLength" INTEGER, "timelineScale" INTEGER, "startYear" INTEGER)');
 		self._database.commit();
-		sql.execute('INSERT INTO config (version, timelineLength, timelineScale, startYear) VALUES (?, ?, ?, ?)', (2, 10, 12, 2022));
-		self._database.commit();
+		
 		sql.execute('CREATE TABLE "events" ("yearOfEvent" INTEGER, "monthOfEvent" INTEGER, "onTimeline" INTEGER, "eventName" TEXT, "eventDescription" TEXT)');
+		self._database.commit();
+		
+		defaultSettings = (2, 10, 12, 2022);
+		sql.execute('INSERT INTO config (version, timelineLength, timelineScale, startYear) VALUES (?, ?, ?, ?)', defaultSettings);
 		self._database.commit();
 	# End of function
 
@@ -331,7 +334,8 @@ class fileManager():
 			self._v2Schema();
 
 	# End of function
-
+	
+	
 
 	def _errorMessage(self, message: str) -> None:
 		QMessageBox.critical(self.this, "Error", message);	# type: ignore

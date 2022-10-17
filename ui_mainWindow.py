@@ -25,6 +25,7 @@ class Ui_mainWindow(object):
         mainWindow.resize(571, 506)
         mainWindow.setMinimumSize(QtCore.QSize(1, 1))
         mainWindow.setMaximumSize(QtCore.QSize(1071, 533))
+        mainWindow.setWindowTitle("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(resource_path("icons/icon.ico")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         mainWindow.setWindowIcon(icon)
@@ -283,7 +284,6 @@ class Ui_mainWindow(object):
 
     def retranslateUi(self, mainWindow):
         _translate = QtCore.QCoreApplication.translate
-        mainWindow.setWindowTitle(_translate("mainWindow", "MainWindow"))
         self.timeline.setText(_translate("mainWindow", "<html><head/><body><p>0</p></body></html>"))
         self.timelineLabel.setText(_translate("mainWindow", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">Timeline</span></p></body></html>"))
         self.addPerson.setText(_translate("mainWindow", "Add..."))
