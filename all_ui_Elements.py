@@ -54,10 +54,10 @@ class windows():
 		self.optionsUI.themeBox.setCurrentIndex(self.settings["theme"]);
 		self.optionsUI.langBox.setCurrentIndex(self.settings["lang"]);
 		self.optionsUI.timelineLength_spin.setValue(self.data["settings"]["timelineLength"]);
-		self.optionsUI.timelineScaleBox.setCurrentIndex(self.data["settings"]["timelineScale"]);
+		self.optionsUI.timelineScale_spin.setValue(self.data["settings"]["timelineScale"]);
 		self.optionsUI.startYear_spin.setValue(self.data["settings"]["startYear"]);
 		
-		self.optionsUI.accept.clicked.connect(lambda: this.buttons.setConfig([("theme", self.optionsUI.themeBox.currentIndex()), ("lang", self.optionsUI.langBox.currentIndex())], {"timelineLength": self.optionsUI.timelineLength_spin.value(), "timelineScale": self.optionsUI.timelineScaleBox.currentIndex(), "startYear": self.optionsUI.startYear_spin.value()}))
+		self.optionsUI.accept.clicked.connect(lambda: this.buttons.setConfig([("theme", self.optionsUI.themeBox.currentIndex()), ("lang", self.optionsUI.langBox.currentIndex())], {"timelineLength": self.optionsUI.timelineLength_spin.value(), "timelineScale": self.optionsUI.timelineScale_spin.value(), "startYear": self.optionsUI.startYear_spin.value()}))
 		self.optionsWindow.show();
 	# End of function
 	
@@ -74,7 +74,8 @@ class windows():
 		self.characterUI = editPersonWindow();
 		self.characterUI.setupUi(self.editCharacterWindow);
 		self.themeManager.setTheme(self, "person");
-		self.characterUI.characterID.hide(); # People don't need to see this, it's only for data tracking purposes
+		self.characterUI.characterID.hide(); 				# People don't need to see this, it's only for data tracking purposes
+		self.characterUI.birthOnTimeline.hide();			# Disabled for now
 				
 		self._characterRelations.clear();
 		
@@ -200,6 +201,13 @@ class windows():
 		self.eventUI = eventWindow();
 		self.eventUI.setupUi(self.eventWindow);
 		self.themeManager.setTheme(self, "events");
+		
+		self.eventUI.addToTimeline.hide();				# Hide for now
+		
+		# Offsets
+		settings = self.data["settings"];
+		self.eventUI.yearSpin.setRange(settings["startYear"], settings["startYear"] + settings["timelineLength"]);
+		self.eventUI.monthSpin.setMaximum(settings["timelineScale"]);
 		
 		# Accept button
 		self.eventUI.accept.setDisabled(newDetail);

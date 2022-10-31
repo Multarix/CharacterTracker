@@ -120,8 +120,25 @@ class fileManager():
 			return errorCode; # Something went wrong, so we return the code
 	# End of function
 	
+	
+	def saveOrSaveAs(self, saveAs: bool, data: dataLayout) -> None:
+		"""
+		Saves the current file, or if there is no current file, it saves as a new file
+		"""
+		if(not self._database or not self._fileName or saveAs): # If the fileName has not been set, or saveAs is true
+			errorCode = self._saveAs(); # We go through 'Save As'
+			
+			if(not errorCode):
+				return self.save(data);
+
+			if(errorCode == 1):
+				return;
+		
+			print(f"An error occured: {errorCode})");
+			return self._errorMessage(f"An error occured while saving the file (Error code: {errorCode})");
+	
 				
-	def save(self, saveAs: bool, data: dataLayout) -> None:
+	def save(self, data: dataLayout) -> None:
 		"""
 		Function to save a file
 
@@ -129,23 +146,19 @@ class fileManager():
 			saveAs (bool): Whether or not to call _saveAs()
 			data (dataLayout): The data to save
 		"""
-		if(not self._database or not self._fileName or saveAs): # If the fileName has not been set, or saveAs is true
-			errorCode = self._saveAs(); # We go through 'Save As'
-			
-			if(errorCode): # If there was an error
-				if(errorCode == 1):
-					return;
-			
-			print(f"An error occured: {errorCode})");
-			return self._errorMessage(f"An error occured while saving the file (Error code: {errorCode})");
+		
+		if(not self._fileName):
+			return;
+
+		self._database = sqlite3.connect(self._fileName);
 		
 		print("Saving Changes...");
 		errorCode = "SAV102"; # Error code for record deletion
+		
 		self._deleteRecords(); # Delete everything from the database
 		
-		errorCode = "SAV103"; # Error code for post deletion, pre character data - if you get this your data is fucked
+		errorCode = "SAV103"; # Error code for post deletion, pre character data - if you get this your data is probably fucked
 		try:
-			# self._database: sqlite3.Connection;
 			sql = self._database.cursor();
 			for person in data["characters"]:
 				sql.execute("INSERT INTO characters (id, firstName, lastName, title, age, gender, species, isdead, information, relationships) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", person);
@@ -256,7 +269,7 @@ class fileManager():
 		self.functions.populateList(this.ui.characterList, "characters");
 		self.functions.populateList(this.ui.worldBuildingList, "world");
 		self.functions.populateList(this.ui.eventList, "events");
-		self.this.ui.timelineSlider.setMaximum(self.data["settings"]["timelineLength"]);
+		self.this.ui.timelineSlider.setMaximum(self.data["settings"]["timelineLength"] * self.data["settings"]["timelineScale"]);
 	# End of function
 		
 
@@ -269,7 +282,7 @@ class fileManager():
 		
 		# Data storage
 		sql = self._database.cursor();
-		sql.execute('CREATE TABLE "characters" ("id" INTEGER, "name" TEXT, "title" INTEGER, "age" INTEGER, "gender" INTEGER, "species" TEXT, "isdead" INTEGER, "information" TEXT, "relationships" TEXT)');
+		sql.execute('CREATE TABLE "characters" ("id" INTEGER, "firstName" TEXT, "lastName" TEXT, "title" INTEGER, "age" INTEGER, "gender" INTEGER, "species" TEXT, "isdead" INTEGER, "information" TEXT, "relationships" TEXT)');
 		self._database.commit();
 		
 		sql.execute('CREATE TABLE "worldBuilding" ("text" TEXT, "notUsed" INTEGER);');
@@ -295,7 +308,7 @@ class fileManager():
 		sql.execute('CREATE TABLE "events" ("yearOfEvent" INTEGER, "monthOfEvent" INTEGER, "onTimeline" INTEGER, "eventName" TEXT, "eventDescription" TEXT)');
 		self._database.commit();
 		
-		defaultSettings = (2, 10, 12, 2022);
+		defaultSettings = (2, 10, 12, 2000);	# (Version, timelineLength, monthsPerYear, startYear)
 		sql.execute('INSERT INTO config (version, timelineLength, timelineScale, startYear) VALUES (?, ?, ?, ?)', defaultSettings);
 		self._database.commit();
 	# End of function

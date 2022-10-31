@@ -94,9 +94,9 @@ class startProgram(QMainWindow):
 			"world": [],
 			"events": [],
 			"settings": {
-				"timelineLength": 10,
-				"timelineScale": 1,
-				"startYear": 2022
+				"timelineLength": 5,
+				"timelineScale": 12, # (Months per year)
+				"startYear": 2000
 			}
 		};
 		
@@ -149,8 +149,8 @@ class startProgram(QMainWindow):
 		
 		# --Menu Options--
 		ui.action_New.triggered.connect(lambda: file.new);																		# New file
-		ui.action_Save.triggered.connect(lambda: file.save(false, self.data));													# Save
-		ui.action_Save_As.triggered.connect(lambda: file.save(true, self.data));												# Save as
+		ui.action_Save.triggered.connect(lambda: file.saveOrSaveAs(false, self.data));													# Save
+		ui.action_Save_As.triggered.connect(lambda: file.saveOrSaveAs(true, self.data));												# Save as
 		ui.action_Open.triggered.connect(self.file.open);																		# Open a file
 		ui.action_Add_Character.triggered.connect(lambda: windows.openEditCharacterWindow(true));								# Add character
 		ui.action_Edit_Character.triggered.connect(lambda: windows.openEditCharacterWindow(false));								# Edit character

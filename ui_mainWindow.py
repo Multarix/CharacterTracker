@@ -49,7 +49,7 @@ class Ui_mainWindow(object):
         self.timelineSlider.setGeometry(QtCore.QRect(120, 452, 401, 22))
         self.timelineSlider.setMinimumSize(QtCore.QSize(0, 0))
         self.timelineSlider.setMinimum(0)
-        self.timelineSlider.setMaximum(10)
+        self.timelineSlider.setMaximum(60)
         self.timelineSlider.setProperty("value", 0)
         self.timelineSlider.setSliderPosition(0)
         self.timelineSlider.setOrientation(QtCore.Qt.Horizontal)

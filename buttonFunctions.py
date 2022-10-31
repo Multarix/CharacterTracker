@@ -259,7 +259,7 @@ class buttonFunctions():
 		# Set the database settings
 		self.data["settings"] = databaseSettings;
 		
-		self.ui.timelineSlider.setMaximum(self.data["settings"]["timelineLength"]);
+		self.ui.timelineSlider.setMaximum(self.data["settings"]["timelineLength"] * self.data["settings"]["timelineScale"]);
 			
 		# Close the window
 		self.optionsWindow.close();

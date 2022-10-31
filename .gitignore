@@ -9,6 +9,7 @@ theme/darkFolder/toDelete/
 characters.chtr
 updateFiles.bat
 *.code-workspace
+test.js
 
 
 # Byte-compiled / optimized / DLL files
