@@ -163,8 +163,7 @@ class startProgram(QMainWindow):
 		ui.characterSearch.textEdited.connect(lambda: functions.searchBar(ui.characterSearch, ui.characterList));				# Character search
 		ui.eventSearch.textEdited.connect(lambda: functions.searchBar(ui.eventSearch, ui.eventList));							# Event search
 		ui.worldBuildingSearch.textEdited.connect(lambda: functions.searchBar(ui.worldBuildingSearch, ui.worldBuildingList));	# World search
-		ui.characterList.itemSelectionChanged.connect(functions.showDetails);													# Show details
-		ui.characterList.itemSelectionChanged.connect(functions.unlockEditRemoveCharacterBtns);									# Lock/ unlock character Buttons
+		ui.characterList.itemSelectionChanged.connect(functions.charListSelectionChange);										# Show details & Lock/ unlock character Buttons
 		ui.eventList.itemSelectionChanged.connect(functions.unlockEditRemoveEventBtns);											# Lock/ unlock event Buttons
 		ui.worldBuildingList.itemSelectionChanged.connect(functions.unlockWorldBuildingEditRemoveBtns);							# Lock/ unlock world buttons
 	# End of function

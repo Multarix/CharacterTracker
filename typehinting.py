@@ -162,6 +162,7 @@ class startProgram():
 		self.themeManager = themeManager()
 		
 		self.deathIcon = QtGui.QIcon;
+		self.aliveIcon = QtGui.QIcon;
 		
 		self.longestRelation: int;
 		self.longestRelation = 10;

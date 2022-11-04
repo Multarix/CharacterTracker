@@ -78,6 +78,7 @@ class windows():
 		self.characterUI.birthOnTimeline.hide();			# Disabled for now
 				
 		self._characterRelations.clear();
+		self.characterUI.genderSelector.currentIndexChanged.connect(this.functions.genderSelectorTitleChange);
 		
 		# Buttons
 		# Add
@@ -103,11 +104,12 @@ class windows():
 			
 			self.characterUI.characterID.setValue(charData[0]);								# ID
 			self.characterUI.firstName.setText(charData[1]);								# First Name
-			self.characterUI.lastName.setText(charData[2]);									# Last Name
-			self.characterUI.titleSelector.setCurrentIndex(int(charData[3]));				# Title
+			self.characterUI.lastName.setText(charData[2]);									# Last Name			# Title
 			self.characterUI.age.setValue(charData[4]);										# Age
 			self.characterUI.genderSelector.setCurrentIndex(charData[5]);					# Gender
 			self.characterUI.species.setText(charData[6]);									# Species
+			
+			self.characterUI.titleSelector.setCurrentIndex(int(charData[3]));
 			
 			if(charData[7] == 1):
 				self.characterUI.dead.setChecked(true);										# Is Dead

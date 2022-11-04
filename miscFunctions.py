@@ -12,63 +12,93 @@ from PyQt5.QtWidgets import *			# type: ignore
 from typehinting import startProgram
 
 relationDict = {
-	0   : "Father",
 	"0" : "Father",
-	1   : "Mother",
 	"1" : "Mother",
-	2   : "Son",
 	"2" : "Son",
-	3   : "Daughter",
 	"3" : "Daughter",
-	4   : "Brother",
 	"4" : "Brother",
-	5   : "Sister",
 	"5" : "Sister",
-	6   : "Uncle",
 	"6" : "Uncle",
-	7   : "Aunt",
 	"7" : "Aunt",
-	8   : "Nephew",
 	"8" : "Nephew",
-	9   : "Niece",
 	"9" : "Niece",
-	10  : "Boyfriend",
 	"10": "Boyfriend",
-	11  : "Girlfriend",
 	"11": "Girlfriend",
-	12  : "Fiancé",
 	"12": "Fiancé",
-	13  : "Husband",
 	"13": "Husband",
-	14  : "Wife",
 	"14": "Wife"
 }
 
 titleDict = {
-	0: "",
-	"0": "",
-	1: "Mr",
-	"1": "Mr",
-	2: "Ms",
-	"2": "Ms",
-	3: "Mrs",
-	"3": "Mrs",
-	4: "Miss",
-	"4": "Miss",
-	5: "Sir",
-	"5": "Sir",
-	6: "Lady",
-	"6": "Lady",
-	7: "Lord",
-	"7": "Lord",
-	8: "King",
-	"8": "King",
-	9: "Queen",
-	"9": "Queen",
-	10: "Prince",
-	"10": "Prince",
-	11: "Princess",
-	"11": "Princess"
+	"Male": {
+		"0": "",
+		"1": "Mr",
+		"2": "Sir",
+		"3": "Lord",
+		"4": "Baronet",
+		"5": "Baron",
+		"6": "Viscount",
+		"7": "Earl",
+		"8": "Count",
+		"9": "Marquess",
+		"10": "Duke",
+		"11": "Prince",
+		"12": "King",
+		"13": "Emperor",
+		"14": "God"
+	},
+	
+	"Female": {
+		"0": "",
+		"1": "Ms",
+		"2": "Miss",
+		"3": "Mrs",
+		"4": "Madam",
+		"5": "Lady",
+		"6": "Baronetess",
+		"7": "Baroness",
+		"8": "Viscountess",
+		"9": "Countess",
+		"10": "Marchioness",
+		"11": "Duchess",
+		"12": "Princess",
+		"13": "Queen",
+		"14": "Empress",
+		"15": "Goddess"
+	},
+	
+	"None": {
+		"0": "",					# Both
+		"1": "Mr",					# Male
+		"2": "Ms",					# Female
+		"3": "Miss",				# Female
+		"4": "Mrs",					# Female
+		"5": "Sir",					# Male
+		"6": "Madam",				# Female
+		"7": "Lord",				# Male
+		"8": "Lady",				# Female
+		"9": "Baronet",				# Male
+		"10": "Baronetess",			# Female
+		"11": "Baron",				# Male
+		"12": "Baroness",			# Female
+		"13": "Viscount",			# Male
+		"14": "Viscountess",		# Female
+		"15": "Earl",				# Male
+		"16": "Count",				# Male
+		"17": "Countess",			# Female
+		"18": "Marquess",			# Male
+		"19": "Marchioness",		# Female
+		"20": "Duke",				# Male
+		"21": "Duchess",			# Female
+		"22": "Prince",				# Male
+		"23": "Princess",			# Female
+		"24": "King",				# Male
+		"25": "Queen",				# Female
+		"26": "Emperor",			# Male
+		"27": "Empress",			# Female
+		"28": "God",				# Male
+		"29": "Goddess"				# Female
+	},
 }
 
 # Fixing python to not be shit
@@ -87,20 +117,24 @@ class miscFunctions():
 		return os.path.join(basePath, relativePath);
 	
 	
+	def charListSelectionChange(this) -> None:
+		this.showDetails();
+		this.unlockEditRemoveCharacterBtns();
+	
 	def showDetails(this) -> None:
 		self = this.self;
 		self.ui.selectionDetails.clear();
 		
 		if(self.ui.characterList.currentRow() > -1):
+			
+			if(self.ui.characterList.currentRow() > len(self.data["characters"])):
+				return;
+				
 			person = self.data["characters"][self.ui.characterList.currentRow()];
 	
-			gender = "None";
-			if(person[5] == 1):
-				gender = "Male";
-			elif (person[5] == 2):
-				gender = "Female";
+			gender = this._getGender(person[5]);
 				
-			title = this.titleConversion(person[3]);
+			title = this.titleConversion(gender, person[3]);
 			if(title == ""):
 				title = "None";
 				
@@ -220,12 +254,17 @@ class miscFunctions():
 		match type:
 			case "characters":
 				for person in self.data[type]:
-					title = this.titleConversion(person[3]);
+					
+					gender = this._getGender(person[5]);
+						
+					title = this.titleConversion(gender, person[3]);
 					space = " " if(len(title) > 0) else "";
 					newRow = table.count()
 					table.insertItem(newRow, f"{title}{space}{person[1]} {person[2]}");
 					if(person[7] == 1):
 						table.item(newRow).setIcon(self.deathIcon);		# type: ignore
+					else:
+						table.item(newRow).setIcon(self.aliveIcon);		# type: ignore
 				# No Fallthrough
 				
 			case "world":
@@ -273,7 +312,8 @@ class miscFunctions():
 			case _: # Default Case
 				return;
 
-		table.setCurrentRow(prevRow);
+		table.setCurrentRow(-1);
+
 	# End of function
 
 
@@ -288,11 +328,11 @@ class miscFunctions():
 		Returns:
 			(str | int): The item in its converted state
 		"""
-		return relationDict[item];
+		return relationDict[str(item)];
 	# End of function
 
 
-	def titleConversion(this, item: int | str | None) -> str:
+	def titleConversion(this, gender: str,  item: int | str | None) -> str:
 		"""
 		Function to convert a title to/from an int/ string
 
@@ -303,8 +343,8 @@ class miscFunctions():
 			(str | int): The item in its converted state
 		"""
 		if(item == None):
-			item = 0;
-		return titleDict[item];
+			item = "0";
+		return titleDict[gender][str(item)];
 	# End of function
 
 
@@ -417,7 +457,36 @@ class miscFunctions():
 		
 		return orderedEvents;
 	# End of function
+	
+	
+	def genderSelectorTitleChange(this) -> None:
+		self = this.self;
+		genderIndex = self.characterUI.genderSelector.currentIndex();
+		
+		self.characterUI.titleSelector.clear()
+		gender = this._getGender(genderIndex);
+		
+		# Add the appropriate rows
+		self.characterUI.titleSelector.addItem("(None)");
+		for item in titleDict[gender]:
+			if(item == "0"):
+				continue;
+			self.characterUI.titleSelector.addItem(titleDict[gender][item]);
+		
+		self.characterUI.titleSelector.setCurrentIndex(0);
+	# End of function
 
+
+	def _getGender(this, g: str | int) -> str:
+		gender = "None";
+		if(f"{g}" == "1"):
+			gender = "Male";
+		elif (f"{g}" == "2"):
+			gender = "Female";
+		
+		return gender;
+	# End of function
+	
 
 	def _bubbleSort(this, array: list) -> list:
 		for element in array:

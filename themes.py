@@ -67,8 +67,9 @@ class themeManager():
 
 
 	def _setIcons(this, self: startProgram, theme: str) -> None:
-	
-		self.deathIcon = this._QIcon(f"icons\\dead_{theme}.png");					# type: ignore
+		
+		self.aliveIcon = this._QIcon(f"icons\\alive.png");			# type: ignore
+		self.deathIcon = this._QIcon(f"icons\\dead_{theme}.png");	# type: ignore
 		
 		# Character related
 		self.ui.action_Add_Character.setIcon(this._QIcon(f"icons\\addPerson_{theme}.png"));
