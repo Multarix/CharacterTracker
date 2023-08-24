@@ -204,7 +204,7 @@ class fileManager():
 		this._database.commit();
 		
 		# Versioning control system
-		sql.execute('CREATE TABLE "version" ("currentVersion TEXT, "notUsed", INTEGER)');
+		sql.execute('CREATE TABLE "version" ("currentVersion" TEXT, "notUsed", INTEGER)');
 		this._database.commit();
 		sql.execute('INSERT INTO version (currentVersion, notUsed) VALUES (?, ?)', (this._version, 0));
 		this._database.commit();
